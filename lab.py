@@ -38,6 +38,8 @@ def fractal():
     axis = 0
     mouse_x, mouse_y = 0, 0
 
+    c = 0 + 0j
+
     while True:
         EZ.tick(60)
         event = EZ.get_event()
@@ -60,6 +62,7 @@ def fractal():
                 axis = 0
         if event == "MOUSE_MOVEMENT":
             mouse_x, mouse_y = EZ.mouse_coordinates()
+            # c = (mouse_x - offset[0]) * zoom + (mouse_y - offset[1]) * zoom * 1j
         if event == "MOUSE_SCROLL_DOWN":
             if axis == 1:
                 # The point at the center of the zoom is the current mouse position
@@ -87,7 +90,8 @@ def fractal():
             else:
                 offset[0] += 20
 
-        screen_array = render_juila(screen_array, zoom, offset, -0.8 + 0.156j, max_iter)
+        c = -0.8 + 0.156j
+        screen_array = render_juila(screen_array, zoom, offset, c, max_iter)
         EZ.draw_array(screen_array)
         EZ.update_caption("FPS:" + str(EZ.get_fps()))
 
@@ -136,6 +140,7 @@ def render_juila(screen_array, zoom, offset, c, max_iterations=200):
 
             screen_array[x, y] = [r, g, b]
     return screen_array
+
 
 
 fractal()
