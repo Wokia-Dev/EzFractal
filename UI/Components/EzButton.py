@@ -139,12 +139,12 @@ class EzButton:
             )
 
     def check_hover(self, mouse_x, mouse_y):
-        if (
-            self.x <= mouse_x <= self.x + self.width
-            and self.y <= mouse_y <= self.y + self.height
-        ):
-            return True
-        return False
+        return bool(
+            (
+                self.x <= mouse_x <= self.x + self.width
+                and self.y <= mouse_y <= self.y + self.height
+            )
+        )
 
     def on_click(self):
         self.background_color, self.font_color = self.font_color, self.background_color

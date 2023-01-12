@@ -1,7 +1,7 @@
 import Core.EZ as EZ
+import Core.EzUtils as EzUtils
 import json
 import pygame
-import Core.EzUtils as EzUtils
 import UI.home
 
 
