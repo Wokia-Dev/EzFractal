@@ -454,9 +454,7 @@ def save_image_matrix(mat, path, local=True):
     image = create_image(len(mat[0]), len(mat))
     for row, item in enumerate(mat):
         for column in range(len(mat[0])):
-            color_image_pixel(
-                image, column, row, item[column][0], item[column][1]
-            )
+            color_image_pixel(image, column, row, item[column][0], item[column][1])
     save_image(image, path)
 
 
