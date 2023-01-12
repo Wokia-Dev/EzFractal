@@ -13,12 +13,14 @@ json_file = "Resources\\Components\\components.json"
 class HomeScreen:
     def __init__(self, app):
         self.app = app
+        self.toggleMandelbrot = False
+        self.toggleMouse = False
+        self.toggleFPS = True
         self.ez_buttons = UI.Components.EzButton.loader(json_file)
         self.ez_texts = UI.Components.EzText.loader(json_file)
         self.ez_toggles = UI.Components.EzToggle.loader(json_file)
 
     def draw(self):
-        # EZ.draw_rectangle_right(500, 0, 200, 400, "0000FF")
         EZ.draw_rectangle_right(0, 0, 500, 400, "0000FF")
 
         for button in self.ez_buttons:
@@ -41,3 +43,10 @@ class HomeScreen:
             mouse_x, mouse_y = EZ.mouse_coordinates()
             checked_ez_button = check_ez_button_event(self.ez_buttons, mouse_x, mouse_y)
             checked_ez_toggle = check_ez_toggle_event(self.ez_toggles, mouse_x, mouse_y)
+            if checked_ez_toggle is not None:
+                if checked_ez_toggle.name == "toggleMandelbrot":
+                    self.toggleMandelbrot = not self.toggleMandelbrot
+                if checked_ez_toggle.name == "toggleMouseMode":
+                    self.toggleMouse = not self.toggleMouse
+                if checked_ez_toggle.name == "toggleFPS":
+                    self.toggleFPS = not self.toggleFPS

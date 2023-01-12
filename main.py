@@ -19,6 +19,7 @@ class EzFractal:
         pass
 
     def update(self):
+        # change the screen_array
         pass
 
     def draw(self):
@@ -39,6 +40,12 @@ class Application:
     def check_events(self):
         pass
 
+    def toggle_fps(self, toggle):
+        if toggle:
+            EZ.update_caption(caption + " | FPS = " + str(EZ.get_fps()))
+        else:
+            EZ.update_caption(caption)
+
     def run(self):
         EZ.create_window(self.resolution[0], self.resolution[1], caption)
         self.home_screen.run()
@@ -46,7 +53,9 @@ class Application:
             EZ.update()
             self.check_events()
             self.home_screen.check_events()
-            # self.fractal.run()
+            self.toggle_fps(self.home_screen.toggleFPS)
+            EZ.tick(60)
+            self.fractal.run()
 
 
 if __name__ == "__main__":

@@ -119,7 +119,7 @@ def render(screen_array, zoom, offset, max_iterations=200):
 
 @numba.njit(fastmath=True, parallel=True)
 def render_juila(screen_array, zoom, offset, c, max_iterations=200):
-    for x in numba.prange(width):
+    for x in numba.prange(width - 0):
         for y in numba.prange(height):
             z = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
             num_iter = 0
