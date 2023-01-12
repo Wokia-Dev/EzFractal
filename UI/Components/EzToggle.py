@@ -16,6 +16,7 @@ def check_ez_toggle_event(toggle_list, mouse_x, mouse_y):
     for toggle in toggle_list:
         if toggle.check_hover(mouse_x, mouse_y):
             toggle.on_click()
+            return toggle
 
 
 class EzToggle:

@@ -19,7 +19,7 @@ class HomeScreen:
 
     def draw(self):
         # EZ.draw_rectangle_right(500, 0, 200, 400, "0000FF")
-        # EZ.draw_rectangle_right(0, 0, 500, 400, "0000FF")
+        EZ.draw_rectangle_right(0, 0, 500, 400, "0000FF")
 
         for button in self.ez_buttons:
             button.create_button()
@@ -39,5 +39,5 @@ class HomeScreen:
             EZ.destroy_window()
         if event == "MOUSE_LEFT_BUTTON_DOWN":
             mouse_x, mouse_y = EZ.mouse_coordinates()
-            check_ez_button_event(self.ez_buttons, mouse_x, mouse_y)
-            check_ez_toggle_event(self.ez_toggles, mouse_x, mouse_y)
+            checked_ez_button = check_ez_button_event(self.ez_buttons, mouse_x, mouse_y)
+            checked_ez_toggle = check_ez_toggle_event(self.ez_toggles, mouse_x, mouse_y)

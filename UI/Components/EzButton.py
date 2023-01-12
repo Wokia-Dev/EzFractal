@@ -17,6 +17,7 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
     for button in button_list:
         if button.check_hover(mouse_x, mouse_y):
             button.on_click()
+            return button
 
 
 class EzButton:

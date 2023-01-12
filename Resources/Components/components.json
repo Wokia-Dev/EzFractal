@@ -1,43 +1,100 @@
-{"EzButtons": [
-  { "name": "btnHelp",
-    "x": 577, "y": 367,
-    "width": 106, "height": 25,
-    "text": "Help",
-    "background_color": "E3E9EC", "background_opacity" :  255,
-    "font_size": 17, "font_color" : "000000", "font_family": "SF-Pro-Text-Regular",
-    "border_radius" :  7,
-    "text_margin": [-18, -11],
-    "click_timer" : 300
-  },
-  { "name": "btnDot",
-    "x": 620, "y": 100,
-    "width": 60, "height": 60,
-    "text": ".",
-    "background_color": "E3E9EC", "background_opacity" :  255,
-    "font_size": 20, "font_color" : "F4AB41", "font_family": "SF-Pro-Text-Semibold",
-    "border_radius" :  30,
-    "text_margin": [-2, -13],
-    "click_timer" : 300
-  }
-],
+{
+  "EzButtons": [
+    {
+      "name": "btnHelp",
+      "x": 577,
+      "y": 367,
+      "width": 106,
+      "height": 25,
+      "text": "Help",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 17,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        -18,
+        -11
+      ],
+      "click_timer": 300
+    }
+  ],
   "EzTexts": [
-    { "name": "txtTitle",
-      "x": 558, "y": 10,
+    {
+      "name": "txtTitle",
+      "x": 558,
+      "y": 10,
       "text": "EZ Fractal",
       "color": "000000",
       "font_size": 17,
       "font_family": "SF-Pro-Text-Semibold",
       "file_format": "otf"
+    },
+    {
+      "name": "txtToggleMandelbrot",
+      "x": 561,
+      "y": 54,
+      "text": "Mandelbrot set",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtToggleMouseMode",
+      "x": 561,
+      "y": 94,
+      "text": "Mouse mode",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtToggleFPS",
+      "x": 561,
+      "y": 134,
+      "text": "Show FPS",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
     }
   ],
   "EzToggles": [
-    { "name": "toggleMandelbrot",
-      "x" : 516, "y" : 55,
-      "width" : 35, "height" : 18,
-      "background_off_color" : "616161",
-      "background_on_color" : "0300FF",
-      "circle_color" : "FFFFFF",
-      "current_state" : false
+    {
+      "name": "toggleMandelbrot",
+      "x": 516,
+      "y": 55,
+      "width": 35,
+      "height": 18,
+      "background_off_color": "616161",
+      "background_on_color": "0300FF",
+      "circle_color": "FFFFFF",
+      "current_state": false
+    },
+    {
+      "name": "toggleMouseMode",
+      "x": 516,
+      "y": 95,
+      "width": 35,
+      "height": 18,
+      "background_off_color": "616161",
+      "background_on_color": "0300FF",
+      "circle_color": "FFFFFF",
+      "current_state": false
+    },
+    {
+      "name": "toggleFPS",
+      "x": 516,
+      "y": 135,
+      "width": 35,
+      "height": 18,
+      "background_off_color": "616161",
+      "background_on_color": "0300FF",
+      "circle_color": "FFFFFF",
+      "current_state": true
     }
   ]
 }
