@@ -58,7 +58,7 @@ def fractal():
 
         if event == "KEY_UP":
             up_key = EZ.key()
-            if up_key == "left ctrl" or up_key == "left shift":
+            if up_key in ("left ctrl", "left shift"):
                 axis = 0
         if event == "MOUSE_MOVEMENT":
             mouse_x, mouse_y = EZ.mouse_coordinates()
