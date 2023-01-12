@@ -448,8 +448,7 @@ def mouse_y():
 
 def mouse_coordinates():
     """Gives the coordinates of the mouse"""
-    global event
-    return event.pos[0], event.pos[1]
+    return pygame.mouse.get_pos()
 
 
 def key():
@@ -617,6 +616,13 @@ def array3d(texture):
     Returns a 3D array of the texture.
     """
     return pygame.surfarray.array3d(texture)
+
+
+def change_cursor(cursor):
+    """
+    Changes the cursor.
+    """
+    pygame.mouse.set_cursor(cursor)
 
 
 def hex_to_rgb(hexa):
