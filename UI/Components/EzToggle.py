@@ -22,8 +22,8 @@ def check_ez_toggle_event(toggle_list, mouse_x, mouse_y):
 class EzToggle:
     """ EzToggle class """
 
-    def __init__(self, name, x: int, y: int, width: int, height: int, background_off_color, background_on_color,
-                 circle_color, current_state):
+    def __init__(self, name: str, x: int, y: int, width: int, height: int, background_off_color: str,
+                 background_on_color: str, circle_color: str, current_state: bool):
         self.name = name
         self.x = x
         self.y = -y

@@ -21,8 +21,10 @@ def loader(file_path):
 class EzTextField:
     """ EzTextField class """
 
-    def __init__(self, name, x, y, width, height, text, text_margin, background_color, border_color, font_color,
-                 font_size, font_family, font_file_format, border_width, value, input_value, params, character_list=None):
+    def __init__(self, name: str, x: int, y: int, width: int, height: int, text: str, text_margin,
+                 background_color: str, border_color: str, font_color: str, font_size: int, font_family: str,
+                 font_file_format: str, border_width: int, value: str, input_value: float, params: int,
+                 character_list=None):
         self.name = name
         self.x = x
         self.y = y

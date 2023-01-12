@@ -16,7 +16,8 @@ def loader(file_path):
 class EzText:
     """ EzText class """
 
-    def __init__(self, name, x, y, text, color, font_size, font_family, file_format):
+    def __init__(self, name: str, x: int, y: int, text: str, color: str, font_size: int, font_family: str,
+                 file_format: str):
         self.name = name
         self.x = x
         self.y = y
