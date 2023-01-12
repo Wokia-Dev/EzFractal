@@ -108,8 +108,8 @@ def render(screen_array, zoom, offset, max_iterations=200):
             z = 0
             num_iter = 0
             for i in range(max_iterations):
-                z = z ** 2 + c
-                if z.real ** 2 + z.imag ** 2 > 4:
+                z = z**2 + c
+                if z.real**2 + z.imag**2 > 4:
                     break
                 num_iter += 1
             color = int(255 * num_iter / max_iterations)
@@ -124,8 +124,8 @@ def render_juila(screen_array, zoom, offset, c, max_iterations=200):
             z = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
             num_iter = 0
             for i in range(max_iterations):
-                z = z ** 2 + c
-                if z.real ** 2 + z.imag ** 2 > 4:
+                z = z**2 + c
+                if z.real**2 + z.imag**2 > 4:
                     break
                 num_iter += 1
             r, g, b = 0, 0, 0
@@ -134,13 +134,26 @@ def render_juila(screen_array, zoom, offset, c, max_iterations=200):
             elif num_iter < max_iterations / 3:
                 r, g, b = int(255 * (num_iter / (max_iterations / 3))), 0, 255
             elif num_iter < 2 * max_iterations / 3:
-                r, g, b = 255, int(255 * (1 - ((num_iter - max_iterations / 3) / (max_iterations / 3)))), 255
+                r, g, b = (
+                    255,
+                    int(
+                        255
+                        * (1 - ((num_iter - max_iterations / 3) / (max_iterations / 3)))
+                    ),
+                    255,
+                )
             else:
-                r, g, b = 255, 255, int(255 * ((num_iter - 2 * max_iterations / 3) / (max_iterations / 3)))
+                r, g, b = (
+                    255,
+                    255,
+                    int(
+                        255
+                        * ((num_iter - 2 * max_iterations / 3) / (max_iterations / 3))
+                    ),
+                )
 
             screen_array[x, y] = [r, g, b]
     return screen_array
-
 
 
 fractal()

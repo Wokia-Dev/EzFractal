@@ -8,16 +8,34 @@ def loader(file_path):
         data = json.load(f)
 
     return [
-        EzText(text["name"], text["x"], text["y"],
-               text["text"], text["color"], text["font_size"], text["font_family"],
-               text["file_format"]) for text in data["EzTexts"]]
+        EzText(
+            text["name"],
+            text["x"],
+            text["y"],
+            text["text"],
+            text["color"],
+            text["font_size"],
+            text["font_family"],
+            text["file_format"],
+        )
+        for text in data["EzTexts"]
+    ]
 
 
 class EzText:
-    """ EzText class """
+    """EzText class"""
 
-    def __init__(self, name: str, x: int, y: int, text: str, color: str, font_size: int, font_family: str,
-                 file_format: str):
+    def __init__(
+        self,
+        name: str,
+        x: int,
+        y: int,
+        text: str,
+        color: str,
+        font_size: int,
+        font_family: str,
+        file_format: str,
+    ):
         self.name = name
         self.x = x
         self.y = y
@@ -28,6 +46,8 @@ class EzText:
         self.file_format = file_format
 
     def create_text(self):
-        current_font = EZ.load_font(self.font_size, f'Resources/Fonts/{self.font_family}.{self.file_format}')
+        current_font = EZ.load_font(
+            self.font_size, f"Resources/Fonts/{self.font_family}.{self.file_format}"
+        )
         text_content = EZ.image_text(self.text, current_font, self.color)
         EZ.draw_image(text_content, self.x, self.y)

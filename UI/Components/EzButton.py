@@ -7,10 +7,24 @@ def loader(file_path):
         data = json.load(f)
 
     return [
-        EzButton(button["name"], button["x"], button["y"], button["width"], button["height"], button["text"],
-                 button["background_color"], button["background_opacity"], button["font_size"],
-                 button["font_color"], button["font_family"], button["border_radius"], button["text_margin"],
-                 button["click_timer"]) for button in data["EzButtons"]]
+        EzButton(
+            button["name"],
+            button["x"],
+            button["y"],
+            button["width"],
+            button["height"],
+            button["text"],
+            button["background_color"],
+            button["background_opacity"],
+            button["font_size"],
+            button["font_color"],
+            button["font_family"],
+            button["border_radius"],
+            button["text_margin"],
+            button["click_timer"],
+        )
+        for button in data["EzButtons"]
+    ]
 
 
 def check_ez_button_event(button_list, mouse_x, mouse_y):
@@ -21,11 +35,25 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
 
 
 class EzButton:
-    """ EzButton class """
+    """EzButton class"""
 
-    def __init__(self, name: str, x: int, y: int , width: int, height: int, text: str, background_color: str,
-                 background_opacity: int, font_size: int, font_color: str,
-                 font_family: str, border_radius: int, text_margin, click_timer: int):
+    def __init__(
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        background_color: str,
+        background_opacity: int,
+        font_size: int,
+        font_color: str,
+        font_family: str,
+        border_radius: int,
+        text_margin,
+        click_timer: int,
+    ):
         self.name = name
         self.x = x
         self.y = y
@@ -44,33 +72,77 @@ class EzButton:
     # Create button
     def create_button(self):
         if self.border_radius == 0:
-            EZ.draw_rectangle_right(self.x, self.y, self.width, self.height, self.background_color,
-                                    transparency=self.background_opacity)
+            EZ.draw_rectangle_right(
+                self.x,
+                self.y,
+                self.width,
+                self.height,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
         else:
-            EZ.draw_disk(self.x + self.border_radius, self.y + self.border_radius, self.border_radius,
-                         self.background_color, transparency=self.background_opacity)
-            EZ.draw_disk(self.x + self.border_radius, self.y + self.height - self.border_radius, self.border_radius,
-                         self.background_color, transparency=self.background_opacity)
-            EZ.draw_disk(self.x + self.width - self.border_radius, self.y + self.border_radius, self.border_radius,
-                         self.background_color, transparency=self.background_opacity)
-            EZ.draw_disk(self.x + self.width - self.border_radius, self.y + self.height - self.border_radius,
-                         self.border_radius, self.background_color, transparency=self.background_opacity)
+            EZ.draw_disk(
+                self.x + self.border_radius,
+                self.y + self.border_radius,
+                self.border_radius,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
+            EZ.draw_disk(
+                self.x + self.border_radius,
+                self.y + self.height - self.border_radius,
+                self.border_radius,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
+            EZ.draw_disk(
+                self.x + self.width - self.border_radius,
+                self.y + self.border_radius,
+                self.border_radius,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
+            EZ.draw_disk(
+                self.x + self.width - self.border_radius,
+                self.y + self.height - self.border_radius,
+                self.border_radius,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
 
-            EZ.draw_rectangle_right(self.x, self.y + self.border_radius, self.width + 1,
-                                    self.height - self.border_radius - self.border_radius, self.background_color,
-                                    transparency=self.background_opacity)
+            EZ.draw_rectangle_right(
+                self.x,
+                self.y + self.border_radius,
+                self.width + 1,
+                self.height - self.border_radius - self.border_radius,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
 
-            EZ.draw_rectangle_right(self.x + self.border_radius, self.y,
-                                    self.width - self.border_radius - self.border_radius,
-                                    self.height + 1, self.background_color, transparency=self.background_opacity)
+            EZ.draw_rectangle_right(
+                self.x + self.border_radius,
+                self.y,
+                self.width - self.border_radius - self.border_radius,
+                self.height + 1,
+                self.background_color,
+                transparency=self.background_opacity,
+            )
         if self.text != "":
-            current_font = EZ.load_font(self.font_size, f'Resources/Fonts/{self.font_family}.otf')
+            current_font = EZ.load_font(
+                self.font_size, f"Resources/Fonts/{self.font_family}.otf"
+            )
             text_content = EZ.image_text(self.text, current_font, self.font_color)
-            EZ.draw_image(text_content, (self.width // 2 + self.x) + self.text_margin[0],
-                          (self.height // 2 + self.y) + self.text_margin[1])
+            EZ.draw_image(
+                text_content,
+                (self.width // 2 + self.x) + self.text_margin[0],
+                (self.height // 2 + self.y) + self.text_margin[1],
+            )
 
     def check_hover(self, mouse_x, mouse_y):
-        if self.x <= mouse_x <= self.x + self.width and self.y <= mouse_y <= self.y + self.height:
+        if (
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
+        ):
             return True
         else:
             return False
