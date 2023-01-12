@@ -14,7 +14,8 @@ def loader(file_path):
                     text_field["text"], text_field["text_margin"], text_field["background_color"],
                     text_field["border_color"], text_field["font_color"], text_field["font_size"],
                     text_field["font_family"], text_field["font_file_format"], text_field["border_width"],
-                    text_field["value"], text_field["input_value"], text_field["params"], text_field["character_list"]) for text_field in
+                    text_field["value"], text_field["input_value"], text_field["params"], text_field["character_list"])
+        for text_field in
         data["EzTextFields"]]
 
 

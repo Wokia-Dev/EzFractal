@@ -60,7 +60,58 @@
       "font_size": 17,
       "font_family": "SF-Pro-Text-Regular",
       "file_format": "otf"
+    },
+    {
+      "name": "txtCReal",
+      "x": 512,
+      "y": 177,
+      "text": "c (real)",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtCImg",
+      "x": 512,
+      "y": 217,
+      "text": "c (img)",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtMaxIter",
+      "x": 506,
+      "y": 257,
+      "text": "max iter",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtZoom",
+      "x": 516,
+      "y": 297,
+      "text": "zoom",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtMove",
+      "x": 516,
+      "y": 337,
+      "text": "move",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
     }
+
   ],
   "EzToggles": [
     {
@@ -95,6 +146,114 @@
       "background_on_color": "0300FF",
       "circle_color": "FFFFFF",
       "current_state": true
+    }
+  ],
+  "EzTextFields": [
+    {
+      "name": "cRealTextField",
+      "x": 577,
+      "y": 174,
+      "width": 106,
+      "height": 25,
+      "text": "-1",
+      "text_margin": [-12,-10],
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size":  17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "-1.0",
+      "input_value": -1.0,
+      "params": 0,
+      "character_list": [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
+                                               "backspace", "return", "enter"]
+    },
+    {
+      "name": "cImgTextField",
+      "x": 577,
+      "y": 214,
+      "width": 106,
+      "height": 25,
+      "text": "0",
+      "text_margin": [-12,-10],
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size":  17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "0.0",
+      "input_value": 0.0,
+      "params": 1,
+      "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
+                                               "backspace", "return", "enter"]
+    },
+    {
+      "name": "maxIterTextField",
+      "x": 577,
+      "y": 254,
+      "width": 106,
+      "height": 25,
+      "text": "200",
+      "text_margin": [-12,-10],
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size":  17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "200",
+      "input_value": 200,
+      "params": 2,
+      "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                               "backspace", "return", "enter"]
+    },
+    {
+      "name": "zoomTextField",
+      "x": 577,
+      "y": 294,
+      "width": 106,
+      "height": 25,
+      "text": "1.2",
+      "text_margin": [-12,-10],
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size":  17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "1.2",
+      "input_value": 1.2,
+      "params": 3,
+      "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
+                                               "backspace", "return", "enter"]
+    },
+    {
+      "name": "moveTextField",
+      "x": 577,
+      "y": 334,
+      "width": 106,
+      "height": 25,
+      "text": "20",
+      "text_margin": [-12,-10],
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size":  17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "20",
+      "input_value": 20,
+      "params": 4,
+      "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
+                                               "backspace", "return", "enter"]
     }
   ]
 }
