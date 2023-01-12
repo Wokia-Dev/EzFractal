@@ -7,9 +7,19 @@ def loader(file_path):
         data = json.load(f)
 
     return [
-        EzToggle(toggle["name"], toggle["x"], toggle["y"], toggle["width"], toggle["height"],
-                 toggle["background_off_color"], toggle["background_on_color"], toggle["circle_color"],
-                 toggle["current_state"]) for toggle in data["EzToggles"]]
+        EzToggle(
+            toggle["name"],
+            toggle["x"],
+            toggle["y"],
+            toggle["width"],
+            toggle["height"],
+            toggle["background_off_color"],
+            toggle["background_on_color"],
+            toggle["circle_color"],
+            toggle["current_state"],
+        )
+        for toggle in data["EzToggles"]
+    ]
 
 
 def check_ez_toggle_event(toggle_list, mouse_x, mouse_y):
@@ -20,10 +30,20 @@ def check_ez_toggle_event(toggle_list, mouse_x, mouse_y):
 
 
 class EzToggle:
-    """ EzToggle class """
+    """EzToggle class"""
 
-    def __init__(self, name: str, x: int, y: int, width: int, height: int, background_off_color: str,
-                 background_on_color: str, circle_color: str, current_state: bool):
+    def __init__(
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        background_off_color: str,
+        background_on_color: str,
+        circle_color: str,
+        current_state: bool,
+    ):
         self.name = name
         self.x = x
         self.y = -y
@@ -38,26 +58,63 @@ class EzToggle:
         radius = int(self.height / 2)
         if self.current_state:
             # Draw background
-            EZ.draw_disk(self.x + radius, abs(self.y - radius), radius, self.background_on_color)
-            EZ.draw_disk(self.x + self.width - radius, abs(self.y - radius), radius, self.background_on_color)
-            EZ.draw_rectangle_right(self.x + radius, 0 - self.y, self.width - self.height, self.height,
-                                    self.background_on_color)
+            EZ.draw_disk(
+                self.x + radius, abs(self.y - radius), radius, self.background_on_color
+            )
+            EZ.draw_disk(
+                self.x + self.width - radius,
+                abs(self.y - radius),
+                radius,
+                self.background_on_color,
+            )
+            EZ.draw_rectangle_right(
+                self.x + radius,
+                0 - self.y,
+                self.width - self.height,
+                self.height,
+                self.background_on_color,
+            )
 
             # Draw circle
-            EZ.draw_disk(self.x + self.width - radius, abs(self.y - radius), int(radius * 0.85), self.circle_color)
+            EZ.draw_disk(
+                self.x + self.width - radius,
+                abs(self.y - radius),
+                int(radius * 0.85),
+                self.circle_color,
+            )
 
         else:
             # Draw background
-            EZ.draw_disk(self.x + radius, abs(self.y - radius), radius, self.background_off_color)
-            EZ.draw_disk(self.x + self.width - radius, abs(self.y - radius), radius, self.background_off_color)
-            EZ.draw_rectangle_right(self.x + radius, 0 - self.y, self.width - self.height, self.height,
-                                    self.background_off_color)
+            EZ.draw_disk(
+                self.x + radius, abs(self.y - radius), radius, self.background_off_color
+            )
+            EZ.draw_disk(
+                self.x + self.width - radius,
+                abs(self.y - radius),
+                radius,
+                self.background_off_color,
+            )
+            EZ.draw_rectangle_right(
+                self.x + radius,
+                0 - self.y,
+                self.width - self.height,
+                self.height,
+                self.background_off_color,
+            )
 
             # Draw circle
-            EZ.draw_disk(self.x + radius, abs(self.y - radius), int(radius * 0.85), self.circle_color)
+            EZ.draw_disk(
+                self.x + radius,
+                abs(self.y - radius),
+                int(radius * 0.85),
+                self.circle_color,
+            )
 
     def check_hover(self, mouse_x, mouse_y):
-        if self.x <= mouse_x <= self.x + self.width and abs(self.y) <= mouse_y <= abs(self.y) + self.height:
+        if (
+            self.x <= mouse_x <= self.x + self.width
+            and abs(self.y) <= mouse_y <= abs(self.y) + self.height
+        ):
             return True
         else:
             return False
