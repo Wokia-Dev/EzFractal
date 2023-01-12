@@ -22,7 +22,8 @@ class EzFractal:
         # change the screen_array
         pass
 
-    def draw(self):
+    @staticmethod
+    def draw():
         EZ.draw_array(screen_array)
         application.home_screen.run()
 
@@ -40,7 +41,8 @@ class Application:
     def check_events(self):
         pass
 
-    def toggle_fps(self, toggle):
+    @staticmethod
+    def toggle_fps(toggle):
         if toggle:
             EZ.update_caption(caption + " | FPS = " + str(EZ.get_fps()))
         else:
