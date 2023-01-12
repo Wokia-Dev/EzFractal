@@ -116,8 +116,7 @@ class EzToggle:
             and abs(self.y) <= mouse_y <= abs(self.y) + self.height
         ):
             return True
-        else:
-            return False
+        return False
 
     def on_click(self):
         self.current_state = not self.current_state

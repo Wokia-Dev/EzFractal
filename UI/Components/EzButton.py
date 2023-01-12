@@ -144,8 +144,7 @@ class EzButton:
             and self.y <= mouse_y <= self.y + self.height
         ):
             return True
-        else:
-            return False
+        return False
 
     def on_click(self):
         self.background_color, self.font_color = self.font_color, self.background_color

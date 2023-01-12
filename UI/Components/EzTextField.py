@@ -120,9 +120,8 @@ class EzTextField:
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
             return True
-        else:
-            EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
-            return False
+        EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
+        return False
 
     def on_hover(self, key, home_screen):
         key = key.replace("[", "").replace("]", "")
