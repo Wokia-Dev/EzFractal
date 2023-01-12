@@ -111,13 +111,12 @@ class EzToggle:
             )
 
     def check_hover(self, mouse_x, mouse_y):
-        if (
-            self.x <= mouse_x <= self.x + self.width
-            and abs(self.y) <= mouse_y <= abs(self.y) + self.height
-        ):
-            return True
-        else:
-            return False
+        return bool(
+            (
+                self.x <= mouse_x <= self.x + self.width
+                and abs(self.y) <= mouse_y <= abs(self.y) + self.height
+            )
+        )
 
     def on_click(self):
         self.current_state = not self.current_state
