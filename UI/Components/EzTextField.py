@@ -131,7 +131,7 @@ class EzTextField:
             if len(self.value) > 0:
                 self.text_margin[0] += 5
                 self.value = self.value[:-1]
-        elif key == "return" or key == "enter":
+        elif key in ("return", "enter"):
             if self.value != "" and EzUtils.is_float(self.value):
                 self.input_value = float(self.value)
                 home_screen.params[self.params] = self.input_value

@@ -219,7 +219,7 @@ def __draw_quarter_sector1(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), math.tan(angle1) * i))
             else:
                 hmin = int(math.tan(angle1) * i)
-            if angle2_mod == math.pi / 2 or angle2_mod == -3 * math.pi / 2:
+            if angle2_mod in (math.pi / 2, -3 * math.pi / 2):
                 hmax = int(math.sqrt(abs(r2 * r2 - i * i)))
             else:
                 hmax = int(min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle2) * i))
@@ -241,7 +241,7 @@ def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), math.tan(angle2) * i))
             else:
                 hmin = int(math.tan(angle2) * i)
-            if angle1_mod == math.pi / 2 or angle1_mod == -3 * math.pi / 2:
+            if angle1_mod in (math.pi / 2, -3 * math.pi / 2):
                 hmax = int(math.sqrt(abs(r2 * r2 - i * i)))
             else:
                 hmax = int(min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle1) * i))
@@ -266,7 +266,7 @@ def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 )
             else:
                 hmin = int(math.tan(angle1) * (-i))
-            if angle2_mod == -math.pi / 2 or angle2_mod == 3 * math.pi / 2:
+            if angle2_mod in (-math.pi / 2, 3 * math.pi / 2):
                 hmax = int((math.sqrt(abs(r2 * r2 - i * i))))
             else:
                 hmax = int(
@@ -290,7 +290,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), -math.tan(angle2) * i))
             else:
                 hmin = -int(math.tan(angle2) * i)
-            if angle1_mod == -math.pi / 2 or angle1_mod == 3 * math.pi / 2:
+            if angle1_mod in (-math.pi / 2, 3 * math.pi / 2):
                 hmax = int((math.sqrt(abs(r2 * r2 - i * i))))
             else:
                 hmax = int(
