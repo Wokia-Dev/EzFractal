@@ -46,6 +46,7 @@ class HomeScreen:
         event = EZ.get_event()
         if event == "EXIT" or event == "KEY_DOWN" and EZ.key() == "escape":
             EZ.destroy_window()
+            exit()
         if event == "MOUSE_LEFT_BUTTON_DOWN":
             mouse_x, mouse_y = EZ.mouse_coordinates()
             checked_ez_button = check_ez_button_event(self.ez_buttons, mouse_x, mouse_y)

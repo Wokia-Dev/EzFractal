@@ -57,7 +57,6 @@ class Application:
             self.home_screen.check_events()
             self.toggle_fps(self.home_screen.toggleFPS)
             EZ.tick(60)
-            print(self.home_screen.params)
             self.fractal.run()
 
 
