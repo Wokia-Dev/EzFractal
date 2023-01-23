@@ -41,24 +41,24 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
 
 
 class EzButton:
-    """ EzButton class for creating buttons """
+    """EzButton class for creating buttons"""
 
     def __init__(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            width: int,
-            height: int,
-            text: str,
-            background_color: str,
-            background_opacity: int,
-            font_size: int,
-            font_color: str,
-            font_family: str,
-            border_radius: int,
-            text_margin: list[int],
-            click_timer: int,
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        background_color: str,
+        background_opacity: int,
+        font_size: int,
+        font_color: str,
+        font_family: str,
+        border_radius: int,
+        text_margin: list[int],
+        click_timer: int,
     ):
         self.name = name
         self.x = x
@@ -160,8 +160,8 @@ class EzButton:
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # Check if mouse is hovering over button
         return (
-                self.x <= mouse_x <= self.x + self.width
-                and self.y <= mouse_y <= self.y + self.height
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_click(self):

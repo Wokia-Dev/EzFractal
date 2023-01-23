@@ -39,7 +39,7 @@ def loader(file_path):
 
 
 class EzTextField:
-    """ EzTextField class for creating text fields """
+    """EzTextField class for creating text fields"""
 
     def __init__(
         self,

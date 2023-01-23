@@ -16,7 +16,7 @@ json_file = "Resources\\Components\\components.json"
 
 
 class HomeScreen:
-    """ HomeScreen class displays the home screen of the program """
+    """HomeScreen class displays the home screen of the program"""
 
     def __init__(self, app):
         self.app = app
@@ -24,10 +24,18 @@ class HomeScreen:
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
         self.params: list[float] = [-1, 0, 200, 1.2, 20]
-        self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(json_file)
-        self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(json_file)
-        self.ez_toggles: list[UI.Components.EzToggle] = UI.Components.EzToggle.loader(json_file)
-        self.ez_textFields: list[UI.Components.EzTextField] = UI.Components.EzTextField.loader(json_file)
+        self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
+            json_file
+        )
+        self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
+            json_file
+        )
+        self.ez_toggles: list[UI.Components.EzToggle] = UI.Components.EzToggle.loader(
+            json_file
+        )
+        self.ez_textFields: list[
+            UI.Components.EzTextField
+        ] = UI.Components.EzTextField.loader(json_file)
 
     def draw(self):
         EZ.draw_rectangle_right(0, 0, 500, 400, "0000FF")
@@ -86,7 +94,9 @@ class HomeScreen:
                         os.startfile("Resources\\Help\\help.html")
                     except FileNotFoundError:
                         print("Help file not found.")
-                        print("Please make sure you have a help.html file in the help directory.")
+                        print(
+                            "Please make sure you have a help.html file in the help directory."
+                        )
 
         # check if the user presses a key
         if event == "KEY_DOWN":
@@ -99,11 +109,13 @@ class HomeScreen:
                     textField.on_hover(EZ.key(), self)
 
         # check hover and change cursor
-        if any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons) or \
-                any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
+        if any(
+            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+        ) or any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
-        elif any(textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields):
+        elif any(
+            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+        ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
-
