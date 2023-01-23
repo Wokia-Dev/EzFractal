@@ -40,25 +40,25 @@ class EzTextField:
     """EzTextField class for creating text fields"""
 
     def __init__(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            width: int,
-            height: int,
-            text: str,
-            text_margin: list[int],
-            background_color: str,
-            border_color: str,
-            font_color: str,
-            font_size: int,
-            font_family: str,
-            font_file_format: str,
-            border_width: int,
-            value: str,
-            input_value: float,
-            params: int,
-            character_list=None,
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        text_margin: list[int],
+        background_color: str,
+        border_color: str,
+        font_color: str,
+        font_size: int,
+        font_family: str,
+        font_file_format: str,
+        border_width: int,
+        value: str,
+        input_value: float,
+        params: int,
+        character_list=None,
     ):
         self.name = name
         self.x = x
@@ -128,8 +128,8 @@ class EzTextField:
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # check if mouse is hovering over text field
         return (
-                self.x <= mouse_x <= self.x + self.width
-                and self.y <= mouse_y <= self.y + self.height
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_hover(self, key, home_screen):
