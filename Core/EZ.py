@@ -12,14 +12,6 @@ import time
 import pygame
 import pygame.gfxdraw
 from pygame.locals import *
-
-global window
-global event
-global keyboard
-
-global fps
-global start
-global clock
 current_file_path = os.path.dirname(__file__)
 
 """
