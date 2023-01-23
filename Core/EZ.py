@@ -43,7 +43,6 @@ def create_window(width=300, height=200, name="window", icon=None):
     of given size"""
     global window
     global keyboard
-    global sound
     global clock
     clock = pygame.time.Clock()
     if icon is not None:
@@ -90,7 +89,6 @@ def destroy_window():
 
 def __choose(canvas):
     """Internal function"""
-    global window
     if canvas is None:
         surface = window
     else:
@@ -537,13 +535,11 @@ def get_event():
 
 def mouse_x():
     """Gives the x-coordinate of the mouse at the time the event is retrieved"""
-    global event
     return event.pos[0]
 
 
 def mouse_y():
     """Gives the y-coordinate of the mouse at the time the event is retrieved"""
-    global event
     return event.pos[1]
 
 
@@ -554,8 +550,6 @@ def mouse_coordinates():
 
 def key():
     """Gives the key pressed at the time the event is retrieved as a string"""
-    global event
-    global keyboard
     character = pygame.key.name(event.key)
     return keyboard.get(character, character)
 
@@ -583,7 +577,6 @@ def get_key_pressed():
 
 def save_window():
     """Returns an image (surface) of the screen"""
-    global window
     return window.copy()
 
 
@@ -686,8 +679,6 @@ def next_frame():
     """
     Wait for the necessary time to have the requested number of frames per second between two calls.
     """
-    global fps
-    global start
     start.tick(fps)
 
 
