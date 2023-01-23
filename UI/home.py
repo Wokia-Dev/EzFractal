@@ -9,8 +9,9 @@ import UI.Components.EzToggle
 import UI.Components.EzTextField
 from UI.Components.EzButton import check_ez_button_event
 from UI.Components.EzToggle import check_ez_toggle_event
-import pygame
 from UI.Components import *
+
+import pygame
 
 # parameters
 json_file = "Resources\\Components\\components.json"
