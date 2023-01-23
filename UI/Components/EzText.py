@@ -26,7 +26,7 @@ def loader(file_path):
 
 
 class EzText:
-    """ EzText class for creating text """
+    """EzText class for creating text"""
 
     def __init__(
         self,
