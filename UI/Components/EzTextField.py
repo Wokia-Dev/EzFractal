@@ -167,5 +167,3 @@ class EzTextField:
             # change color and update text
             self.font_color = "000000"
             self.update_text(self.value, self.text_margin)
-
-
