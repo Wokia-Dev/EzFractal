@@ -1,5 +1,6 @@
 import os
 import sys
+import webbrowser
 
 import Core.EZ as EZ
 import UI.Components.EzButton
@@ -91,7 +92,7 @@ class HomeScreen:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnHelp":
                     try:
-                        os.startfile("Resources\\Help\\help.html")
+                        webbrowser.open("Resources\\Help\\help.html")
                     except FileNotFoundError:
                         print("Help file not found.")
                         print(
