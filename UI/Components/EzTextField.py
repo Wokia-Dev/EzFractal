@@ -111,7 +111,7 @@ class EzTextField:
                 (self.height // 2 + self.y) + self.text_margin[1],
             )
 
-    def update_text(self, text, text_margin):
+    def update_text(self, text, text_margin, invalid_input=False):
         # update text
         self.text = text
         # load font
@@ -120,7 +120,7 @@ class EzTextField:
             f"Resources/Fonts/{self.font_family}.{self.font_file_format}",
         )
         # convert text to image and draw it
-        text_content = EZ.image_text(self.text, current_font, self.font_color)
+        text_content = EZ.image_text(self.text, current_font, "FF00FF")
         EZ.draw_image(
             text_content,
             (self.width // 2 + self.x) + text_margin[0],
@@ -147,15 +147,25 @@ class EzTextField:
             if len(self.value) > 0:
                 self.text_margin[0] += 5
                 self.value = self.value[:-1]
+                self.update_text(self.value, self.text_margin)
         # replace value with input value if enter or return is pressed and value is a float
         elif key in ("return", "enter"):
             if self.value != "" and EzUtils.is_float(self.value):
                 self.input_value = float(self.value)
                 home_screen.params[self.params] = self.input_value
+                # change color and update text
+                self.update_text(self.value, self.text_margin)
+                self.font_color = "000000"
+            else:
+                # change color in red and update text
+                self.font_color = "FF0000"
+                self.update_text(self.value, self.text_margin, True)
         # add character to value
         else:
             self.value += key
             self.text_margin[0] -= 5
+            # change color and update text
+            self.font_color = "000000"
+            self.update_text(self.value, self.text_margin)
 
-        # update text
-        self.update_text(self.value, self.text_margin)
+
