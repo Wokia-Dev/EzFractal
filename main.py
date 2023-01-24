@@ -25,7 +25,9 @@ class EzFractal:
 
     def calculate(self):
         # update c value and max iterations
-        self.c = application.home_screen.params[0] + application.home_screen.params[1] * 1j
+        self.c = (
+            application.home_screen.params[0] + application.home_screen.params[1] * 1j
+        )
         self.max_iter = application.home_screen.params[2]
 
         # update zoom and offset
@@ -46,8 +48,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
@@ -71,8 +73,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # exit the loop if the number is diverging
                         break
                     num_iter += 1
@@ -87,9 +89,13 @@ class EzFractal:
         self.calculate()
         # render the fractal and update the screen array
         if application.home_screen.toggleMandelbrot:
-            self.screen_array = self.render_mandelbrot(self.screen_array, self.max_iter, self.zoom, self.offset)
+            self.screen_array = self.render_mandelbrot(
+                self.screen_array, self.max_iter, self.zoom, self.offset
+            )
         else:
-            self.screen_array = self.render_julia(self.screen_array, self.c, self.max_iter, self.zoom, self.offset)
+            self.screen_array = self.render_julia(
+                self.screen_array, self.c, self.max_iter, self.zoom, self.offset
+            )
 
     def draw(self):
         EZ.draw_array(self.screen_array)
