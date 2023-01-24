@@ -108,6 +108,9 @@ class HomeScreen:
                 if textField.check_hover(mouse_x, mouse_y):
                     textField.on_hover(EZ.key(), self)
 
+        if event == "MOUSE_MOVEMENT":
+            self.app.fractal.mouse_pos = EZ.mouse_coordinates()
+
         # check hover and change cursor
         if any(
             button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
