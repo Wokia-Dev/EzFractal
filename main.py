@@ -38,8 +38,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
@@ -63,8 +63,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # exit the loop if the number is diverging
                         break
                     num_iter += 1
@@ -77,7 +77,7 @@ class EzFractal:
     def calculate(self):
         # update c value and max iterations
         self.c = (
-                application.home_screen.params[0] + application.home_screen.params[1] * 1j
+            application.home_screen.params[0] + application.home_screen.params[1] * 1j
         )
         self.max_iter = application.home_screen.params[2]
 
@@ -96,8 +96,9 @@ class EzFractal:
         else:
             if application.home_screen.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
-                c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + \
-                    (self.mouse_pos[1] - self.offset[1]) * self.zoom * 1j
+                c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
+                    self.mouse_pos[1] - self.offset[1]
+                ) * self.zoom * 1j
 
                 # render the fractal and update the screen array
                 self.screen_array = self.render_julia(
