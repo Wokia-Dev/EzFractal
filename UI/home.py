@@ -39,7 +39,6 @@ class HomeScreen:
         ] = UI.Components.EzTextField.loader(json_file)
 
     def draw(self):
-        EZ.draw_rectangle_right(0, 0, 500, 400, "0000FF")
 
         # draw the buttons
         for button in self.ez_buttons:
@@ -111,11 +110,11 @@ class HomeScreen:
 
         # check hover and change cursor
         if any(
-            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
         ) or any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         elif any(
-            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+                textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:

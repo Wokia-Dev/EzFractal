@@ -1,30 +1,98 @@
+import numba
 import numpy as np
 import Core.EZ as EZ
 import UI.home
+from Core.EzUtils import iter_gradient_generator
 
 # parameters
 # secondary parameters
 caption = "EZ Fractal"
 
 # main parameters
-width, height = 700, 400
-screen_array = np.full((width, height, 3), [255, 255, 255], dtype=np.uint8)
+width, height, menu_width = 700, 400, 200
 
 
 class EzFractal:
     def __init__(self, app):
         self.app = app
+        self.screen_array = np.full((width, height, 3), [255, 255, 255], dtype=np.uint8)
+        self.zoom = 2.8 / height
+        self.offset = np.array([0.7 * width, height]) // 2
+        self.max_iter = 200
+        self.c = -1.0 + 0.0j
+        self.zoom_gap = 1.2
+        self.offset_gap = 20
 
     def calculate(self):
-        pass
+        # update c value and max iterations
+        self.c = application.home_screen.params[0] + application.home_screen.params[1] * 1j
+        self.max_iter = application.home_screen.params[2]
 
-    def update(self):
-        # change the screen_array
-        pass
+        # update zoom and offset
+        self.zoom_gap = application.home_screen.params[3]
+        self.offset_gap = application.home_screen.params[4]
 
     @staticmethod
-    def draw():
-        EZ.draw_array(screen_array)
+    @numba.njit(fastmath=True, parallel=True)
+    def render_mandelbrot(screen_array, max_iter, zoom, offset):
+        # foreach pixel in the screen array using numba parallel
+        for x in numba.prange(width - menu_width):
+            for y in numba.prange(height):
+                # define the complex number based on the pixel coordinates, zoom and offset
+                c = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
+                # define the initial value of z and the number of iterations
+                z = 0
+                num_iter = 0
+                # iterate the function until the number is diverging or the max iterations is reached
+                for i in range(max_iter):
+                    # julia set formula
+                    z = z ** 2 + c
+                    if z.real ** 2 + z.imag ** 2 > 4:
+                        # if the number is diverging break the loop
+                        break
+                    num_iter += 1
+
+                # define the color based on the number of iterations and set the pixel color in the screen array
+                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter)
+                # return the screen array
+        return screen_array
+
+    @staticmethod
+    @numba.njit(fastmath=True, parallel=True)
+    def render_julia(screen_array, c, max_iter, zoom, offset):
+        # foreach pixel in the screen array using numba parallel
+        for x in numba.prange(width - menu_width):
+            for y in numba.prange(height):
+                # define the complex number based on the pixel coordinates, zoom and offset
+                z = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
+                # number of iterations
+                num_iter = 0
+
+                # iterate the function until the number is diverging or the max iterations is reached
+                for i in range(max_iter):
+                    # julia set formula
+                    z = z ** 2 + c
+                    if z.real ** 2 + z.imag ** 2 > 4:
+                        # exit the loop if the number is diverging
+                        break
+                    num_iter += 1
+
+                # define the color based on the number of iterations and set the pixel color in the screen array
+                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter)
+        # return the screen array
+        return screen_array
+
+    def update(self):
+        # update the screen array with the new parameters
+        self.calculate()
+        # render the fractal and update the screen array
+        if application.home_screen.toggleMandelbrot:
+            self.screen_array = self.render_mandelbrot(self.screen_array, self.max_iter, self.zoom, self.offset)
+        else:
+            self.screen_array = self.render_julia(self.screen_array, self.c, self.max_iter, self.zoom, self.offset)
+
+    def draw(self):
+        EZ.draw_array(self.screen_array)
         application.home_screen.run()
 
     def run(self):
