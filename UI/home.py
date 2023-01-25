@@ -1,6 +1,8 @@
 import sys
 import webbrowser
 
+import numpy as np
+
 import Core.EZ as EZ
 import UI.Components.EzButton
 import UI.Components.EzText
@@ -58,6 +60,12 @@ class HomeScreen:
 
     def run(self):
         self.draw()
+        self.update()
+
+    def update(self):
+        # get the screen array of the menu and copy it to the main screen array
+        menu_screen_array = EZ.get_screen_array(self.app.resolution[0] - self.app.resolution[2])
+        np.copyto(self.app.screen_array[-self.app.resolution[2]:], menu_screen_array)
 
     def check_events(self):
         # get the event from EZ
@@ -85,6 +93,7 @@ class HomeScreen:
                     self.toggleMouse = not self.toggleMouse
                 if checked_ez_toggle.name == "toggleFPS":
                     self.toggleFPS = not self.toggleFPS
+                checked_ez_toggle.create_toggle()
 
             # button check
             if checked_ez_button is not None:
@@ -97,6 +106,8 @@ class HomeScreen:
                         print(
                             "Please make sure you have a help.html file in the help directory."
                         )
+                checked_ez_button.create_button()
+            self.update()
 
         # check if the user presses a key
         if event == "KEY_DOWN":
@@ -107,6 +118,8 @@ class HomeScreen:
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
                     textField.on_hover(EZ.key(), self)
+                    textField.create_text_field()
+            self.update()
 
         if event == "MOUSE_MOVEMENT":
             self.app.fractal.mouse_pos = EZ.mouse_coordinates()
