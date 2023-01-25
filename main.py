@@ -16,7 +16,6 @@ class EzFractal:
     def __init__(self, app):
         self.app = app
         self.mouse_pos = np.array([0, 0])
-        self.screen_array = np.full((width, height, 3), [255, 255, 255], dtype=np.uint8)
         self.zoom = 2.8 / height
         self.offset = np.array([0.7 * width, height]) // 2
         self.max_iter = 200
@@ -38,8 +37,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z**2 + c
-                    if z.real**2 + z.imag**2 > 4:
+                    z = z ** 2 + c
+                    if z.real ** 2 + z.imag ** 2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
@@ -63,8 +62,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z**2 + c
-                    if z.real**2 + z.imag**2 > 4:
+                    z = z ** 2 + c
+                    if z.real ** 2 + z.imag ** 2 > 4:
                         # exit the loop if the number is diverging
                         break
                     num_iter += 1
@@ -77,7 +76,7 @@ class EzFractal:
     def calculate(self):
         # update c value and max iterations
         self.c = (
-            application.home_screen.params[0] + application.home_screen.params[1] * 1j
+                application.home_screen.params[0] + application.home_screen.params[1] * 1j
         )
         self.max_iter = application.home_screen.params[2]
 
@@ -90,28 +89,27 @@ class EzFractal:
         self.calculate()
         # render the fractal and update the screen array
         if application.home_screen.toggleMandelbrot:
-            self.screen_array = self.render_mandelbrot(
-                self.screen_array, self.max_iter, self.zoom, self.offset
+            application.screen_array = self.render_mandelbrot(
+                application.screen_array, self.max_iter, self.zoom, self.offset
             )
         else:
             if application.home_screen.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                    self.mouse_pos[1] - self.offset[1]
+                        self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
 
                 # render the fractal and update the screen array
-                self.screen_array = self.render_julia(
-                    self.screen_array, c, self.max_iter, self.zoom, self.offset
+                application.screen_array = self.render_julia(
+                    application.screen_array, c, self.max_iter, self.zoom, self.offset
                 )
             else:
-                self.screen_array = self.render_julia(
-                    self.screen_array, self.c, self.max_iter, self.zoom, self.offset
+                application.screen_array = self.render_julia(
+                    application.screen_array, self.c, self.max_iter, self.zoom, self.offset
                 )
 
     def draw(self):
-        EZ.draw_array(self.screen_array)
-        application.home_screen.run()
+        EZ.draw_array(application.screen_array)
 
     def run(self):
         self.update()
@@ -122,7 +120,8 @@ class Application:
     def __init__(self):
         self.fractal = EzFractal(self)
         self.home_screen = UI.home.HomeScreen(self)
-        self.resolution = width, height
+        self.resolution = width, height, menu_width
+        self.screen_array = np.full((width, height, 3), [0, 0, 255], dtype=np.uint8)
 
     def check_events(self):
         pass
