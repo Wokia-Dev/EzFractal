@@ -9,6 +9,7 @@ import math
 import os
 import time
 
+import numpy as np
 import pygame
 import pygame.gfxdraw
 from pygame.locals import *
@@ -137,7 +138,7 @@ def draw_segment(xA, yA, xB, yB, color="000000", transparency=255, canvas=None):
 
 
 def draw_rectangle_right(
-    xA, yA, length, height, color="000000", zoom=1, transparency=255, canvas=None
+        xA, yA, length, height, color="000000", zoom=1, transparency=255, canvas=None
 ):
     """Draws a rectangle with vertical or horizontal sides, black by default.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
@@ -153,7 +154,7 @@ def draw_rectangle_right(
 
 
 def draw_triangle(
-    xA, yA, xB, yB, xC, yC, color="000000", zoom=1, transparency=255, canvas=None
+        xA, yA, xB, yB, xC, yC, color="000000", zoom=1, transparency=255, canvas=None
 ):
     """Draws a triangle with the given vertices and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
@@ -209,7 +210,7 @@ def __draw_quarter_sector1(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle2 > 0 and angle2_mod > math.pi / 2 - 0.00001) or (
-                angle2 < 0 and angle2_mod < -3 * math.pi / 2 + 0.00001
+                    angle2 < 0 and angle2_mod < -3 * math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
         else:
@@ -231,7 +232,7 @@ def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle1 > 0 and angle1_mod < math.pi / 2 + 0.00001) or (
-                angle1 < 0 and angle1_mod < -3 * math.pi / 2 + 0.00001
+                    angle1 < 0 and angle1_mod < -3 * math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
         else:
@@ -253,7 +254,7 @@ def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle2 > 0 and angle2_mod > 3 * math.pi / 2 - 0.00001) or (
-                angle2 < 0 and angle2_mod > -math.pi / 2 - 0.00001
+                    angle2 < 0 and angle2_mod > -math.pi / 2 - 0.00001
             ):
                 draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
         else:
@@ -280,7 +281,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0 and r1 != 0:
             if (angle1 > 0 and angle1_mod < 3 * math.pi / 2 + 0.00001) or (
-                angle1 < 0 and angle1_mod < -math.pi / 2 + 0.00001
+                    angle1 < 0 and angle1_mod < -math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
         else:
@@ -298,7 +299,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
 
 
 def draw_angular_sector(
-    x, y, r1, r2, angle1, angle2, color, transparency=255, canvas=None
+        x, y, r1, r2, angle1, angle2, color, transparency=255, canvas=None
 ):
     """Draw an angular sector delimited by two radius, be careful the function is slow
     If you give a canvas then the drawing is done on the canvas and not on the screen"""
@@ -372,13 +373,13 @@ def draw_arc(x, y, r, angle1, angle2, color="000000", transparency=255, canvas=N
 
 
 def draw_ellipse(
-    x,
-    y,
-    horizontal_radius,
-    vertical_radius,
-    color="000000",
-    transparency=255,
-    canvas=None,
+        x,
+        y,
+        horizontal_radius,
+        vertical_radius,
+        color="000000",
+        transparency=255,
+        canvas=None,
 ):
     """Draws an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
@@ -395,7 +396,7 @@ def draw_ellipse(
 
 
 def draw_filled_ellipse(
-    x, y, horizontal_radius, vertical_radius, color, transparency=255, canvas=None
+        x, y, horizontal_radius, vertical_radius, color, transparency=255, canvas=None
 ):
     """Draws the interior of an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
@@ -689,6 +690,16 @@ def draw_array(array, canvas=None):
     pygame.surfarray.blit_array(__choose(canvas), array)
 
 
+def get_screen_array(start_width):
+    """
+    Returns an array of pixels of the screen.
+    """
+    if start_width:
+        return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)[start_width:]
+
+    return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)
+
+
 def get_fps():
     """
     Returns the number of frames per second.
@@ -725,4 +736,4 @@ def change_cursor(cursor):
 
 
 def hex_to_rgb(hexa):
-    return tuple(int(hexa[i : i + 2], 16) for i in (0, 2, 4))
+    return tuple(int(hexa[i: i + 2], 16) for i in (0, 2, 4))
