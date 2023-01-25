@@ -64,8 +64,10 @@ class HomeScreen:
 
     def update(self):
         # get the screen array of the menu and copy it to the main screen array
-        menu_screen_array = EZ.get_screen_array(self.app.resolution[0] - self.app.resolution[2])
-        np.copyto(self.app.screen_array[-self.app.resolution[2]:], menu_screen_array)
+        menu_screen_array = EZ.get_screen_array(
+            self.app.resolution[0] - self.app.resolution[2]
+        )
+        np.copyto(self.app.screen_array[-self.app.resolution[2] :], menu_screen_array)
 
     def check_events(self):
         # get the event from EZ
