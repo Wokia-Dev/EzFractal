@@ -117,7 +117,10 @@ class HomeScreen:
             # text field check
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
-                    textField.on_hover(EZ.key(), self)
+                    if EZ.key() == "m":
+                        textField.on_hover('.', self)
+                    else:
+                        textField.on_hover(EZ.key(), self)
                     textField.create_text_field()
             self.update()
 
