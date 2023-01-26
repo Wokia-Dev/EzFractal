@@ -64,8 +64,10 @@ class HomeScreen:
 
     def update(self):
         # get the screen array of the menu and copy it to the main screen array
-        menu_screen_array = EZ.get_screen_array(self.app.resolution[0] - self.app.resolution[2])
-        np.copyto(self.app.screen_array[-self.app.resolution[2]:], menu_screen_array)
+        menu_screen_array = EZ.get_screen_array(
+            self.app.resolution[0] - self.app.resolution[2]
+        )
+        np.copyto(self.app.screen_array[-self.app.resolution[2] :], menu_screen_array)
 
     def check_events(self):
         # get the event from EZ
@@ -118,7 +120,7 @@ class HomeScreen:
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
                     if EZ.key() == "m":
-                        textField.on_hover('.', self)
+                        textField.on_hover(".", self)
                     else:
                         textField.on_hover(EZ.key(), self)
                     textField.create_text_field()
