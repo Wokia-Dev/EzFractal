@@ -73,6 +73,30 @@ class EzFractal:
         # return the screen array
         return screen_array
 
+    def scroll_up(self, mouse_x, mouse_y):
+        # The point at the center of the zoom is the current mouse position
+        center_x = (mouse_x - self.offset[0]) * self.zoom
+        center_y = (mouse_y - self.offset[1]) * self.zoom
+
+        # zoom in
+        self.zoom *= self.zoom_gap
+
+        # Recalculate the offset to keep the mouse position at the center of the zoom
+        self.offset[0] = mouse_x - (center_x / self.zoom)
+        self.offset[1] = mouse_y - (center_y / self.zoom)
+
+    def scroll_down(self, mouse_x, mouse_y):
+        # The point at the center of the zoom is the current mouse position
+        center_x = (mouse_x - self.offset[0]) * self.zoom
+        center_y = (mouse_y - self.offset[1]) * self.zoom
+
+        # zoom out
+        self.zoom *= 1 / self.zoom_gap
+
+        # Recalculate the offset to keep the mouse position at the center of the zoom
+        self.offset[0] = mouse_x - (center_x / self.zoom)
+        self.offset[1] = mouse_y - (center_y / self.zoom)
+
     def calculate(self):
         # update c value and max iterations
         self.c = (

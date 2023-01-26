@@ -80,8 +80,6 @@ class HomeScreen:
 
         # check if the user clicks the mouse
         if event == "MOUSE_LEFT_BUTTON_DOWN":
-            # get the mouse coordinates
-            mouse_x, mouse_y = EZ.mouse_coordinates()
             # check if the user clicked a button or toggle
             checked_ez_button = check_ez_button_event(self.ez_buttons, mouse_x, mouse_y)
             checked_ez_toggle = check_ez_toggle_event(self.ez_toggles, mouse_x, mouse_y)
@@ -107,12 +105,9 @@ class HomeScreen:
                             "Please make sure you have a help.html file in the help directory."
                         )
                 checked_ez_button.create_button()
-            self.update()
 
         # check if the user presses a key
         if event == "KEY_DOWN":
-            # get mouse coordinates
-            mouse_x, mouse_y = EZ.mouse_coordinates()
 
             # text field check
             for textField in self.ez_textFields:
@@ -122,19 +117,27 @@ class HomeScreen:
                     else:
                         textField.on_hover(EZ.key(), self)
                     textField.create_text_field()
-            self.update()
 
         if event == "MOUSE_MOVEMENT":
-            self.app.fractal.mouse_pos = EZ.mouse_coordinates()
+            self.app.fractal.mouse_pos = np.array([mouse_x, mouse_y])
+
+        # check if the user scrolls
+        if event == "MOUSE_SCROLL_UP":
+            self.app.fractal.scroll_up(mouse_x, mouse_y)
+
+        if event == "MOUSE_SCROLL_DOWN":
+            self.app.fractal.scroll_down(mouse_x, mouse_y)
 
         # check hover and change cursor
         if any(
-            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
         ) or any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         elif any(
-            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+                textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        self.update()
