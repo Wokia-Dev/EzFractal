@@ -17,6 +17,7 @@ def loader(file_path):
                 text_field["width"],
                 text_field["height"],
                 text_field["text"],
+                text_field["text_center"],
                 text_field["text_margin"],
                 text_field["background_color"],
                 text_field["border_color"],
@@ -47,6 +48,7 @@ class EzTextField:
             width: int,
             height: int,
             text: str,
+            text_center: bool,
             text_margin: list[int],
             background_color: str,
             border_color: str,
@@ -66,6 +68,7 @@ class EzTextField:
         self.width = width
         self.height = height
         self.text = str(input_value)
+        self.text_center = text_center
         self.text_margin = text_margin
         self.background_color = background_color
         self.border_color = border_color
@@ -96,20 +99,9 @@ class EzTextField:
         )
         # draw text
         if self.text != "":
-            # load font
-            current_font = EZ.load_font(
-                self.font_size,
-                f"Resources/Fonts/{self.font_family}.{self.font_file_format}",
-            )
-            # convert text to image and draw it
-            text_content = EZ.image_text(self.text, current_font, self.font_color)
-            EZ.draw_image(
-                text_content,
-                (self.width // 2 + self.x) + self.text_margin[0],
-                (self.height // 2 + self.y) + self.text_margin[1],
-            )
+            self.draw_text(self.text)
 
-    def update_text(self, text, text_margin, invalid_input=False):
+    def draw_text(self, text, text_margin=None, center=True):
         # update text
         self.text = text
         # load font
@@ -118,12 +110,30 @@ class EzTextField:
             f"Resources/Fonts/{self.font_family}.{self.font_file_format}",
         )
         # convert text to image and draw it
-        text_content = EZ.image_text(self.text, current_font, "FF00FF")
-        EZ.draw_image(
-            text_content,
-            (self.width // 2 + self.x) + text_margin[0],
-            (self.height // 2 + self.y) + text_margin[1],
-        )
+        text_content = EZ.image_text(self.text, current_font, self.font_color)
+        # draw text centered
+        if center and text_content.get_width() < self.width - self.border_width * 2:
+            EZ.draw_image(
+                text_content,
+                self.x + (self.width - text_content.get_width()) // 2,
+                self.y + (self.height - text_content.get_height()) // 2,
+            )
+        elif center and text_content.get_width() > self.width - self.border_width * 2:
+            text_content = EZ.image_text(self.text[:5] + "...", current_font, "FFA500")
+            EZ.draw_image(
+                text_content,
+                self.x + (self.width - text_content.get_width()) // 2,
+                self.y + (self.height - text_content.get_height()) // 2,
+            )
+
+        # draw text with margin
+        else:
+            if text_margin is not None:
+                EZ.draw_image(
+                    text_content,
+                    (self.width // 2 + self.x) + text_margin[0],
+                    (self.height // 2 + self.y) + text_margin[1]
+                )
 
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # check if mouse is hovering over text field
@@ -143,25 +153,23 @@ class EzTextField:
         # remove last character if backspace is pressed
         if key == "backspace":
             if len(self.value) > 0:
-                self.text_margin[0] += 5
                 self.value = self.value[:-1]
-                self.update_text(self.value, self.text_margin)
+                self.draw_text(self.value, center=True)
         # replace value with input value if enter or return is pressed and value is a float
         elif key in ("return", "enter"):
             if self.value != "" and EzUtils.is_float(self.value):
                 self.input_value = float(self.value)
                 home_screen.params[self.params] = self.input_value
                 # change color and update text
-                self.update_text(self.value, self.text_margin)
+                self.draw_text(self.value, center=True)
                 self.font_color = "000000"
             else:
                 # change color in red and update text
                 self.font_color = "FF0000"
-                self.update_text(self.value, self.text_margin, True)
+                self.draw_text(self.value, center=True)
         # add character to value
         else:
             self.value += key
-            self.text_margin[0] -= 5
             # change color and update text
             self.font_color = "000000"
-            self.update_text(self.value, self.text_margin)
+            self.draw_text(self.value, center=True)
