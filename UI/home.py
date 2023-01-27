@@ -23,10 +23,11 @@ class HomeScreen:
 
     def __init__(self, app):
         self.app = app
+        self.keyPressed: list[bool] = [False, False, False, False]  # up, down, left, right
+        self.keyList: list[str] = ["up", "down", "left", "right"]
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
-        self.params: list[float] = [-1, 0, 200, 1.2, 20]
         self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
             json_file
         )
@@ -39,6 +40,9 @@ class HomeScreen:
         self.ez_textFields: list[
             UI.Components.EzTextField
         ] = UI.Components.EzTextField.loader(json_file)
+        self.params: list[float] = [self.ez_textFields[0].input_value, self.ez_textFields[1].input_value,
+                                    self.ez_textFields[2].input_value, self.ez_textFields[3].input_value,
+                                    self.ez_textFields[4].input_value]
 
     def draw(self):
 
@@ -108,15 +112,27 @@ class HomeScreen:
 
         # check if the user presses a key
         if event == "KEY_DOWN":
-
+            key = EZ.key()
             # text field check
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
-                    if EZ.key() == "m":
+                    if key == "m":
                         textField.on_hover('.', self)
                     else:
-                        textField.on_hover(EZ.key(), self)
+                        textField.on_hover(key, self)
                     textField.create_text_field()
+
+            # check arrow keys
+            for i in range(len(self.keyList)):
+                if key == self.keyList[i]:
+                    self.keyPressed[i] = True
+
+        if event == "KEY_UP":
+            key = EZ.key()
+            # check arrow keys
+            for i in range(len(self.keyList)):
+                if key == self.keyList[i]:
+                    self.keyPressed[i] = False
 
         if event == "MOUSE_MOVEMENT":
             self.app.fractal.mouse_pos = np.array([mouse_x, mouse_y])
@@ -139,5 +155,9 @@ class HomeScreen:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+        for i in range(len(self.keyList)):
+            if self.keyPressed[i]:
+                self.app.fractal.move(self.keyList[i])
 
         self.update()

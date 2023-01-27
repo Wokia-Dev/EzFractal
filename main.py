@@ -97,6 +97,16 @@ class EzFractal:
         self.offset[0] = mouse_x - (center_x / self.zoom)
         self.offset[1] = mouse_y - (center_y / self.zoom)
 
+    def move(self, direction):
+        if direction == "up":
+            self.offset[1] += self.offset_gap
+        elif direction == "down":
+            self.offset[1] -= self.offset_gap
+        elif direction == "left":
+            self.offset[0] += self.offset_gap
+        elif direction == "right":
+            self.offset[0] -= self.offset_gap
+
     def calculate(self):
         # update c value and max iterations
         self.c = (
