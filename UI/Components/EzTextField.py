@@ -30,6 +30,7 @@ def loader(file_path):
                 text_field["input_value"],
                 text_field["params"],
                 text_field["character_list"],
+                text_field["max_length"]
             )
             for text_field in data["EzTextFields"]
         ]
@@ -61,6 +62,7 @@ class EzTextField:
             input_value: float,
             params: int,
             character_list=None,
+            max_length=int,
     ):
         self.name = name
         self.x = x
@@ -81,6 +83,7 @@ class EzTextField:
         self.input_value = input_value
         self.params = params
         self.character_list = character_list
+        self.max_length = max_length
 
     def create_text_field(self):
         # draw text field
@@ -119,7 +122,7 @@ class EzTextField:
                 self.y + (self.height - text_content.get_height()) // 2,
             )
         elif center and text_content.get_width() > self.width - self.border_width * 2:
-            text_content = EZ.image_text(self.text[:5] + "...", current_font, "FFA500")
+            text_content = EZ.image_text(self.text[:self.max_length] + "...", current_font, "FF7518")
             EZ.draw_image(
                 text_content,
                 self.x + (self.width - text_content.get_width()) // 2,

@@ -170,7 +170,8 @@
       "params": 0,
       "character_list": [
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
-                                               "backspace", "return", "enter"]
+                                               "backspace", "return", "enter"],
+      "max_length": 7
     },
     {
       "name": "cImgTextField",
@@ -192,7 +193,8 @@
       "input_value": 0.0,
       "params": 1,
       "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
-                                               "backspace", "return", "enter"]
+                                               "backspace", "return", "enter"],
+      "max_length": 7
     },
     {
       "name": "maxIterTextField",
@@ -214,7 +216,8 @@
       "input_value": 200,
       "params": 2,
       "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                               "backspace", "return", "enter"]
+                                               "backspace", "return", "enter"],
+      "max_length": 7
     },
     {
       "name": "zoomTextField",
@@ -236,7 +239,8 @@
       "input_value": 1.2,
       "params": 3,
       "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
-                                               "backspace", "return", "enter"]
+                                               "backspace", "return", "enter"],
+      "max_length": 7
     },
     {
       "name": "moveTextField",
@@ -258,7 +262,8 @@
       "input_value": 10,
       "params": 4,
       "character_list": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-",
-                                               "backspace", "return", "enter"]
+                                               "backspace", "return", "enter"],
+      "max_length": 7
     }
   ]
 }
