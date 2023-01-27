@@ -107,6 +107,10 @@ class EzFractal:
         elif direction == "right":
             self.offset[0] -= self.offset_gap
 
+    def reset(self):
+        self.zoom = 2.8 / height
+        self.offset = np.array([0.7 * width, height]) // 2
+
     def calculate(self):
         # update c value and max iterations
         self.c = (

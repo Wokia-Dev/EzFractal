@@ -91,8 +91,11 @@ class HomeScreen:
             if checked_ez_toggle is not None:
                 if checked_ez_toggle.name == "toggleMandelbrot":
                     self.toggleMandelbrot = not self.toggleMandelbrot
+                    self.app.fractal.reset()
+                    self.app.fractal.offset[0] += 75
                 if checked_ez_toggle.name == "toggleMouseMode":
                     self.toggleMouse = not self.toggleMouse
+                    self.app.fractal.reset()
                     if not self.toggleMouse:
                         for i in range(len(self.ez_textFields)):
                             self.update_text_fields(i, self.ez_textFields[i].value)
@@ -124,6 +127,14 @@ class HomeScreen:
                     else:
                         textField.on_hover(key, self)
                     textField.create_text_field()
+
+            # check reset key
+            if key == "r":
+                self.app.fractal.reset()
+                for i in range(len(self.ez_textFields)):
+                    self.update_text_fields(i, self.ez_textFields[i].value)
+                if self.toggleMandelbrot:
+                    self.app.fractal.offset[0] += 75
 
             # check arrow keys
             for i in range(len(self.keyList)):
