@@ -23,7 +23,12 @@ class HomeScreen:
 
     def __init__(self, app):
         self.app = app
-        self.keyPressed: list[bool] = [False, False, False, False]  # up, down, left, right
+        self.keyPressed: list[bool] = [
+            False,
+            False,
+            False,
+            False,
+        ]  # up, down, left, right
         self.keyList: list[str] = ["up", "down", "left", "right"]
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
@@ -40,9 +45,13 @@ class HomeScreen:
         self.ez_textFields: list[
             UI.Components.EzTextField
         ] = UI.Components.EzTextField.loader(json_file)
-        self.params: list[float] = [self.ez_textFields[0].input_value, self.ez_textFields[1].input_value,
-                                    self.ez_textFields[2].input_value, self.ez_textFields[3].input_value,
-                                    self.ez_textFields[4].input_value]
+        self.params: list[float] = [
+            self.ez_textFields[0].input_value,
+            self.ez_textFields[1].input_value,
+            self.ez_textFields[2].input_value,
+            self.ez_textFields[3].input_value,
+            self.ez_textFields[4].input_value,
+        ]
 
     def draw(self):
 
@@ -68,8 +77,10 @@ class HomeScreen:
 
     def update(self):
         # get the screen array of the menu and copy it to the main screen array
-        menu_screen_array = EZ.get_screen_array(self.app.resolution[0] - self.app.resolution[2])
-        np.copyto(self.app.screen_array[-self.app.resolution[2]:], menu_screen_array)
+        menu_screen_array = EZ.get_screen_array(
+            self.app.resolution[0] - self.app.resolution[2]
+        )
+        np.copyto(self.app.screen_array[-self.app.resolution[2] :], menu_screen_array)
 
     def check_events(self):
         # get the event from EZ
@@ -117,7 +128,7 @@ class HomeScreen:
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
                     if key == "m":
-                        textField.on_hover('.', self)
+                        textField.on_hover(".", self)
                     else:
                         textField.on_hover(key, self)
                     textField.create_text_field()
@@ -146,11 +157,11 @@ class HomeScreen:
 
         # check hover and change cursor
         if any(
-                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
         ) or any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         elif any(
-                textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:
