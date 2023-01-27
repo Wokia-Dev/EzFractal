@@ -132,6 +132,8 @@ class EzFractal:
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
                         self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
+                self.app.home_screen.update_text_fields(0, c.real)
+                self.app.home_screen.update_text_fields(1, c.imag)
 
                 # render the fractal and update the screen array
                 application.screen_array = self.render_julia(

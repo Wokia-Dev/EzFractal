@@ -135,6 +135,15 @@ class EzTextField:
                     (self.height // 2 + self.y) + text_margin[1]
                 )
 
+    def erase(self):
+        # erase text field
+        EZ.draw_rectangle_right(
+            self.x + self.border_width, self.y + self.border_width,
+            self.width - self.border_width * 2,
+            self.height - self.border_width * 2,
+            self.background_color
+        )
+
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # check if mouse is hovering over text field
         return (

@@ -93,6 +93,9 @@ class HomeScreen:
                     self.toggleMandelbrot = not self.toggleMandelbrot
                 if checked_ez_toggle.name == "toggleMouseMode":
                     self.toggleMouse = not self.toggleMouse
+                    if not self.toggleMouse:
+                        for i in range(len(self.ez_textFields)):
+                            self.update_text_fields(i, self.ez_textFields[i].value)
                 if checked_ez_toggle.name == "toggleFPS":
                     self.toggleFPS = not self.toggleFPS
                 checked_ez_toggle.create_toggle()
@@ -160,4 +163,9 @@ class HomeScreen:
             if self.keyPressed[i]:
                 self.app.fractal.move(self.keyList[i])
 
+        self.update()
+
+    def update_text_fields(self, index: int, value: str):
+        self.ez_textFields[index].erase()
+        self.ez_textFields[index].draw_text(str(value))
         self.update()
