@@ -32,7 +32,7 @@ def loader(file_path):
                 text_field["input_value"],
                 text_field["params"],
                 text_field["character_list"],
-                text_field["max_length"]
+                text_field["max_length"],
             )
             for text_field in data["EzTextFields"]
         ]
@@ -44,27 +44,27 @@ class EzTextField(EzComponent):
     """EzTextField class for creating text fields"""
 
     def __init__(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            width: int,
-            height: int,
-            text: str,
-            text_center: bool,
-            text_margin: list[int],
-            background_color: str,
-            border_color: str,
-            font_color: str,
-            font_size: int,
-            font_family: str,
-            font_file_format: str,
-            border_width: int,
-            value: str,
-            input_value: float,
-            params: int,
-            character_list=None,
-            max_length=int,
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        text_center: bool,
+        text_margin: list[int],
+        background_color: str,
+        border_color: str,
+        font_color: str,
+        font_size: int,
+        font_family: str,
+        font_file_format: str,
+        border_width: int,
+        value: str,
+        input_value: float,
+        params: int,
+        character_list=None,
+        max_length=int,
     ):
         super().__init__(name, x, y, width, height)
         self.text = str(input_value)
@@ -120,7 +120,9 @@ class EzTextField(EzComponent):
                 self.y + (self.height - text_content.get_height()) // 2,
             )
         elif center and text_content.get_width() > self.width - self.border_width * 2:
-            text_content = EZ.image_text(self.text[:self.max_length] + "...", current_font, "FF7518")
+            text_content = EZ.image_text(
+                self.text[: self.max_length] + "...", current_font, "FF7518"
+            )
             EZ.draw_image(
                 text_content,
                 self.x + (self.width - text_content.get_width()) // 2,
@@ -133,23 +135,24 @@ class EzTextField(EzComponent):
                 EZ.draw_image(
                     text_content,
                     (self.width // 2 + self.x) + text_margin[0],
-                    (self.height // 2 + self.y) + text_margin[1]
+                    (self.height // 2 + self.y) + text_margin[1],
                 )
 
     def erase(self):
         # erase text field
         EZ.draw_rectangle_right(
-            self.x + self.border_width, self.y + self.border_width,
+            self.x + self.border_width,
+            self.y + self.border_width,
             self.width - self.border_width * 2,
             self.height - self.border_width * 2,
-            self.background_color
+            self.background_color,
         )
 
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # check if mouse is hovering over text field
         return (
-                self.x <= mouse_x <= self.x + self.width
-                and self.y <= mouse_y <= self.y + self.height
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_hover(self, key, home_screen):
