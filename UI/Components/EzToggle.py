@@ -1,6 +1,8 @@
 import Core.EZ as EZ
 import json
 
+from UI.Components.EzComponent import EzComponent
+
 
 def loader(file_path):
     # Load EzToggle data from json file
@@ -34,7 +36,7 @@ def check_ez_toggle_event(toggle_list, mouse_x, mouse_y):
             return toggle
 
 
-class EzToggle:
+class EzToggle(EzComponent):
     """EzToggle class"""
 
     def __init__(
@@ -49,11 +51,7 @@ class EzToggle:
         circle_color: str,
         current_state: bool,
     ):
-        self.name = name
-        self.x = x
-        self.y = -y
-        self.width = width
-        self.height = height
+        super().__init__(name, x, -y, width, height)
         self.background_off_color = background_off_color
         self.background_on_color = background_on_color
         self.circle_color = circle_color

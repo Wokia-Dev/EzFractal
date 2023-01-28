@@ -1,5 +1,6 @@
 import json
 import Core.EZ as EZ
+from UI.Components.EzComponent import EzComponent
 
 
 def loader(file_path):
@@ -25,7 +26,7 @@ def loader(file_path):
         print(f"Error loading EzText data from {file_path}: {e}")
 
 
-class EzText:
+class EzText(EzComponent):
     """EzText class for creating text"""
 
     def __init__(
@@ -39,9 +40,7 @@ class EzText:
         font_family: str,
         file_format: str,
     ):
-        self.name = name
-        self.x = x
-        self.y = y
+        super().__init__(name, x, y)
         self.text = text
         self.color = color
         self.font_size = font_size

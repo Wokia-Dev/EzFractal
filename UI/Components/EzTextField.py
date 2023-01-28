@@ -2,6 +2,8 @@ import Core.EZ as EZ
 import Core.EzUtils as EzUtils
 import json
 
+from UI.Components.EzComponent import EzComponent
+
 
 def loader(file_path):
     # Load EzTextField data from json file
@@ -38,7 +40,7 @@ def loader(file_path):
         print(f"Error loading EzTextField data from {file_path}: {e}")
 
 
-class EzTextField:
+class EzTextField(EzComponent):
     """EzTextField class for creating text fields"""
 
     def __init__(
@@ -64,11 +66,7 @@ class EzTextField:
             character_list=None,
             max_length=int,
     ):
-        self.name = name
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+        super().__init__(name, x, y, width, height)
         self.text = str(input_value)
         self.text_center = text_center
         self.text_margin = text_margin

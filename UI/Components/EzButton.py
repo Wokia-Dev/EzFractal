@@ -1,6 +1,8 @@
 import Core.EZ as EZ
 import json
 
+from UI.Components.EzComponent import EzComponent
+
 
 def loader(file_path):
     # Load EzButton data from json file
@@ -40,7 +42,7 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
             return button
 
 
-class EzButton:
+class EzButton(EzComponent):
     """EzButton class for creating buttons"""
 
     def __init__(
@@ -60,11 +62,7 @@ class EzButton:
         text_margin: list[int],
         click_timer: int,
     ):
-        self.name = name
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+        super().__init__(name, x, y, width, height)
         self.text = text
         self.background_color = background_color
         self.background_opacity = background_opacity
