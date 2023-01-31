@@ -8,7 +8,7 @@ import UI.Components.EzButton
 import UI.Components.EzText
 import UI.Components.EzToggle
 import UI.Components.EzTextField
-from main import run as run_main_menu
+import main as launcher
 from UI.Components.EzButton import check_ez_button_event
 from UI.Components.EzToggle import check_ez_toggle_event
 from UI.Components import *
@@ -116,7 +116,7 @@ class HomeScreen:
                         )
                 if checked_ez_button.name == "btnReturn":
                     print("return")
-                    run_main_menu(True)
+                    launcher.Launcher.run(self.app.launcher, from_return=True)
                 checked_ez_button.create_button()
 
         # check if the user presses a key

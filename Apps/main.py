@@ -157,7 +157,8 @@ class EzFractal:
 
 
 class Application:
-    def __init__(self):
+    def __init__(self, launcher):
+        self.launcher = launcher
         self.fractal = EzFractal(self)
         self.home_screen = UI.home.HomeScreen(self)
         self.resolution = width, height, menu_width
@@ -186,6 +187,3 @@ class Application:
             self.fractal.run()
 
 
-if __name__ == "__main__":
-    application = Application()
-    application.run()

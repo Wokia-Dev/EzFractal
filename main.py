@@ -2,28 +2,35 @@ import sys
 
 from Apps import main
 import Core.EZ as EZ
+from UI.launcher_UI import LauncherUI
+
+# parameters
+# secondary parameters
+caption = "EZ Fractal Launcher"
+
+# main parameters
+width, height = 700, 400
 
 
-def run(return_to_main=False):
-    if return_to_main:
-        EZ.destroy_window()
-    EZ.create_window(800, 600, "Fractal")
-    EZ.draw_rectangle_right(50, 50, 200, 200, "FF00FF")
-    application = main.Application()
-    while True:
-        event = EZ.get_event()
-        if event == "EXIT" or event == "KEY_DOWN" and EZ.key() == "escape":
+class Launcher:
+    def __init__(self):
+        self.resolution = width, height
+        self.launcher_ui = LauncherUI(self)
+
+    def run(self, from_return: bool = False):
+        if from_return:
             EZ.destroy_window()
-            sys.exit()
-        if event == "MOUSE_LEFT_BUTTON_DOWN":
-            mouse_x, mouse_y = EZ.mouse_coordinates()
-            print(mouse_x, mouse_y)
-            if 50 < mouse_x < 250 and 50 < mouse_y < 250:
-                application.run()
 
-        EZ.update()
-        EZ.tick(60)
+        EZ.create_window(self.resolution[0], self.resolution[1], caption)
+        application = main.Application(self)
+        self.launcher_ui.run()
+        while True:
+            EZ.update()
+            self.launcher_ui.check_events()
+
+            EZ.update()
 
 
 if __name__ == "__main__":
-    run()
+    launcher = Launcher()
+    launcher.run()
