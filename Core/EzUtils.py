@@ -12,6 +12,10 @@ def is_float(element: any) -> bool:
         return False
 
 
+def clamp(value: float, min_value: float, max_value: float) -> float:
+    return max(min(value, max_value), min_value)
+
+
 @numba.njit(fastmath=True)
 def iter_gradient_generator(num_iter, max_iter) -> [uint8, uint8, uint8]:
     if num_iter == max_iter:
