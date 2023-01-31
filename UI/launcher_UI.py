@@ -29,4 +29,3 @@ class LauncherUI:
         if event == "EXIT" or event == "KEY_DOWN" and EZ.key() == "escape":
             EZ.destroy_window()
             sys.exit()
-
