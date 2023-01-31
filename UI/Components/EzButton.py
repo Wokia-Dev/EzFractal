@@ -151,8 +151,8 @@ class EzButton(EzComponent):
             # draw text
             EZ.draw_image(
                 text_content,
-                (self.width // 2 + self.x) + self.text_margin[0],
-                (self.height // 2 + self.y) + self.text_margin[1],
+                self.x + (self.width - text_content.get_width()) // 2,
+                self.y + (self.height - text_content.get_height()) // 2,
             )
 
     def check_hover(self, mouse_x, mouse_y) -> bool:
