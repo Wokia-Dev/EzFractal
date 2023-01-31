@@ -8,6 +8,7 @@ import UI.Components.EzButton
 import UI.Components.EzText
 import UI.Components.EzToggle
 import UI.Components.EzTextField
+from main import run as run_main_menu
 from UI.Components.EzButton import check_ez_button_event
 from UI.Components.EzToggle import check_ez_toggle_event
 from UI.Components import *
@@ -45,7 +46,6 @@ class HomeScreen:
                                     self.ez_textFields[4].input_value]
 
     def draw(self):
-
         # draw the buttons
         for button in self.ez_buttons:
             button.create_button()
@@ -114,6 +114,9 @@ class HomeScreen:
                         print(
                             "Please make sure you have a help.html file in the help directory."
                         )
+                if checked_ez_button.name == "btnReturn":
+                    print("return")
+                    run_main_menu(True)
                 checked_ez_button.create_button()
 
         # check if the user presses a key
@@ -170,11 +173,17 @@ class HomeScreen:
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
+        # move the fractal with the arrow keys
         for i in range(len(self.keyList)):
             if self.keyPressed[i]:
                 self.app.fractal.move(self.keyList[i])
 
         self.update()
+
+    def draw_return_button(self):
+        for button in self.ez_buttons:
+            if button.name == "btnReturn":
+                button.create_button()
 
     def update_text_fields(self, index: int, value: str):
         self.ez_textFields[index].erase()

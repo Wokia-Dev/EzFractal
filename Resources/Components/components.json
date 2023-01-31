@@ -18,6 +18,25 @@
         -11
       ],
       "click_timer": 300
+    },
+    {
+      "name": "btnReturn",
+      "x": 10,
+      "y": 10,
+      "width": 30,
+      "height": 22,
+      "text": "←",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 20,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        0,
+        0
+      ],
+      "click_timer": 300
     }
   ],
   "EzTexts": [
