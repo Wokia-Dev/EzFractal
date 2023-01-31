@@ -690,14 +690,18 @@ def draw_array(array, canvas=None):
     pygame.surfarray.blit_array(__choose(canvas), array)
 
 
-def get_screen_array(start_width):
+def get_screen_array(start_width, surface=None):
     """
     Returns an array of pixels of the screen.
     """
+    if surface:
+        return np.asarray(pygame.surfarray.array3d(surface), dtype=np.uint8)[start_width:]
     if start_width:
         return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)[start_width:]
-
-    return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)
+    if not start_width:
+        if surface:
+            return np.asarray(pygame.surfarray.array3d(surface), dtype=np.uint8)
+        return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)
 
 
 def get_fps():
@@ -733,6 +737,13 @@ def change_cursor(cursor):
     Changes the cursor.
     """
     pygame.mouse.set_cursor(cursor)
+
+
+def create_surface(width, height):
+    """
+    Creates a surface.
+    """
+    return pygame.Surface((width, height))
 
 
 def hex_to_rgb(hexa):

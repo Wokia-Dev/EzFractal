@@ -265,5 +265,33 @@
                                                "backspace", "return", "enter"],
       "max_length": 7
     }
+  ],
+  "EzScrollViews": [
+    {
+      "name": "a",
+      "x": 40,
+      "y": 40,
+      "width": 200,
+      "height": 800,
+      "display_height": 300,
+      "background_color": "FFFFFF",
+      "scroll_bar_color": "777777",
+      "scroll_bar_width": 7,
+      "offset": 0,
+      "offset_speed": 10
+    },
+    {
+      "name": "b",
+      "x": 250,
+      "y": 40,
+      "width": 100,
+      "height": 800,
+      "display_height": 300,
+      "background_color": "FFFFFF",
+      "scroll_bar_color": "777777",
+      "scroll_bar_width": 7,
+      "offset": 0,
+      "offset_speed": 10
+    }
   ]
 }
