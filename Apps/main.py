@@ -37,8 +37,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
@@ -62,8 +62,8 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # exit the loop if the number is diverging
                         break
                     num_iter += 1
@@ -113,9 +113,7 @@ class EzFractal:
 
     def calculate(self):
         # update c value and max iterations
-        self.c = (
-                self.app.home_screen.params[0] + self.app.home_screen.params[1] * 1j
-        )
+        self.c = self.app.home_screen.params[0] + self.app.home_screen.params[1] * 1j
         self.max_iter = self.app.home_screen.params[2]
 
         # update zoom and offset
@@ -134,7 +132,7 @@ class EzFractal:
             if self.app.home_screen.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                        self.mouse_pos[1] - self.offset[1]
+                    self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.home_screen.update_text_fields(0, c.real)
                 self.app.home_screen.update_text_fields(1, c.imag)
@@ -185,5 +183,3 @@ class Application:
             self.toggle_fps(self.home_screen.toggleFPS)
             EZ.tick(60)
             self.fractal.run()
-
-
