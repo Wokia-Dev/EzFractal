@@ -1,0 +1,116 @@
+{
+  "EzComplexButtons": [
+    {
+      "name": "btnExplore",
+      "x": 106,
+      "y": 78,
+      "width": 225,
+      "height": 110,
+      "background_color": "D9D9D9",
+      "background_opacity": 255,
+      "border_radius": 20
+    },
+    {
+      "name": "btnSaved",
+      "x": 371,
+      "y": 78,
+      "width": 225,
+      "height": 110,
+      "background_color": "D9D9D9",
+      "background_opacity": 255,
+      "border_radius": 20
+    },
+    {
+      "name": "btnPopular",
+      "x": 106,
+      "y": 214,
+      "width": 225,
+      "height": 110,
+      "background_color": "D9D9D9",
+      "background_opacity": 255,
+      "border_radius": 20
+    },
+    {
+      "name": "btnDocs",
+      "x": 371,
+      "y": 214,
+      "width": 225,
+      "height": 110,
+      "background_color": "D9D9D9",
+      "background_opacity": 255,
+      "border_radius": 20
+    },
+    {
+      "name": "btnSettings",
+      "x": 622,
+      "y": 107,
+      "width": 50,
+      "height": 50,
+      "background_color": "D9D9D9",
+      "background_opacity": 0,
+      "border_radius": 0
+    },
+    {
+      "name": "btnGithub",
+      "x": 622,
+      "y": 243,
+      "width": 50,
+      "height": 50,
+      "background_color": "D9D9D9",
+      "background_opacity": 0,
+      "border_radius": 0
+    }
+  ],
+  "EzTexts": [
+    {
+      "name": "txtTitle",
+      "x": 252,
+      "y": 24,
+      "text": "EZ Fractal Launcher",
+      "color": "000000",
+      "font_size": 20,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtExplore",
+      "x": 222,
+      "y": 119,
+      "text": "Explore",
+      "color": "000000",
+      "font_size": 20,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtSaved",
+      "x": 497,
+      "y": 119,
+      "text": "Saved",
+      "color": "000000",
+      "font_size": 20,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtPopular",
+      "x": 214,
+      "y": 256,
+      "text": "Popular",
+      "color": "000000",
+      "font_size": 20,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtDocs",
+      "x": 497,
+      "y": 256,
+      "text": "Docs",
+      "color": "000000",
+      "font_size": 20,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    }
+  ]
+}

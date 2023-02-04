@@ -42,25 +42,81 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
             return button
 
 
+def draw_border_radius(x, y, width, height, border_radius, background_color, background_opacity):
+    # draw rounded rectangle
+    # draw top left corner
+    EZ.draw_disk(
+        x + border_radius,
+        y + border_radius,
+        border_radius,
+        background_color,
+        transparency=background_opacity,
+    )
+    # draw top right corner
+    EZ.draw_disk(
+        x + border_radius,
+        y + height - border_radius,
+        border_radius,
+        background_color,
+        transparency=background_opacity,
+    )
+    # draw bottom left corner
+    EZ.draw_disk(
+        x + width - border_radius,
+        y + border_radius,
+        border_radius,
+        background_color,
+        transparency=background_opacity,
+    )
+    # draw bottom right corner
+    EZ.draw_disk(
+        x + width - border_radius,
+        y + height - border_radius,
+        border_radius,
+        background_color,
+        transparency=background_opacity,
+    )
+
+    # draw top and bottom borders
+    EZ.draw_rectangle_right(
+        x,
+        y + border_radius,
+        width + 1,
+        height - border_radius - border_radius,
+        background_color,
+        transparency=background_opacity,
+    )
+
+    # draw left and right borders
+    EZ.draw_rectangle_right(
+        x + border_radius,
+        y,
+        width - border_radius - border_radius,
+        height + 1,
+        background_color,
+        transparency=background_opacity,
+    )
+
+
 class EzButton(EzComponent):
     """EzButton class for creating buttons"""
 
     def __init__(
-        self,
-        name: str,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
-        text: str,
-        background_color: str,
-        background_opacity: int,
-        font_size: int,
-        font_color: str,
-        font_family: str,
-        border_radius: int,
-        text_margin: list[int],
-        click_timer: int,
+            self,
+            name: str,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
+            text: str,
+            background_color: str,
+            background_opacity: int,
+            font_size: int,
+            font_color: str,
+            font_family: str,
+            border_radius: int,
+            text_margin: list[int],
+            click_timer: int,
     ):
         super().__init__(name, x, y, width, height)
         self.text = text
@@ -87,58 +143,15 @@ class EzButton(EzComponent):
                 transparency=self.background_opacity,
             )
         else:
-            # draw rounded rectangle
-            # draw top left corner
-            EZ.draw_disk(
-                self.x + self.border_radius,
-                self.y + self.border_radius,
-                self.border_radius,
-                self.background_color,
-                transparency=self.background_opacity,
-            )
-            # draw top right corner
-            EZ.draw_disk(
-                self.x + self.border_radius,
-                self.y + self.height - self.border_radius,
-                self.border_radius,
-                self.background_color,
-                transparency=self.background_opacity,
-            )
-            # draw bottom left corner
-            EZ.draw_disk(
-                self.x + self.width - self.border_radius,
-                self.y + self.border_radius,
-                self.border_radius,
-                self.background_color,
-                transparency=self.background_opacity,
-            )
-            # draw bottom right corner
-            EZ.draw_disk(
-                self.x + self.width - self.border_radius,
-                self.y + self.height - self.border_radius,
-                self.border_radius,
-                self.background_color,
-                transparency=self.background_opacity,
-            )
-
-            # draw top and bottom borders
-            EZ.draw_rectangle_right(
+            # draw rounded rectangle if border radius is not 0
+            draw_border_radius(
                 self.x,
-                self.y + self.border_radius,
-                self.width + 1,
-                self.height - self.border_radius - self.border_radius,
-                self.background_color,
-                transparency=self.background_opacity,
-            )
-
-            # draw left and right borders
-            EZ.draw_rectangle_right(
-                self.x + self.border_radius,
                 self.y,
-                self.width - self.border_radius - self.border_radius,
-                self.height + 1,
+                self.width,
+                self.height,
+                self.border_radius,
                 self.background_color,
-                transparency=self.background_opacity,
+                self.background_opacity,
             )
         # Draw text
         if self.text != "":
@@ -158,8 +171,8 @@ class EzButton(EzComponent):
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # Check if mouse is hovering over button
         return (
-            self.x <= mouse_x <= self.x + self.width
-            and self.y <= mouse_y <= self.y + self.height
+                self.x <= mouse_x <= self.x + self.width
+                and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_click(self):
