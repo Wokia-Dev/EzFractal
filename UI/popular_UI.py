@@ -13,7 +13,9 @@ json_file = "Resources\\Components\\popular_app_components.json"
 class PopularUI:
     def __init__(self, app):
         self.app = app
-        self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(json_file)
+        self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
+            json_file
+        )
 
     def draw(self):
         for button in self.ez_buttons:
@@ -50,9 +52,7 @@ class PopularUI:
                 checked_ez_button.create_button()
 
         # check hover and change cursor
-        if any(
-            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
-        ):
+        if any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)

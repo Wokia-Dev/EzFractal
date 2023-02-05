@@ -22,7 +22,7 @@ def loader(file_path, content: callable):
                 button["background_color"],
                 button["background_opacity"],
                 button["border_radius"],
-                content
+                content,
             )
             for button in data["EzComplexButtons"]
         ]
@@ -38,18 +38,20 @@ def check_ez_complex_button_event(button_list, mouse_x, mouse_y):
 
 
 class EzComplexButton(EzComponent):
-    """ EzComplexButton class for creating complex buttons """
+    """EzComplexButton class for creating complex buttons"""
 
-    def __init__(self,
-                 name: str,
-                 x: int,
-                 y: int,
-                 width: int,
-                 height: int,
-                 background_color: str,
-                 background_opacity: int,
-                 border_radius: int,
-                 content: callable):
+    def __init__(
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        background_color: str,
+        background_opacity: int,
+        border_radius: int,
+        content: callable,
+    ):
         super().__init__(name, x, y, width, height)
         self.background_color = background_color
         self.background_opacity = background_opacity
@@ -86,6 +88,6 @@ class EzComplexButton(EzComponent):
     def check_hover(self, mouse_x, mouse_y) -> bool:
         # Check if mouse is hovering over button
         return (
-                self.x <= mouse_x <= self.x + self.width
-                and self.y <= mouse_y <= self.y + self.height
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
         )
