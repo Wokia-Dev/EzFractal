@@ -25,4 +25,3 @@ class Popular_App:
         while True:
             EZ.update()
             self.popular_app_ui.check_events()
-

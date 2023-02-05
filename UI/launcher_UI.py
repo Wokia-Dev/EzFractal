@@ -16,7 +16,9 @@ class LauncherUI:
         self.ez_complex_buttons: list[
             UI.Components.EzComplexButton
         ] = UI.Components.EzComplexButton.loader(json_file, self.complex_button_content)
-        self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(json_file)
+        self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
+            json_file
+        )
 
     def draw(self):
         for complex_button in self.ez_complex_buttons:
@@ -25,7 +27,9 @@ class LauncherUI:
         for text in self.ez_texts:
             text.create_text()
 
-    def complex_button_content(self, name: str, x: int, y: int, width: int, height: int):
+    def complex_button_content(
+        self, name: str, x: int, y: int, width: int, height: int
+    ):
         # Draw the content of the complex button
         if name == "btnSettings":
             settings_icon = EZ.load_image("Resources\\Images\\settings_icon.png")
@@ -37,13 +41,19 @@ class LauncherUI:
         # main buttons
         elif name == "btnExplore":
             explore_icon = EZ.load_image("Resources\\Images\\explore_icon.png")
-            EZ.draw_image(explore_icon, x + 20, y + (height - explore_icon.get_height()) / 2)
+            EZ.draw_image(
+                explore_icon, x + 20, y + (height - explore_icon.get_height()) / 2
+            )
         elif name == "btnSaved":
             saved_icon = EZ.load_image("Resources\\Images\\saved_icon.png")
-            EZ.draw_image(saved_icon, x + 20, y + (height - saved_icon.get_height()) / 2)
+            EZ.draw_image(
+                saved_icon, x + 20, y + (height - saved_icon.get_height()) / 2
+            )
         elif name == "btnPopular":
             popular_icon = EZ.load_image("Resources\\Images\\popular_icon.png")
-            EZ.draw_image(popular_icon, x + 20, y + (height - popular_icon.get_height()) / 2)
+            EZ.draw_image(
+                popular_icon, x + 20, y + (height - popular_icon.get_height()) / 2
+            )
         elif name == "btnDocs":
             docs_icon = EZ.load_image("Resources\\Images\\docs_icon.png")
             EZ.draw_image(docs_icon, x + 20, y + (height - docs_icon.get_height()) / 2)
@@ -91,4 +101,3 @@ class LauncherUI:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
-

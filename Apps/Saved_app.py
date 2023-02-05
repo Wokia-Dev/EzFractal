@@ -25,4 +25,3 @@ class Saved_App:
         while True:
             EZ.update()
             self.saved_app_ui.check_events()
-
