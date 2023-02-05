@@ -126,7 +126,6 @@ class HomeScreen:
                             "Please make sure you have a help.html file in the help directory."
                         )
                 if checked_ez_button.name == "btnReturn":
-                    print("return")
                     launcher.Launcher.run(self.app.launcher, from_return=True)
                 checked_ez_button.create_button()
 

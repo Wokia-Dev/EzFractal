@@ -6,7 +6,7 @@ from Core.EzUtils import iter_gradient_generator
 
 # parameters
 # secondary parameters
-caption = "EZ Fractal"
+caption = "EZ Fractal-Explore"
 
 # main parameters
 width, height, menu_width = 700, 400, 200

@@ -79,6 +79,8 @@ class LauncherUI:
                         webbrowser.open("https://github.com/Wokia-Dev/EzFractal")
                     except Exception as e:
                         print("Error: ", e)
+                elif checked_complex_button.name == "btnPopular":
+                    self.app.popular_app.run()
 
         if any(
             complex_button.check_hover(mouse_x, mouse_y)
