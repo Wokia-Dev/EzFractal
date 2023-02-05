@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from Apps import main
+from Apps import explore_app
 import Core.EZ as EZ
 from Apps.Saved_app import Saved_App
 from Apps.popular_app import Popular_App
@@ -20,7 +20,7 @@ class Launcher:
     def __init__(self):
         self.resolution = width, height
         self.launcher_ui = LauncherUI(self)
-        self.application = main.Application(self)
+        self.application = explore_app.Application(self)
         self.popular_app = Popular_App(self, self.application)
         self.saved_app = Saved_App(self, self.application)
 

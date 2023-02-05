@@ -1,6 +1,5 @@
 import pygame
 
-import main
 from Core import EZ
 from UI.popular_UI import PopularUI
 

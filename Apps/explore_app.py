@@ -1,7 +1,7 @@
 import numba
 import numpy as np
 import Core.EZ as EZ
-import UI.home
+import UI.home_UI
 from Core.EzUtils import iter_gradient_generator
 
 # parameters
@@ -158,7 +158,7 @@ class Application:
     def __init__(self, launcher):
         self.launcher = launcher
         self.fractal = EzFractal(self)
-        self.home_screen = UI.home.HomeScreen(self)
+        self.home_screen = UI.home_UI.HomeScreen(self)
         self.resolution = width, height, menu_width
         self.screen_array = np.full((width, height, 3), [0, 0, 255], dtype=np.uint8)
 
