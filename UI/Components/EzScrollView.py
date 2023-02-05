@@ -82,20 +82,25 @@ class EzScrollView(EzComponent):
     def draw_on_screen(self, screen_array: np.array, app):
         # draw the view surface on the screen
         surface_screen_array = np.asarray(pygame.surfarray.array3d(self.view_surface), dtype=np.uint8)
+        # get the dimensions of the screen
         max_x = app.resolution[0]
         max_y = app.resolution[1]
         menu_width = app.resolution[2]
         if self.x + self.width > max_x - menu_width:
             print("EzScrollView: x position is out of bounds")
             return None
+        # check if the height of the scroll view is greater than the display height
         if self.y + self.height > max_y:
+            # copy the scroll view surface to the screen with the offset
             np.copyto(screen_array[self.x:self.x + self.width, self.y:self.y + self.display_height],
                       surface_screen_array[0:self.width,
                       self.offset:max_y - self.y + self.offset - (max_y - self.y - self.display_height)])
         else:
+            # copy the view surface to the screen
             np.copyto(screen_array[self.x:self.x + self.width, self.y:self.y + self.height], surface_screen_array)
 
     def scroll_up(self, gap=None):
+        # change the offset value and redraw the scroll bar
         if gap is None:
             if self.offset - self.offset_speed >= 0:
                 self.offset -= self.offset_speed
@@ -109,6 +114,7 @@ class EzScrollView(EzComponent):
                 self.draw_scroll_bar()
 
     def scroll_down(self, height, gap=None):
+        # change the offset value and redraw the scroll bar
         if gap is None:
             if self.offset + height + self.offset_speed <= self.height + self.y + (
                     height - self.y - self.display_height):
@@ -123,6 +129,7 @@ class EzScrollView(EzComponent):
                 self.draw_scroll_bar()
 
     def draw_scroll_bar(self, mouse_y=None):
+        # draw the scroll bar
         if mouse_y is None:
             # draw the scroll bar
             if self.height > self.display_height:
@@ -138,6 +145,7 @@ class EzScrollView(EzComponent):
                                         self.scroll_bar_color,
                                         canvas=self.view_surface)
         else:
+            # draw the scroll bar with the mouse position
             if self.height > self.display_height:
                 relative_mouse_y = EzUtils.clamp(mouse_y - self.y, 0, self.display_height)
                 self.offset = math.ceil(
@@ -145,15 +153,24 @@ class EzScrollView(EzComponent):
                 self.draw_scroll_bar()
 
     def check_scroll_hover(self, x, y):
+        # check if the mouse is hovering over the scroll bar
+
+        # check x position
         if self.x + self.width - self.scroll_bar_width <= x <= self.x + self.width:
+            # get the position of the scroll bar in the scroll view
             pos_view_surface = self.offset * (1 + self.display_height / self.height)
+            # get the maximum position of the scroll bar in the scroll view
             max_pos_view_surface = self.height - self.scroll_bar_height
+            # get the position of the scroll bar on the screen
             scroll_pos = pos_view_surface * ((self.display_height - self.scroll_bar_height) / max_pos_view_surface)
+
+            # check y position
             if scroll_pos <= y - self.y <= scroll_pos + self.scroll_bar_height:
                 return True
         return False
 
     def check_hover(self, x, y):
+        # check if the mouse is hovering over the scroll view
         if self.x <= x <= self.x + self.width:
             if self.y <= y <= self.y + self.display_height:
                 return True
