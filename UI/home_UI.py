@@ -29,8 +29,9 @@ class HomeScreen:
             False,
             False,
             False,
-        ]  # up, down, left, right
-        self.keyList: list[str] = ["up", "down", "left", "right"]
+            False
+        ]  # up, down, left, right and shift
+        self.keyList: list[str] = ["up", "down", "left", "right", "left shift"]
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
@@ -137,6 +138,8 @@ class HomeScreen:
                 if textField.check_hover(mouse_x, mouse_y):
                     if key == "m":
                         textField.on_hover(".", self)
+                    if key == "6" and self.keyPressed[4]:
+                        textField.on_hover("-", self)
                     else:
                         textField.on_hover(key, self)
                     textField.create_text_field()
