@@ -18,9 +18,9 @@ def clamp(value: float, min_value: float, max_value: float) -> float:
 
 
 @numba.njit(fastmath=True)
-def iter_gradient_generator(num_iter: int, max_iter: int, saturation: float = 0.8, lightness: float = 0.5) -> [uint8,
-                                                                                                               uint8,
-                                                                                                               uint8]:
+def iter_gradient_generator(
+    num_iter: int, max_iter: int, saturation: float = 0.8, lightness: float = 0.5
+) -> [uint8, uint8, uint8]:
     if num_iter == max_iter:
         return [0, 0, 0]
     else:

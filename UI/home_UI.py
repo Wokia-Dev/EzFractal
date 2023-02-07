@@ -29,7 +29,7 @@ class HomeScreen:
             False,
             False,
             False,
-            False
+            False,
         ]  # up, down, left, right and shift
         self.keyList: list[str] = ["up", "down", "left", "right", "left shift"]
         self.toggleMandelbrot: bool = False

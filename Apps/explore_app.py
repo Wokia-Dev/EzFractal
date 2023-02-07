@@ -28,8 +28,14 @@ class EzFractal:
 
     @staticmethod
     @numba.njit(fastmath=True, parallel=True)
-    def render_mandelbrot(screen_array: np.array, max_iter: int, zoom: float, offset: np.array, saturation: float = 0.8,
-                          lightness: float = 0.5):
+    def render_mandelbrot(
+        screen_array: np.array,
+        max_iter: int,
+        zoom: float,
+        offset: np.array,
+        saturation: float = 0.8,
+        lightness: float = 0.5,
+    ):
         # foreach pixel in the screen array using numba parallel
         for x in numba.prange(width - menu_width):
             for y in numba.prange(height):
@@ -41,21 +47,30 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
 
                 # define the color based on the number of iterations and set the pixel color in the screen array
-                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter, saturation, lightness)
+                screen_array[x, y] = iter_gradient_generator(
+                    num_iter, max_iter, saturation, lightness
+                )
                 # return the screen array
         return screen_array
 
     @staticmethod
     @numba.njit(fastmath=True, parallel=True)
-    def render_julia(screen_array: np.array, c: complex, max_iter: int, zoom: float, offset: np.array,
-                     saturation: float = 0.8, lightness: float = 0.5):
+    def render_julia(
+        screen_array: np.array,
+        c: complex,
+        max_iter: int,
+        zoom: float,
+        offset: np.array,
+        saturation: float = 0.8,
+        lightness: float = 0.5,
+    ):
         # foreach pixel in the screen array using numba parallel
         for x in numba.prange(width - menu_width):
             for y in numba.prange(height):
@@ -67,14 +82,16 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # exit the loop if the number is diverging
                         break
                     num_iter += 1
 
                 # define the color based on the number of iterations and set the pixel color in the screen array
-                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter, saturation, lightness)
+                screen_array[x, y] = iter_gradient_generator(
+                    num_iter, max_iter, saturation, lightness
+                )
         # return the screen array
         return screen_array
 
@@ -90,7 +107,7 @@ class EzFractal:
         self.offset[0] = mouse_x - (center_x / self.zoom)
         self.offset[1] = mouse_y - (center_y / self.zoom)
 
-    def scroll_down(self, mouse_x: int, mouse_y:int):
+    def scroll_down(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
         center_x = (mouse_x - self.offset[0]) * self.zoom
         center_y = (mouse_y - self.offset[1]) * self.zoom
@@ -137,7 +154,7 @@ class EzFractal:
             if self.app.home_screen.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                        self.mouse_pos[1] - self.offset[1]
+                    self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.home_screen.update_text_fields(0, c.real)
                 self.app.home_screen.update_text_fields(1, c.imag)
