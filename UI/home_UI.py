@@ -35,17 +35,17 @@ class HomeScreen:
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
-        self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
+        self.ez_buttons: list[UI.Components.EzButton.EzButton] = UI.Components.EzButton.loader(
             json_file
         )
-        self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
+        self.ez_texts: list[UI.Components.EzText.EzText] = UI.Components.EzText.loader(
             json_file
         )
-        self.ez_toggles: list[UI.Components.EzToggle] = UI.Components.EzToggle.loader(
+        self.ez_toggles: list[UI.Components.EzToggle.EzToggle] = UI.Components.EzToggle.loader(
             json_file
         )
         self.ez_textFields: list[
-            UI.Components.EzTextField
+            UI.Components.EzTextField.EzTextField
         ] = UI.Components.EzTextField.loader(json_file)
         self.params: list[float] = [
             self.ez_textFields[0].input_value,

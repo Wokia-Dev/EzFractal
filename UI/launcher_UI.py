@@ -14,7 +14,7 @@ class LauncherUI:
     def __init__(self, app):
         self.app = app
         self.ez_complex_buttons: list[
-            UI.Components.EzComplexButton
+            UI.Components.EzComplexButton.EzComplexButton
         ] = UI.Components.EzComplexButton.loader(json_file, self.complex_button_content)
         self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
             json_file

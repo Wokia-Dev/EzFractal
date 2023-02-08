@@ -96,7 +96,7 @@ class EzScrollView(EzComponent):
         # get the dimensions of the screen
         max_x = app.resolution[0]
         max_y = app.resolution[1]
-        menu_width = app.resolution[2]
+        menu_width = app.resolution[2] if len(app.resolution) > 2 else 0
         if self.x + self.width > max_x - menu_width:
             print("EzScrollView: x position is out of bounds")
             return None
