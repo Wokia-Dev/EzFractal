@@ -43,7 +43,7 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
 
 
 def draw_border_radius(
-    x, y, width, height, border_radius, background_color, background_opacity
+    x, y, width, height, border_radius, background_color, background_opacity, canvas=None
 ):
     # draw rounded rectangle
     # draw top left corner
@@ -53,6 +53,7 @@ def draw_border_radius(
         border_radius,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
     # draw top right corner
     EZ.draw_disk(
@@ -61,6 +62,7 @@ def draw_border_radius(
         border_radius,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
     # draw bottom left corner
     EZ.draw_disk(
@@ -69,6 +71,7 @@ def draw_border_radius(
         border_radius,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
     # draw bottom right corner
     EZ.draw_disk(
@@ -77,6 +80,7 @@ def draw_border_radius(
         border_radius,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
 
     # draw top and bottom borders
@@ -87,6 +91,7 @@ def draw_border_radius(
         height - border_radius - border_radius,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
 
     # draw left and right borders
@@ -97,6 +102,7 @@ def draw_border_radius(
         height + 1,
         background_color,
         transparency=background_opacity,
+        canvas=canvas if canvas else None,
     )
 
 

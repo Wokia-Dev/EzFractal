@@ -1,0 +1,114 @@
+import json
+
+import pygame
+
+import Core.EZ as EZ
+from UI.Components.EzButton import draw_border_radius
+from UI.Components.EzComponent import EzComponent
+
+
+class EzFractalButton(EzComponent):
+    """EzFractalButton class for creating fractal buttons"""
+
+    def __init__(
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        border_radius: int,
+        background_color: str,
+        background_opacity: int,
+        font_color: str,
+        font_size: int,
+        font_family: str,
+        c_real: float,
+        c_imaginary: float,
+        max_iterations: int,
+        max_length: int,
+        image_path: str,
+        file_format: str = "otf",
+    ):
+        super().__init__(name, x, y, width, height)
+        self.border_radius = border_radius
+        self.background_color = background_color
+        self.background_opacity = background_opacity
+        self.font_color = font_color
+        self.font_size = font_size
+        self.font_family = font_family
+        self.c_real = c_real
+        self.c_imaginary = c_imaginary
+        self.max_iterations = max_iterations
+        self.max_length = max_length
+        self.image_path = image_path
+        self.file_format = file_format
+
+    # Create button
+    def create_fractal_button(self, surface: pygame.Surface):
+        # Draw background
+        if self.border_radius == 0:
+            # draw simple rectangle if border radius is 0
+            EZ.draw_rectangle_right(
+                self.x,
+                self.y,
+                self.width,
+                self.height - 1,
+                self.background_color,
+                transparency=self.background_opacity,
+                canvas=surface
+            )
+        else:
+            # draw rounded rectangle if border radius is not 0
+            draw_border_radius(
+                self.x,
+                self.y,
+                self.width,
+                self.height - 1,
+                self.border_radius,
+                self.background_color,
+                self.background_opacity,
+                canvas=surface
+            )
+
+        # Draw image
+        try :
+            image = EZ.load_image(self.image_path)
+            EZ.draw_image(image, self.x, self.y, self.background_opacity, border_radius=self.border_radius, canvas=surface)
+
+        except FileNotFoundError:
+            print(f"Error loading image from {self.image_path}")
+
+        # Draw text
+        current_font = EZ.load_font(
+            self.font_size, f"Resources/Fonts/{self.font_family}.{self.file_format}"
+        )
+        # refortmat c_real and c_imaginary
+        c_real_formatted = str(self.c_real)[: self.max_length] if len(str(self.c_real)) > self.max_length else str(self.c_real)
+        c_imaginary_formatted = str(self.c_imaginary)[: self.max_length] if len(str(self.c_imaginary)) > self.max_length else str(self.c_imaginary)
+
+        c_real_text = EZ.image_text(f"c(real): {c_real_formatted}",  current_font, self.font_color)
+        c_imaginary_text = EZ.image_text(f"c(img): {c_imaginary_formatted}",  current_font, self.font_color)
+        max_iter_text = EZ.image_text(f"max iter: {self.max_iterations}",  current_font, self.font_color)
+
+        # Draw text
+        texts_height = c_real_text.get_height() + c_imaginary_text.get_height() + max_iter_text.get_height()
+        texts_height_spacing = (self.height - texts_height) / 2
+        EZ.draw_image(c_real_text, self.x + 140, self.y + 20, canvas=surface)
+        EZ.draw_image(c_imaginary_text, self.x + 140, self.y + 20 + texts_height_spacing, canvas=surface)
+        EZ.draw_image(max_iter_text, self.x + 140, self.y + 20 + texts_height_spacing*2, canvas=surface)
+
+    def check_hover(self, x, y, scroll_view_x, scroll_view_y, scroll_offset, display_height, scroll_view_height):
+        # check x position
+        if self.x + scroll_view_x <= x <= self.x + self.width + scroll_view_x:
+            # get the position of the scroll bar in the scroll view
+            pos_view_surface = scroll_offset * (1 + display_height / scroll_view_height)
+            # get the maximum position of the scroll bar in the scroll view
+            max_pos_view_surface = scroll_view_height - self.height
+            # get the position of the scroll bar on the screen
+            scroll_pos = pos_view_surface * (
+                (display_height - self.height) / max_pos_view_surface
+            )
+            if scroll_pos <= y - self.y - scroll_view_y <= scroll_pos + self.height:
+                return True
+        return False

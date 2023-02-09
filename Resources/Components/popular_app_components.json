@@ -19,5 +19,20 @@
     ],
     "click_timer": 300
   }
+],
+"EzScrollViews": [
+  {
+    "name": "scrollView",
+    "x": 60,
+    "y": 50,
+    "width": 580,
+    "height": 800,
+    "display_height": 330,
+    "background_color": "FFFFFF",
+    "scroll_bar_color": "777777",
+    "scroll_bar_width": 7,
+    "offset": 0,
+    "offset_speed": 10
+  }
 ]
 }

@@ -217,6 +217,32 @@ class EzScrollView(EzComponent):
                 return True
         return False
 
+    def check_custom_hover(self, x, y, custom_x, custom_y, custom_width, custom_height):
+        # check if the mouse is hovering over the scroll bar
+
+        # check x position
+        if self.x + custom_x <= x <= self.x + custom_x + custom_width:
+            
+            # get the display height of the object
+            display_height = custom_height
+            if custom_height + custom_y - self.offset < custom_height:
+                display_height = custom_height + custom_y - self.offset
+            
+            # if the object is not displayed intirely
+            if not display_height < custom_height:
+                min_y = custom_y + self.y - self.offset
+            
+            # if the object is displayed intirely
+            else:
+                min_y = custom_y + self.y + custom_height - self.offset - display_height
+
+            # get the maximum y position of the object
+            max_y = custom_y + self.y + custom_height - self.offset
+            # check y position
+            if min_y <= y <= max_y:
+                return True
+        return False
+
     def check_hover(self, x, y):
         # check if the mouse is hovering over the scroll view
         if self.x <= x <= self.x + self.width:
