@@ -12,7 +12,6 @@ caption = "EZ Fractal-Popular"
 width, height = 700, 400
 
 
-
 class Popular_App:
     def __init__(self, launcher, app):
         self.resolution = width, height
@@ -30,5 +29,3 @@ class Popular_App:
             self.popular_app_ui.run()
             self.popular_app_ui.check_events()
             EZ.update()
-            
-

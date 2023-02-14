@@ -43,7 +43,14 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
 
 
 def draw_border_radius(
-    x, y, width, height, border_radius, background_color, background_opacity, canvas=None
+    x,
+    y,
+    width,
+    height,
+    border_radius,
+    background_color,
+    background_opacity,
+    canvas=None,
 ):
     # draw rounded rectangle
     # draw top left corner

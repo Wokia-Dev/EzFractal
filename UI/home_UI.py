@@ -29,21 +29,21 @@ class HomeScreen:
             False,
             False,
             False,
-            False
+            False,
         ]  # up, down, left, right and shift
         self.keyList: list[str] = ["up", "down", "left", "right", "left shift"]
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
-        self.ez_buttons: list[UI.Components.EzButton.EzButton] = UI.Components.EzButton.loader(
-            json_file
-        )
+        self.ez_buttons: list[
+            UI.Components.EzButton.EzButton
+        ] = UI.Components.EzButton.loader(json_file)
         self.ez_texts: list[UI.Components.EzText.EzText] = UI.Components.EzText.loader(
             json_file
         )
-        self.ez_toggles: list[UI.Components.EzToggle.EzToggle] = UI.Components.EzToggle.loader(
-            json_file
-        )
+        self.ez_toggles: list[
+            UI.Components.EzToggle.EzToggle
+        ] = UI.Components.EzToggle.loader(json_file)
         self.ez_textFields: list[
             UI.Components.EzTextField.EzTextField
         ] = UI.Components.EzTextField.loader(json_file)
