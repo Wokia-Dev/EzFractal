@@ -1,13 +1,23 @@
+import json
 import sys
 import webbrowser
 
 import pygame
 
+from multiprocessing import Pool
+
 from Core import EZ
+from Core.EzUtils import generate_image
 import UI.Components.EzComplexButton
 from UI.Components.EzComplexButton import check_ez_complex_button_event
 
 json_file = "Resources\\Components\\launcher_components.json"
+
+
+def generate_image_worker(args):
+    i, c_real, c_imag, max_iterations = args
+    generate_image(c_real, c_imag, max_iterations, "popular_fractal_" + str(i) + ".png")
+    return i, "Resources\\Images\\Popular_fractals\\popular_fractal_" + str(i) + ".png"
 
 
 class LauncherUI:
@@ -28,7 +38,7 @@ class LauncherUI:
             text.create_text()
 
     def complex_button_content(
-        self, name: str, x: int, y: int, width: int, height: int
+            self, name: str, x: int, y: int, width: int, height: int
     ):
         # Draw the content of the complex button
         if name == "btnSettings":
@@ -90,14 +100,33 @@ class LauncherUI:
                     except Exception as e:
                         print("Error: ", e)
                 elif checked_complex_button.name == "btnPopular":
+                    self.load_popular_app()
+                    self.app.popular_app.popular_app_ui.update_fractal_buttons()
                     self.app.popular_app.run()
                 elif checked_complex_button.name == "btnSaved":
                     self.app.saved_app.run()
 
         if any(
-            complex_button.check_hover(mouse_x, mouse_y)
-            for complex_button in self.ez_complex_buttons
+                complex_button.check_hover(mouse_x, mouse_y)
+                for complex_button in self.ez_complex_buttons
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
+
+    def load_popular_app(self):
+        app_json_file = "Resources\\Components\\popular_app_components.json"
+        with open(app_json_file, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        nb_buttons = len(data["EzFractalButtons"])
+        worker_args = [(i, button["c_real"], button["c_imag"], button["max_iterations"]) for i, button in
+                       enumerate(data["EzFractalButtons"])]
+        with Pool() as p:
+            results = p.map(generate_image_worker, worker_args)
+
+        for i, image_path in results:
+            data["EzFractalButtons"][i]["image_path"] = image_path
+
+        with open(app_json_file, "w") as file:
+            json.dump(data, file, separators=(",", ":"))

@@ -5,14 +5,12 @@ import pygame
 
 from Core import EZ
 import UI.Components.EzButton
-from UI.Components.EzFractalButton import EzFractalButton
 import UI.Components.EzScrollView
+import UI.Components.EzFractalButton
 import main as launcher
 from UI.Components.EzButton import check_ez_button_event
 
 json_file = "Resources\\Components\\popular_app_components.json"
-special_button = EzFractalButton("btnS", 0, 0, 275, 110, 10, "D9D9D9", 255, "0000000", 17, "SF-Pro-Text-Regular", -1.123456789, 0.123456789, 200, 7, "Resources\\Images\\image2.png")
-special_button2 = EzFractalButton("btnS", 0, 170, 275, 110, 10, "D9D9D9", 255, "0000000", 17, "SF-Pro-Text-Regular", -1.123456789, 0.123456789, 200, 7, "Resources\\Images\\image2.png")
 
 
 class PopularUI:
@@ -24,10 +22,17 @@ class PopularUI:
         self.ez_scrollViews: list[
             UI.Components.EzScrollView.EzScrollView
         ] = UI.Components.EzScrollView.loader(json_file)
+        self.ez_fractal_buttons = None
+
+    def update_fractal_buttons(self):
+        # update the fractal buttons
+        self.ez_fractal_buttons: list[
+            UI.Components.EzFractalButton.EzFractalButton
+        ] = UI.Components.EzFractalButton.loader(json_file)
 
     def scroll_view_content(self, surface: pygame.Surface):
-            special_button.create_fractal_button(surface)
-            special_button2.create_fractal_button(surface)
+        for button in self.ez_fractal_buttons:
+            button.create_fractal_button(surface)
 
     def draw(self):
         # draw the buttons
@@ -37,9 +42,6 @@ class PopularUI:
         # draw the scroll view
         for scrollView in self.ez_scrollViews:
             scrollView.create_scroll_view(self.scroll_view_content)
-
-
-    
 
     def run(self):
         self.draw()
@@ -78,10 +80,14 @@ class PopularUI:
                 if scrollView.check_scroll_hover(mouse_x, mouse_y):
                     scrollView.mouse_down = True
                 if scrollView.name == "scrollView":
-                    test = scrollView.check_custom_hover(mouse_x, mouse_y, special_button.x, special_button.y, special_button.width, special_button.height)
-                    
-                    test2 = scrollView.check_custom_hover(mouse_x, mouse_y, special_button2.x, special_button2.y, special_button2.width, special_button2.height)
-                    print(test, test2)
+                    for button in self.ez_fractal_buttons:
+                        # open explore app with the clicked fractal
+                        if scrollView.check_custom_hover(mouse_x, mouse_y, button.x, button.y, button.width,
+                                                         button.height):
+                            self.app.application.home_screen.params[0] = button.c_real
+                            self.app.application.home_screen.params[1] = button.c_imaginary
+                            self.app.application.fractal.reset()
+                            self.app.application.run()
 
         if event == "MOUSE_LEFT_BUTTON_UP":
             for scrollView in self.ez_scrollViews:
@@ -99,7 +105,7 @@ class PopularUI:
 
         # check hover and change cursor
         if any(
-            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
         ) or any(
             scrollView.check_scroll_hover(mouse_x, mouse_y)
             for scrollView in self.ez_scrollViews
