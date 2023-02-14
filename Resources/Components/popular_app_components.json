@@ -52,7 +52,7 @@
       "c_imag": 0.8,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_0.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -71,7 +71,7 @@
       "c_imag": 0.1,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_1.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -90,7 +90,7 @@
       "c_imag": 0.355,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_2.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -109,7 +109,7 @@
       "c_imag": 0.54,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_3.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -128,7 +128,7 @@
       "c_imag": -0.59,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_4.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -147,7 +147,7 @@
       "c_imag": 0.745,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_5.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -166,7 +166,7 @@
       "c_imag": 0.156,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_6.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -185,7 +185,7 @@
       "c_imag": 0.337292,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_7.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -204,7 +204,7 @@
       "c_imag": 0.006069028,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_8.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     },
     {
@@ -223,7 +223,7 @@
       "c_imag": 0.566176471,
       "max_iterations": 200,
       "max_length": 7,
-      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_9.png",
+      "image_path": "Resources\\Images\\Popular_fractals\\popular_fractal_default.png",
       "file_format": "otf"
     }
   ]
