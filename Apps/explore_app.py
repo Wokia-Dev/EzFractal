@@ -3,7 +3,7 @@ import numpy as np
 import Core.EZ as EZ
 import UI.home_UI
 import main
-from Core.EzUtils import iter_gradient_generator
+from Core.EzUtils import iter_gradient_generator, render_julia
 
 # parameters
 # secondary parameters
@@ -52,31 +52,6 @@ class EzFractal:
                 # return the screen array
         return screen_array
 
-    @staticmethod
-    @numba.njit(fastmath=True, parallel=True)
-    def render_julia(screen_array: np.array, c: complex, max_iter: int, zoom: float, offset: np.array,
-                     saturation: float = 0.8, lightness: float = 0.5):
-        # foreach pixel in the screen array using numba parallel
-        for x in numba.prange(width - menu_width):
-            for y in numba.prange(height):
-                # define the complex number based on the pixel coordinates, zoom and offset
-                z = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
-                # number of iterations
-                num_iter = 0
-
-                # iterate the function until the number is diverging or the max iterations is reached
-                for i in range(max_iter):
-                    # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
-                        # exit the loop if the number is diverging
-                        break
-                    num_iter += 1
-
-                # define the color based on the number of iterations and set the pixel color in the screen array
-                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter, saturation, lightness)
-        # return the screen array
-        return screen_array
 
     def scroll_up(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
@@ -143,12 +118,14 @@ class EzFractal:
                 self.app.home_screen.update_text_fields(1, c.imag)
 
                 # render the fractal and update the screen array
-                self.app.screen_array = self.render_julia(
-                    self.app.screen_array, c, self.max_iter, self.zoom, self.offset
+                self.app.screen_array = render_julia(
+                    self.app.screen_array, c, self.max_iter, self.zoom, self.offset,
+                    width, height, menu_width
                 )
             else:
-                self.app.screen_array = self.render_julia(
-                    self.app.screen_array, self.c, self.max_iter, self.zoom, self.offset
+                self.app.screen_array = render_julia(
+                    self.app.screen_array, self.c, self.max_iter, self.zoom, self.offset,
+                    width, height, menu_width
                 )
 
     def draw(self):

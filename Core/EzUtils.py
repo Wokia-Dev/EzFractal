@@ -1,6 +1,9 @@
+from typing import List
+
 import numba
-import numpy
+import numpy as np
 from numpy import uint8
+import pygame
 
 
 def is_float(element: any) -> bool:
@@ -18,15 +21,14 @@ def clamp(value: float, min_value: float, max_value: float) -> float:
 
 
 @numba.njit(fastmath=True)
-def iter_gradient_generator(num_iter: int, max_iter: int, saturation: float = 0.8, lightness: float = 0.5) -> [uint8,
-                                                                                                               uint8,
-                                                                                                               uint8]:
+def iter_gradient_generator(
+        num_iter: int, max_iter: int, saturation: float = 0.8, lightness: float = 0.5) -> list[int]:
     if num_iter == max_iter:
         return [0, 0, 0]
     else:
         h = num_iter / max_iter
-        c = (1 - numpy.abs(2 * lightness - 1)) * saturation
-        x = c * (1 - numpy.abs((h * 6) % 2 - 1))
+        c = (1 - np.abs(2 * lightness - 1)) * saturation
+        x = c * (1 - np.abs((h * 6) % 2 - 1))
         m = lightness - c / 2
         if 0 <= h < 1 / 6:
             r, g, b = c + m, x + m, m
@@ -41,3 +43,41 @@ def iter_gradient_generator(num_iter: int, max_iter: int, saturation: float = 0.
         else:
             r, g, b = c + m, m, x + m
     return [int(r * 255), int(g * 255), int(b * 255)]
+
+
+@numba.njit(fastmath=True, parallel=True)
+def render_julia(screen_array: np.array, c: complex, max_iter: int, zoom: float, offset: np.array,
+                 width: int, height: int, menu_width: int = 0,
+                 saturation: float = 0.8, lightness: float = 0.5):
+    # foreach pixel in the screen array using numba parallel
+    for x in numba.prange(width - menu_width):
+        for y in numba.prange(height):
+            # define the complex number based on the pixel coordinates, zoom and offset
+            z = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
+            # number of iterations
+            num_iter = 0
+
+            # iterate the function until the number is diverging or the max iterations is reached
+            for i in range(max_iter):
+                # julia set formula
+                z = z ** 2 + c
+                if z.real ** 2 + z.imag ** 2 > 4:
+                    # exit the loop if the number is diverging
+                    break
+                num_iter += 1
+
+            # define the color based on the number of iterations and set the pixel color in the screen array
+            screen_array[x, y] = iter_gradient_generator(num_iter, max_iter, saturation, lightness)
+    # return the screen array
+    return screen_array
+
+
+def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name: str):
+    path = "Resources\\Images\\Popular_fractals\\"
+    surface = pygame.Surface((500, 400))
+    screen_array = np.zeros((500, 400, 3), dtype=np.uint8)
+    c = c_real + c_imaginary * 1j
+    screen_array = render_julia(screen_array, c, max_iter, 0.007, np.array([250, 200]), 500, 400)
+    pygame.surfarray.blit_array(surface, screen_array)
+    pygame.image.save(surface, path + image_name)
+    pygame.quit()
