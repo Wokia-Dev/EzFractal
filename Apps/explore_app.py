@@ -1,8 +1,11 @@
 import numba
 import numpy as np
+import pygame
+
 import Core.EZ as EZ
 import UI.home_UI
 import main
+from Core import EzUtils
 from Core.EzUtils import iter_gradient_generator, render_julia
 
 # parameters
@@ -52,7 +55,6 @@ class EzFractal:
                 # return the screen array
         return screen_array
 
-
     def scroll_up(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
         center_x = (mouse_x - self.offset[0]) * self.zoom
@@ -65,7 +67,7 @@ class EzFractal:
         self.offset[0] = mouse_x - (center_x / self.zoom)
         self.offset[1] = mouse_y - (center_y / self.zoom)
 
-    def scroll_down(self, mouse_x: int, mouse_y:int):
+    def scroll_down(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
         center_x = (mouse_x - self.offset[0]) * self.zoom
         center_y = (mouse_y - self.offset[1]) * self.zoom
@@ -127,6 +129,17 @@ class EzFractal:
                     self.app.screen_array, self.c, self.max_iter, self.zoom, self.offset,
                     width, height, menu_width
                 )
+
+    def save_image(self, file_path: str, zoom_factor: int = 15, ):
+        EZ.change_cursor(pygame.SYSTEM_CURSOR_WAIT)
+        # save the screen array as a large image
+        image_array = np.full(((width - menu_width) * zoom_factor, height * zoom_factor, 3), [0, 0, 255],
+                              dtype=np.uint8)
+        custom_offset = np.array([self.offset[0] * zoom_factor, self.offset[1] * zoom_factor])
+        image_array = EzUtils.render_julia(image_array, self.c, self.max_iter, self.zoom * (1 / zoom_factor),
+                                           custom_offset, (width - menu_width) * zoom_factor, height * zoom_factor)
+        image_surface = pygame.surfarray.make_surface(image_array)
+        pygame.image.save(image_surface, file_path)
 
     def draw(self):
         EZ.draw_array(self.app.screen_array)

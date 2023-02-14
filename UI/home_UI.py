@@ -29,9 +29,10 @@ class HomeScreen:
             False,
             False,
             False,
-            False
+            False,
+            False,
         ]  # up, down, left, right and shift
-        self.keyList: list[str] = ["up", "down", "left", "right", "left shift"]
+        self.keyList: list[str] = ["up", "down", "left", "right", "left shift", "left ctrl"]
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
@@ -81,7 +82,7 @@ class HomeScreen:
         menu_screen_array = EZ.get_screen_array(
             self.app.resolution[0] - self.app.resolution[2]
         )
-        np.copyto(self.app.screen_array[-self.app.resolution[2] :], menu_screen_array)
+        np.copyto(self.app.screen_array[-self.app.resolution[2]:], menu_screen_array)
 
     def check_events(self):
         # get the event from EZ
@@ -157,6 +158,10 @@ class HomeScreen:
                 if key == self.keyList[i]:
                     self.keyPressed[i] = True
 
+            # check crtl + s
+            if key == "s" and self.keyPressed[5]:
+                self.app.launcher.export_app.run()
+
         if event == "KEY_UP":
             key = EZ.key()
             # check arrow keys
@@ -176,11 +181,11 @@ class HomeScreen:
 
         # check hover and change cursor
         if any(
-            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
         ) or any(toggle.check_hover(mouse_x, mouse_y) for toggle in self.ez_toggles):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         elif any(
-            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+                textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:

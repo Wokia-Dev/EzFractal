@@ -86,6 +86,7 @@ class PopularUI:
                                                          button.height):
                             self.app.application.home_screen.params[0] = button.c_real
                             self.app.application.home_screen.params[1] = button.c_imaginary
+                            self.app.application.fractal.c = np.complex(button.c_real, button.c_imaginary)
                             self.app.application.fractal.reset()
                             self.app.application.run()
 

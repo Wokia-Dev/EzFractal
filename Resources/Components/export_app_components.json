@@ -1,0 +1,124 @@
+{
+  "EzTexts": [
+    {
+      "name": "txtTitle",
+      "x": 73,
+      "y": 13,
+      "text": "EZ Fractal Export",
+      "color": "000000",
+      "font_size": 18,
+      "font_family": "SF-Pro-Text-Semibold",
+      "file_format": "otf"
+    },
+    {
+      "name": "txtSizeFactor",
+      "x": 50,
+      "y": 71,
+      "text": "size factor",
+      "color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "file_format": "otf"
+    }
+  ],
+  "EzButtons": [
+    {
+      "name": "btnOpenFolder",
+      "x": 50,
+      "y": 127,
+      "width": 200,
+      "height": 25,
+      "text": "Open folder",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 17,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        -18,
+        -11
+      ],
+      "click_timer": 300
+    },
+    {
+      "name": "btnExport",
+      "x": 50,
+      "y": 165,
+      "width": 200,
+      "height": 25,
+      "text": "Export",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 17,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        0,
+        0
+      ],
+      "click_timer": 300
+    },
+    {
+      "name": "btnReturn",
+      "x": 10,
+      "y": 10,
+      "width": 30,
+      "height": 22,
+      "text": "←",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 20,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        0,
+        0
+      ],
+      "click_timer": 300
+    }
+  ],
+  "EzTextFields": [
+    {
+      "name": "sizeFactorTextField",
+      "x": 142,
+      "y": 68,
+      "width": 108,
+      "height": 25,
+      "text": "15",
+      "text_margin": [
+        0,
+        0
+      ],
+      "text_center": true,
+      "background_color": "DDDDDD",
+      "border_color": "000000",
+      "font_color": "000000",
+      "font_size": 17,
+      "font_family": "SF-Pro-Text-Regular",
+      "font_file_format": "otf",
+      "border_width": 2,
+      "value": "15",
+      "input_value": 15,
+      "params": 0,
+      "character_list": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "backspace",
+        "return",
+        "enter"
+      ],
+      "max_length": 7
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from Apps import explore_app
+from Apps import explore_app, export_app
 import Core.EZ as EZ
 from Apps.Saved_app import Saved_App
 from Apps.popular_app import Popular_App
@@ -23,6 +23,7 @@ class Launcher:
         self.application = explore_app.Application(self)
         self.popular_app = Popular_App(self, self.application)
         self.saved_app = Saved_App(self, self.application)
+        self.export_app = export_app.Export_App(self, self.application)
 
     def run(self, from_return: bool = False):
         EZ.create_window(self.resolution[0], self.resolution[1], caption)
