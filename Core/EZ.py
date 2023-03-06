@@ -8,6 +8,7 @@ Created on Sat Dec 8 21:07:27 2018
 import math
 import os
 import time
+from typing import Union
 
 import numpy as np
 import pygame
@@ -445,14 +446,14 @@ def load_image_as_matrix(path, local: bool = True):
     return tab
 
 
-def save_image(image, path, local=True):
+def save_image(image, path, local: bool = True) -> None:
     """Saves an image at the given path"""
     if not local:
         path = os.path.join(current_file_path, path)
     pygame.image.save(image, path)
 
 
-def save_image_matrix(mat, path, local=True):
+def save_image_matrix(mat, path, local: bool = True) -> None:
     """Saves an image given as a matrix at the given path"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -463,7 +464,7 @@ def save_image_matrix(mat, path, local=True):
     save_image(image, path)
 
 
-def draw_image(image, x, y, transparency=255, canvas=None):
+def draw_image(image: pygame.Surface, x: int, y: int, transparency: int = 255, canvas=None) -> None:
     """Draws an image at the given position. Note that if you apply transparency, the image must not be transparent
     itself. By default, the image is drawn on the graphics window, but it can be placed in a canvas (surface)"""
     surface = __choose(canvas)
@@ -476,12 +477,12 @@ def draw_image(image, x, y, transparency=255, canvas=None):
         surface.blit(image, (x, y))
 
 
-def transform_image(image, angle=0, zoom=1.0):
+def transform_image(image: pygame.Surface, angle: float = 0, zoom: float = 1.0) -> pygame.Surface:
     """Transforms an image with a rotation and/or zoom to give a new image"""
     return pygame.transform.rotozoom(image, angle, zoom)
 
 
-def select_part_of_image(image, x, y, w, h):
+def select_part_of_image(image: pygame.Surface, x, y, w, h) -> pygame.Surface:
     """
     Selects a part of the preloaded image.
     Note that modifying the selected image also modifies the original image, so there is no memory creation.
@@ -490,7 +491,7 @@ def select_part_of_image(image, x, y, w, h):
     return image.subsurface(Rect(x, y, w, h))
 
 
-def get_event():
+def get_event() -> str:
     """Gets an event
     List of events:
     "NOTHING"
@@ -540,22 +541,22 @@ def get_event():
     return "NOTHING"
 
 
-def mouse_x():
+def mouse_x() -> int:
     """Gives the x-coordinate of the mouse at the time the event is retrieved"""
     return event.pos[0]
 
 
-def mouse_y():
+def mouse_y() -> int:
     """Gives the y-coordinate of the mouse at the time the event is retrieved"""
     return event.pos[1]
 
 
-def mouse_coordinates():
+def mouse_coordinates() -> tuple[int, int]:
     """Gives the coordinates of the mouse"""
     return pygame.mouse.get_pos()
 
 
-def key():
+def key() -> str:
     """Gives the key pressed at the time the event is retrieved as a string"""
     character = pygame.key.name(event.key)
     return keyboard.get(character, character)
@@ -582,12 +583,12 @@ def get_key_pressed():
                         return 1
 
 
-def save_window():
+def save_window() -> pygame.Surface:
     """Returns an image (surface) of the screen"""
     return window.copy()
 
 
-def load_music(path=None, local=True):
+def load_music(path=None, local: bool = True) -> None:
     """Loads a music that can be played with the music on function"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -595,32 +596,32 @@ def load_music(path=None, local=True):
         pygame.mixer.music.load(path)
 
 
-def music_on(nb_loops=-1):
+def music_on(nb_loops: int = -1) -> None:
     """Plays the previously loaded music"""
     pygame.mixer.music.play(nb_loops)
 
 
-def music_pause():
+def music_pause() -> None:
     """pauses the music"""
     pygame.mixer.music.pause()
 
 
-def music_end_break():
+def music_end_break() -> None:
     """Ends the music pause"""
     pygame.mixer.music.unpause()
 
 
-def stop_music():
+def stop_music() -> None:
     """Stop the music"""
     pygame.mixer.music.stop()
 
 
-def music_volume(volume=0.5):
+def music_volume(volume: float = 0.5) -> None:
     """Set a volume to the music"""
     pygame.mixer.music.set_volume(volume)
 
 
-def load_sound(path=None, local=True):
+def load_sound(path=None, local: bool = True):
     """Loads a sound that can be played after"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -628,12 +629,12 @@ def load_sound(path=None, local=True):
         return pygame.mixer.Sound(path)
 
 
-def play_sound(sound=None):
+def play_sound(sound=None) -> None:
     """Plays the given sound"""
     sound.play()
 
 
-def wait_action():
+def wait_action() -> None:
     """Waits for an action from the user"""
     wait_state = True
     valid_events = [
@@ -647,24 +648,25 @@ def wait_action():
         wait_state = current_event not in valid_events
 
 
-def update():
+def update() -> None:
     """Updating the screen."""
     pygame.display.flip()
 
 
-def get_time():
+def get_time() -> float:
     """Gives the duration in seconds."""
     return time.time()
 
 
-def load_font(size=40, font_name=None, local=True):
+def load_font(size: int = 40, font_name: str = None, local: bool = True) -> pygame.font.Font:
     """Defines the size and font name."""
     if font_name is not None and not local:
         font_name = os.path.join(current_file_path, font_name)
     return pygame.font.Font(font_name, size)
 
 
-def image_text(text, font, color="000000", antialiasing=True, tuple_background=None):
+def image_text(text: Union[str, bytes, None], font: pygame.font.Font, color: str = "000000", antialiasing: bool = True,
+               tuple_background=None) -> pygame.Surface:
     """Returns an image containing the text to be displayed."""
     rgb_color = hex_to_rgb(color)
     return font.render(
@@ -672,7 +674,7 @@ def image_text(text, font, color="000000", antialiasing=True, tuple_background=N
     )
 
 
-def fps_settings(n=60):
+def fps_settings(n: int = 60) -> None:
     """
     The setting gives the maximum number of frames per second.
     """
@@ -682,21 +684,21 @@ def fps_settings(n=60):
     start = pygame.time.Clock()
 
 
-def next_frame():
+def next_frame() -> None:
     """
     Wait for the necessary time to have the requested number of frames per second between two calls.
     """
     start.tick(fps)
 
 
-def draw_array(array, canvas=None):
+def draw_array(array: np.ndarray, canvas=None) -> None:
     """
     Draws an array of pixels on the screen.
     """
     pygame.surfarray.blit_array(__choose(canvas), array)
 
 
-def get_screen_array(start_width, surface=None):
+def get_screen_array(start_width: int, surface=None) -> np.ndarray:
     """
     Returns an array of pixels of the screen.
     """
@@ -710,42 +712,42 @@ def get_screen_array(start_width, surface=None):
         return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)
 
 
-def get_fps():
+def get_fps() -> int:
     """
     Returns the number of frames per second.
     """
     return int(clock.get_fps())
 
 
-def tick(n=60):
+def tick(n=60) -> None:
     """
     Returns the number of milliseconds since the last call to tick.
     """
     clock.tick(n)
 
 
-def update_caption(caption):
+def update_caption(caption: str) -> None:
     """
     Updates the caption of the window.
     """
     pygame.display.set_caption(caption)
 
 
-def array3d(texture):
+def array3d(texture: pygame.Surface) -> np.ndarray:
     """
     Returns a 3D array of the texture.
     """
     return pygame.surfarray.array3d(texture)
 
 
-def change_cursor(cursor):
+def change_cursor(cursor) -> None:
     """
     Changes the cursor.
     """
     pygame.mouse.set_cursor(cursor)
 
 
-def create_surface(width, height):
+def create_surface(width: int, height: int) -> pygame.Surface:
     """
     Creates a surface.
     """
