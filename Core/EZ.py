@@ -457,7 +457,7 @@ def save_image_matrix(mat, path, local=True):
     save_image(image, path)
 
 
-def draw_image(image, x, y, transparency=255, canvas=None, border_radius=0, border_color="000000", border_width=0):
+def draw_image(image, x, y, transparency=255, canvas=None):
     """Draws an image at the given position. Note that if you apply transparency, the image must not be transparent
     itself. By default, the image is drawn on the graphics window, but it can be placed in a canvas (surface)"""
     surface = __choose(canvas)
