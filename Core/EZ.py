@@ -67,14 +67,14 @@ def test_window() -> bool:
     return pygame.display.get_init()
 
 
-def create_image(length: float, height: float) -> pygame.Surface:
+def create_image(length: float, height: float) -> pygame.surface.Surface:
     """Creation of an image (Surface) that can be modified and saved"""
     if pygame.display.get_init():
         return pygame.Surface((length, height)).convert_alpha()
     return pygame.Surface((length, height))
 
 
-def get_image_color(image: pygame.Surface, x: int, y: int) -> Color:
+def get_image_color(image: Union[pygame.Surface, pygame.surface.Surface], x: int, y: int) -> Color:
     """Retrieves a color at position x and y"""
     return image.get_at((x, y))
 
@@ -89,7 +89,7 @@ def destroy_window() -> None:
     pygame.quit()
 
 
-def __choose(canvas):
+def __choose(canvas) -> Union[pygame.surface.Surface, pygame.Surface]:
     """Internal function"""
     if canvas is None or canvas == "default":
         surface = window
@@ -115,7 +115,7 @@ def draw_point(x: int, y: int, color: str, transparency: int = 255, canvas=None)
 
 def dimensions(canvas=None) -> tuple[int, int]:
     surface = __choose(canvas)
-    return pygame.Surface.get_size(surface)
+    return surface.get_size()
 
 
 def draw_segment(xA: int, yA: int, xB: int, yB: int, color: str = "000000", transparency: int = 255,
@@ -123,19 +123,19 @@ def draw_segment(xA: int, yA: int, xB: int, yB: int, color: str = "000000", tran
     """Draws a segment [AB] of given color (black by default) by default it is aliased
     If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen
     """
-    color = hex_to_rgb(color)
+    rgb_color = hex_to_rgb(color)
     surface = __choose(canvas)
     if yA == yB:
         pygame.gfxdraw.hline(
-            surface, xA, xB, yA, (color[0], color[1], color[2], transparency)
+            surface, xA, xB, yA, (rgb_color[0], rgb_color[1], rgb_color[2], transparency)
         )
     elif xA == xB:
         pygame.gfxdraw.vline(
-            surface, xA, yA, yB, (color[0], color[1], color[2], transparency)
+            surface, xA, yA, yB, (rgb_color[0], rgb_color[1], rgb_color[2], transparency)
         )
     else:
         pygame.gfxdraw.line(
-            surface, xA, yA, xB, yB, (color[0], color[1], color[2], transparency)
+            surface, xA, yA, xB, yB, (rgb_color[0], rgb_color[1], rgb_color[2], transparency)
         )
 
 
@@ -217,7 +217,7 @@ def __draw_quarter_sector1(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
             if (angle2 > 0 and angle2_mod > math.pi / 2 - 0.00001) or (
                     angle2 < 0 and angle2_mod < -3 * math.pi / 2 + 0.00001
             ):
-                draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
+                draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas=canvas)
         else:
             if i < r1:
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), math.tan(angle1) * i))
@@ -227,7 +227,7 @@ def __draw_quarter_sector1(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmax = int(math.sqrt(abs(r2 * r2 - i * i)))
             else:
                 hmax = int(min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle2) * i))
-            draw_rectangle_right(x + i, y - hmin, x + i, y - hmax, color, t, canvas)
+            draw_rectangle_right(x + i, y - hmin, x + i, y - hmax, color, t, canvas=canvas)
 
 
 def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
@@ -239,7 +239,7 @@ def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
             if (angle1 > 0 and angle1_mod < math.pi / 2 + 0.00001) or (
                     angle1 < 0 and angle1_mod < -3 * math.pi / 2 + 0.00001
             ):
-                draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
+                draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas=canvas)
         else:
             if i > -r1:
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), math.tan(angle2) * i))
@@ -249,7 +249,7 @@ def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmax = int(math.sqrt(abs(r2 * r2 - i * i)))
             else:
                 hmax = int(min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle1) * i))
-            draw_rectangle_right(x + i, y - hmin, x + i, y - hmax, color, t, canvas)
+            draw_rectangle_right(x + i, y - hmin, x + i, y - hmax, color, t, canvas=canvas)
 
 
 def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
@@ -261,7 +261,7 @@ def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
             if (angle2 > 0 and angle2_mod > 3 * math.pi / 2 - 0.00001) or (
                     angle2 < 0 and angle2_mod > -math.pi / 2 - 0.00001
             ):
-                draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
+                draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas=canvas)
         else:
             # noinspection DuplicatedCode
             if i > -r1:
@@ -276,7 +276,7 @@ def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmax = int(
                     min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle2) * (-i))
                 )
-            draw_rectangle_right(x + i, y + hmin, x + i, y + hmax, color, t, canvas)
+            draw_rectangle_right(x + i, y + hmin, x + i, y + hmax, color, t, canvas=canvas)
 
 
 def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
@@ -288,7 +288,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
             if (angle1 > 0 and angle1_mod < 3 * math.pi / 2 + 0.00001) or (
                     angle1 < 0 and angle1_mod < -math.pi / 2 + 0.00001
             ):
-                draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
+                draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas=canvas)
         else:
             if i < r1:
                 hmin = int(max(math.sqrt(abs(r1 * r1 - i * i)), -math.tan(angle2) * i))
@@ -300,7 +300,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
                 hmax = int(
                     min(math.sqrt(abs(r2 * r2 - i * i)), math.tan(angle1) * (-i))
                 )
-            draw_rectangle_right(x + i, y + hmin, x + i, y + hmax, color, t, canvas)
+            draw_rectangle_right(x + i, y + hmin, x + i, y + hmax, color, t, canvas=canvas)
 
 
 def draw_angular_sector(
@@ -419,7 +419,7 @@ def draw_filled_ellipse(
     )
 
 
-def load_image(path, local: bool = True) -> pygame.Surface:
+def load_image(path, local: bool = True) -> Union[pygame.Surface, pygame.surface.Surface]:
     """Loads an image from the given path"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -477,12 +477,13 @@ def draw_image(image: pygame.Surface, x: int, y: int, transparency: int = 255, c
         surface.blit(image, (x, y))
 
 
-def transform_image(image: pygame.Surface, angle: float = 0, zoom: float = 1.0) -> pygame.Surface:
+def transform_image(image: pygame.Surface, angle: float = 0, zoom: float = 1.0) -> Union[
+    pygame.Surface, pygame.surface.Surface]:
     """Transforms an image with a rotation and/or zoom to give a new image"""
     return pygame.transform.rotozoom(image, angle, zoom)
 
 
-def select_part_of_image(image: pygame.Surface, x, y, w, h) -> pygame.Surface:
+def select_part_of_image(image: pygame.Surface, x, y, w, h) -> Union[pygame.Surface, pygame.surface.Surface]:
     """
     Selects a part of the preloaded image.
     Note that modifying the selected image also modifies the original image, so there is no memory creation.
@@ -583,12 +584,12 @@ def get_key_pressed():
                         return 1
 
 
-def save_window() -> pygame.Surface:
+def save_window() -> Union[pygame.Surface, pygame.surface.Surface]:
     """Returns an image (surface) of the screen"""
     return window.copy()
 
 
-def load_music(path=None, local: bool = True) -> None:
+def load_music(path, local: bool = True) -> None:
     """Loads a music that can be played with the music on function"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -621,7 +622,7 @@ def music_volume(volume: float = 0.5) -> None:
     pygame.mixer.music.set_volume(volume)
 
 
-def load_sound(path=None, local: bool = True):
+def load_sound(path, local: bool = True):
     """Loads a sound that can be played after"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -629,7 +630,7 @@ def load_sound(path=None, local: bool = True):
         return pygame.mixer.Sound(path)
 
 
-def play_sound(sound=None) -> None:
+def play_sound(sound) -> None:
     """Plays the given sound"""
     sound.play()
 
@@ -658,15 +659,15 @@ def get_time() -> float:
     return time.time()
 
 
-def load_font(size: int = 40, font_name: str = None, local: bool = True) -> pygame.font.Font:
+def load_font(size: int, font_name: str, local: bool = True) -> pygame.font.Font:
     """Defines the size and font name."""
     if font_name is not None and not local:
         font_name = os.path.join(current_file_path, font_name)
     return pygame.font.Font(font_name, size)
 
 
-def image_text(text: Union[str, bytes, None], font: pygame.font.Font, color: str = "000000", antialiasing: bool = True,
-               tuple_background=None) -> pygame.Surface:
+def image_text(text: Union[str, bytes], font: pygame.font.Font, color: str = "000000", antialiasing: bool = True,
+               tuple_background=None) -> Union[pygame.Surface, pygame.surface.Surface]:
     """Returns an image containing the text to be displayed."""
     rgb_color = hex_to_rgb(color)
     return font.render(
@@ -698,7 +699,7 @@ def draw_array(array: np.ndarray, canvas=None) -> None:
     pygame.surfarray.blit_array(__choose(canvas), array)
 
 
-def get_screen_array(start_width: int, surface=None) -> np.ndarray:
+def get_screen_array(start_width: int, surface=None):
     """
     Returns an array of pixels of the screen.
     """
@@ -747,7 +748,7 @@ def change_cursor(cursor) -> None:
     pygame.mouse.set_cursor(cursor)
 
 
-def create_surface(width: int, height: int) -> pygame.Surface:
+def create_surface(width: int, height: int) -> Union[pygame.Surface, pygame.surface.Surface]:
     """
     Creates a surface.
     """
