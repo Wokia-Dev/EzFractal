@@ -39,7 +39,7 @@ List of events:
 """
 
 
-def create_window(width=300, height=200, name="window", icon=None):
+def create_window(width: int = 300, height: int = 200, name: str = "window", icon=None) -> None:
     """Function that initializes the graphical part and creates a window
     of given size"""
     global window
@@ -61,29 +61,29 @@ def create_window(width=300, height=200, name="window", icon=None):
     pygame.display.flip()
 
 
-def test_window():
+def test_window() -> bool:
     """Test if the window is open"""
     return pygame.display.get_init()
 
 
-def create_image(length, height):
+def create_image(length: float, height: float) -> pygame.Surface:
     """Creation of an image (Surface) that can be modified and saved"""
     if pygame.display.get_init():
         return pygame.Surface((length, height)).convert_alpha()
     return pygame.Surface((length, height))
 
 
-def get_image_color(image, x, y):
+def get_image_color(image: pygame.Surface, x: int, y: int) -> Color:
     """Retrieves a color at position x and y"""
     return image.get_at((x, y))
 
 
-def color_image_pixel(image, x, y, color, transparency=255):
+def color_image_pixel(image, x: int, y: int, color: str, transparency: int = 255) -> None:
     """Equivalent to EZ.trace_point, except that the window is no longer the default surface"""
     draw_point(x, y, color, transparency, image)
 
 
-def destroy_window():
+def destroy_window() -> None:
     """Function that destroys the window"""
     pygame.quit()
 
@@ -97,12 +97,12 @@ def __choose(canvas):
     return surface
 
 
-def wait(duration_in_microseconds=1000):
+def wait(duration_in_microseconds: int = 1000) -> None:
     """Function that waits for a duration in microseconds"""
     pygame.time.wait(duration_in_microseconds)
 
 
-def draw_point(x, y, color, transparency=255, canvas=None):
+def draw_point(x: int, y: int, color: str, transparency: int = 255, canvas=None) -> None:
     """Draws a point with coordinates (x, y) by default the transparency is opaque and the color is black
     If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen"""
     surface = __choose(canvas)
@@ -112,12 +112,13 @@ def draw_point(x, y, color, transparency=255, canvas=None):
     )
 
 
-def dimensions(canvas=None):
+def dimensions(canvas=None) -> tuple[int, int]:
     surface = __choose(canvas)
     return pygame.Surface.get_size(surface)
 
 
-def draw_segment(xA, yA, xB, yB, color="000000", transparency=255, canvas=None):
+def draw_segment(xA: int, yA: int, xB: int, yB: int, color: str = "000000", transparency: int = 255,
+                 canvas=None) -> None:
     """Draws a segment [AB] of given color (black by default) by default it is aliased
     If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen
     """
@@ -138,8 +139,9 @@ def draw_segment(xA, yA, xB, yB, color="000000", transparency=255, canvas=None):
 
 
 def draw_rectangle_right(
-        xA, yA, length, height, color="000000", zoom=1, transparency=255, canvas=None
-):
+        xA: int, yA: int, length: int, height: int, color: str = "000000", zoom: float = 1, transparency: int = 255,
+        canvas=None
+) -> None:
     """Draws a rectangle with vertical or horizontal sides, black by default.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -154,8 +156,9 @@ def draw_rectangle_right(
 
 
 def draw_triangle(
-        xA, yA, xB, yB, xC, yC, color="000000", zoom=1, transparency=255, canvas=None
-):
+        xA: int, yA: int, xB: int, yB: int, xC: int, yC: int, color: str = "000000", zoom: float = 1,
+        transparency: int = 255, canvas=None
+) -> None:
     """Draws a triangle with the given vertices and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -173,7 +176,8 @@ def draw_triangle(
     )
 
 
-def draw_disk(x, y, radius, color="000000", zoom=1, transparency=255, canvas=None):
+def draw_disk(x: int, y: int, radius: int, color: str = "000000", zoom: float = 1, transparency: int = 255,
+              canvas=None) -> None:
     """Draws a disk with the given center, radius, and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -188,7 +192,7 @@ def draw_disk(x, y, radius, color="000000", zoom=1, transparency=255, canvas=Non
     )
 
 
-def draw_circle(x, y, radius, color="000000", transparency=255, canvas=None):
+def draw_circle(x: int, y: int, radius: int, color: str = "000000", transparency: int = 255, canvas=None) -> None:
     """Draws a circle with the given center, radius, and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -355,7 +359,8 @@ def draw_angular_sector(
             start_angular += 1
 
 
-def draw_arc(x, y, r, angle1, angle2, color="000000", transparency=255, canvas=None):
+def draw_arc(x: int, y: int, r: int, angle1: int, angle2: int, color: str = "000000", transparency: int = 255,
+             canvas=None) -> None:
     """Draws a circle arc, with a given center and between two given angles in degrees
     If a canvas is given, the drawing is done on the canvas instead of on the screen"""
     rgb_color = hex_to_rgb(color)
@@ -373,14 +378,14 @@ def draw_arc(x, y, r, angle1, angle2, color="000000", transparency=255, canvas=N
 
 
 def draw_ellipse(
-        x,
-        y,
-        horizontal_radius,
-        vertical_radius,
-        color="000000",
-        transparency=255,
+        x: int,
+        y: int,
+        horizontal_radius: int,
+        vertical_radius: int,
+        color: str = "000000",
+        transparency: int = 255,
         canvas=None,
-):
+) -> None:
     """Draws an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
     rgb_color = hex_to_rgb(color)
@@ -396,8 +401,9 @@ def draw_ellipse(
 
 
 def draw_filled_ellipse(
-        x, y, horizontal_radius, vertical_radius, color, transparency=255, canvas=None
-):
+        x: int, y: int, horizontal_radius: int, vertical_radius: int, color: str = "000000", transparency: int = 255,
+        canvas=None
+) -> None:
     """Draws the interior of an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
     rgb = hex_to_rgb(color)
@@ -412,7 +418,7 @@ def draw_filled_ellipse(
     )
 
 
-def load_image(path, local=True):
+def load_image(path, local: bool = True) -> pygame.Surface:
     """Loads an image from the given path"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -422,7 +428,7 @@ def load_image(path, local=True):
     return pygame.image.load(path)
 
 
-def load_image_as_matrix(path, local=True):
+def load_image_as_matrix(path, local: bool = True):
     """Loads an image from the given path and returns a matrix of tuples (r, v, b)"""
     if not local:
         path = os.path.join(current_file_path, path)
@@ -746,5 +752,5 @@ def create_surface(width, height):
     return pygame.Surface((width, height))
 
 
-def hex_to_rgb(hexa):
+def hex_to_rgb(hexa: str = "000000") -> tuple[int, ...]:
     return tuple(int(hexa[i: i + 2], 16) for i in (0, 2, 4))
