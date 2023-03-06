@@ -40,7 +40,9 @@ List of events:
 """
 
 
-def create_window(width: int = 300, height: int = 200, name: str = "window", icon=None) -> None:
+def create_window(
+    width: int = 300, height: int = 200, name: str = "window", icon=None
+) -> None:
     """Function that initializes the graphical part and creates a window
     of given size"""
     global window
@@ -79,7 +81,9 @@ def get_image_color(image: pygame.Surface, x: int, y: int) -> Color:
     return image.get_at((x, y))
 
 
-def color_image_pixel(image, x: int, y: int, color: str, transparency: int = 255) -> None:
+def color_image_pixel(
+    image, x: int, y: int, color: str, transparency: int = 255
+) -> None:
     """Equivalent to EZ.trace_point, except that the window is no longer the default surface"""
     draw_point(x, y, color, transparency, image)
 
@@ -103,9 +107,12 @@ def wait(duration_in_microseconds: int = 1000) -> None:
     pygame.time.wait(duration_in_microseconds)
 
 
-def draw_point(x: int, y: int, color: str, transparency: int = 255, canvas=None) -> None:
+def draw_point(
+    x: int, y: int, color: str, transparency: int = 255, canvas=None
+) -> None:
     """Draws a point with coordinates (x, y) by default the transparency is opaque and the color is black
-    If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen"""
+    If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen
+    """
     surface = __choose(canvas)
     rgb_color = hex_to_rgb(color)
     pygame.gfxdraw.pixel(
@@ -118,8 +125,15 @@ def dimensions(canvas=None) -> tuple[int, int]:
     return pygame.Surface.get_size(surface)
 
 
-def draw_segment(xA: int, yA: int, xB: int, yB: int, color: str = "000000", transparency: int = 255,
-                 canvas=None) -> None:
+def draw_segment(
+    xA: int,
+    yA: int,
+    xB: int,
+    yB: int,
+    color: str = "000000",
+    transparency: int = 255,
+    canvas=None,
+) -> None:
     """Draws a segment [AB] of given color (black by default) by default it is aliased
     If a canvas (in reality a surface) is given, then the drawing is done on the canvas and not on the screen
     """
@@ -140,8 +154,14 @@ def draw_segment(xA: int, yA: int, xB: int, yB: int, color: str = "000000", tran
 
 
 def draw_rectangle_right(
-        xA: int, yA: int, length: int, height: int, color: str = "000000", zoom: float = 1, transparency: int = 255,
-        canvas=None
+    xA: int,
+    yA: int,
+    length: int,
+    height: int,
+    color: str = "000000",
+    zoom: float = 1,
+    transparency: int = 255,
+    canvas=None,
 ) -> None:
     """Draws a rectangle with vertical or horizontal sides, black by default.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
@@ -157,8 +177,16 @@ def draw_rectangle_right(
 
 
 def draw_triangle(
-        xA: int, yA: int, xB: int, yB: int, xC: int, yC: int, color: str = "000000", zoom: float = 1,
-        transparency: int = 255, canvas=None
+    xA: int,
+    yA: int,
+    xB: int,
+    yB: int,
+    xC: int,
+    yC: int,
+    color: str = "000000",
+    zoom: float = 1,
+    transparency: int = 255,
+    canvas=None,
 ) -> None:
     """Draws a triangle with the given vertices and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
@@ -177,8 +205,15 @@ def draw_triangle(
     )
 
 
-def draw_disk(x: int, y: int, radius: int, color: str = "000000", zoom: float = 1, transparency: int = 255,
-              canvas=None) -> None:
+def draw_disk(
+    x: int,
+    y: int,
+    radius: int,
+    color: str = "000000",
+    zoom: float = 1,
+    transparency: int = 255,
+    canvas=None,
+) -> None:
     """Draws a disk with the given center, radius, and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -193,7 +228,14 @@ def draw_disk(x: int, y: int, radius: int, color: str = "000000", zoom: float = 
     )
 
 
-def draw_circle(x: int, y: int, radius: int, color: str = "000000", transparency: int = 255, canvas=None) -> None:
+def draw_circle(
+    x: int,
+    y: int,
+    radius: int,
+    color: str = "000000",
+    transparency: int = 255,
+    canvas=None,
+) -> None:
     """Draws a circle with the given center, radius, and color. The default color is black.
     If a canvas is given, the drawing is done on the canvas instead of on the screen.
     """
@@ -215,7 +257,7 @@ def __draw_quarter_sector1(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle2 > 0 and angle2_mod > math.pi / 2 - 0.00001) or (
-                    angle2 < 0 and angle2_mod < -3 * math.pi / 2 + 0.00001
+                angle2 < 0 and angle2_mod < -3 * math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
         else:
@@ -237,7 +279,7 @@ def __draw_quarter_sector2(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle1 > 0 and angle1_mod < math.pi / 2 + 0.00001) or (
-                    angle1 < 0 and angle1_mod < -3 * math.pi / 2 + 0.00001
+                angle1 < 0 and angle1_mod < -3 * math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y - r1, x, y - r2, color, t, canvas)
         else:
@@ -259,7 +301,7 @@ def __draw_quarter_sector3(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0:
             if (angle2 > 0 and angle2_mod > 3 * math.pi / 2 - 0.00001) or (
-                    angle2 < 0 and angle2_mod > -math.pi / 2 - 0.00001
+                angle2 < 0 and angle2_mod > -math.pi / 2 - 0.00001
             ):
                 draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
         else:
@@ -286,7 +328,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
     for i in range(mini, maxi + 1):
         if i == 0 and r1 != 0:
             if (angle1 > 0 and angle1_mod < 3 * math.pi / 2 + 0.00001) or (
-                    angle1 < 0 and angle1_mod < -math.pi / 2 + 0.00001
+                angle1 < 0 and angle1_mod < -math.pi / 2 + 0.00001
             ):
                 draw_rectangle_right(x, y + r1, x, y + r2, color, t, canvas)
         else:
@@ -304,7 +346,7 @@ def __draw_quarter_sector4(x, y, r1, r2, angle1, angle2, color, t, canvas=None):
 
 
 def draw_angular_sector(
-        x, y, r1, r2, angle1, angle2, color, transparency=255, canvas=None
+    x, y, r1, r2, angle1, angle2, color, transparency=255, canvas=None
 ):
     """Draw an angular sector delimited by two radius, be careful the function is slow
     If you give a canvas then the drawing is done on the canvas and not on the screen"""
@@ -360,8 +402,16 @@ def draw_angular_sector(
             start_angular += 1
 
 
-def draw_arc(x: int, y: int, r: int, angle1: int, angle2: int, color: str = "000000", transparency: int = 255,
-             canvas=None) -> None:
+def draw_arc(
+    x: int,
+    y: int,
+    r: int,
+    angle1: int,
+    angle2: int,
+    color: str = "000000",
+    transparency: int = 255,
+    canvas=None,
+) -> None:
     """Draws a circle arc, with a given center and between two given angles in degrees
     If a canvas is given, the drawing is done on the canvas instead of on the screen"""
     rgb_color = hex_to_rgb(color)
@@ -379,13 +429,13 @@ def draw_arc(x: int, y: int, r: int, angle1: int, angle2: int, color: str = "000
 
 
 def draw_ellipse(
-        x: int,
-        y: int,
-        horizontal_radius: int,
-        vertical_radius: int,
-        color: str = "000000",
-        transparency: int = 255,
-        canvas=None,
+    x: int,
+    y: int,
+    horizontal_radius: int,
+    vertical_radius: int,
+    color: str = "000000",
+    transparency: int = 255,
+    canvas=None,
 ) -> None:
     """Draws an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
@@ -402,8 +452,13 @@ def draw_ellipse(
 
 
 def draw_filled_ellipse(
-        x: int, y: int, horizontal_radius: int, vertical_radius: int, color: str = "000000", transparency: int = 255,
-        canvas=None
+    x: int,
+    y: int,
+    horizontal_radius: int,
+    vertical_radius: int,
+    color: str = "000000",
+    transparency: int = 255,
+    canvas=None,
 ) -> None:
     """Draws the interior of an ellipse (oval) with center (x, y) and given horizontal and vertical radius.
     The ellipse is straight"""
@@ -464,9 +519,12 @@ def save_image_matrix(mat, path, local: bool = True) -> None:
     save_image(image, path)
 
 
-def draw_image(image: pygame.Surface, x: int, y: int, transparency: int = 255, canvas=None) -> None:
+def draw_image(
+    image: pygame.Surface, x: int, y: int, transparency: int = 255, canvas=None
+) -> None:
     """Draws an image at the given position. Note that if you apply transparency, the image must not be transparent
-    itself. By default, the image is drawn on the graphics window, but it can be placed in a canvas (surface)"""
+    itself. By default, the image is drawn on the graphics window, but it can be placed in a canvas (surface)
+    """
     surface = __choose(canvas)
     if transparency < 255:
         image2 = pygame.Surface(image.get_size())
@@ -477,7 +535,9 @@ def draw_image(image: pygame.Surface, x: int, y: int, transparency: int = 255, c
         surface.blit(image, (x, y))
 
 
-def transform_image(image: pygame.Surface, angle: float = 0, zoom: float = 1.0) -> pygame.Surface:
+def transform_image(
+    image: pygame.Surface, angle: float = 0, zoom: float = 1.0
+) -> pygame.Surface:
     """Transforms an image with a rotation and/or zoom to give a new image"""
     return pygame.transform.rotozoom(image, angle, zoom)
 
@@ -658,15 +718,22 @@ def get_time() -> float:
     return time.time()
 
 
-def load_font(size: int = 40, font_name: str = None, local: bool = True) -> pygame.font.Font:
+def load_font(
+    size: int = 40, font_name: str = None, local: bool = True
+) -> pygame.font.Font:
     """Defines the size and font name."""
     if font_name is not None and not local:
         font_name = os.path.join(current_file_path, font_name)
     return pygame.font.Font(font_name, size)
 
 
-def image_text(text: Union[str, bytes, None], font: pygame.font.Font, color: str = "000000", antialiasing: bool = True,
-               tuple_background=None) -> pygame.Surface:
+def image_text(
+    text: Union[str, bytes, None],
+    font: pygame.font.Font,
+    color: str = "000000",
+    antialiasing: bool = True,
+    tuple_background=None,
+) -> pygame.Surface:
     """Returns an image containing the text to be displayed."""
     rgb_color = hex_to_rgb(color)
     return font.render(
@@ -703,9 +770,13 @@ def get_screen_array(start_width: int, surface=None) -> np.ndarray:
     Returns an array of pixels of the screen.
     """
     if surface:
-        return np.asarray(pygame.surfarray.array3d(surface), dtype=np.uint8)[start_width:]
+        return np.asarray(pygame.surfarray.array3d(surface), dtype=np.uint8)[
+            start_width:
+        ]
     if start_width:
-        return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)[start_width:]
+        return np.asarray(pygame.surfarray.array3d(window), dtype=np.uint8)[
+            start_width:
+        ]
     if not start_width:
         if surface:
             return np.asarray(pygame.surfarray.array3d(surface), dtype=np.uint8)
@@ -755,4 +826,4 @@ def create_surface(width: int, height: int) -> pygame.Surface:
 
 
 def hex_to_rgb(hexa: str = "000000") -> tuple[int, ...]:
-    return tuple(int(hexa[i: i + 2], 16) for i in (0, 2, 4))
+    return tuple(int(hexa[i : i + 2], 16) for i in (0, 2, 4))
