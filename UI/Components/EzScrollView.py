@@ -222,16 +222,15 @@ class EzScrollView(EzComponent):
 
         # check x position
         if self.x + custom_x <= x <= self.x + custom_x + custom_width:
-            
             # get the display height of the object
             display_height = custom_height
             if custom_height + custom_y - self.offset < custom_height:
                 display_height = custom_height + custom_y - self.offset
-            
+
             # if the object is not displayed intirely
             if not display_height < custom_height:
                 min_y = custom_y + self.y - self.offset
-            
+
             # if the object is displayed intirely
             else:
                 min_y = custom_y + self.y + custom_height - self.offset - display_height
