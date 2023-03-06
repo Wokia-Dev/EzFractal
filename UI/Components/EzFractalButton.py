@@ -108,7 +108,7 @@ class EzFractalButton(EzComponent):
         try:
             image = EZ.load_image(self.image_path)
             image = EZ.transform_image(image, zoom=0.275)
-            EZ.draw_image(image, self.x, self.y, self.background_opacity, border_radius=self.border_radius,
+            EZ.draw_image(image, self.x, self.y, self.background_opacity,
                           canvas=surface)
 
         except FileNotFoundError:

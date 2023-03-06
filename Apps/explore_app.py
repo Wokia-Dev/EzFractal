@@ -130,7 +130,7 @@ class EzFractal:
                     width, height, menu_width
                 )
 
-    def save_image(self, file_path: str, zoom_factor: int = 15, ):
+    def save_image(self, file_path: str, zoom_factor: int = 15):
         EZ.change_cursor(pygame.SYSTEM_CURSOR_WAIT)
         # save the screen array as a large image
         image_array = np.full(((width - menu_width) * zoom_factor, height * zoom_factor, 3), [0, 0, 255],
