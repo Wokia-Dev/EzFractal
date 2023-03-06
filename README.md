@@ -9,3 +9,5 @@ pip install -r requirements.txt
 ```py
 python main.py
 ```
+## References
+[EZ]("https://github.com/Wokia-Dev/EZ")
