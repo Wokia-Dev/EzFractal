@@ -7,7 +7,7 @@ from UI.Components.EzButton import draw_border_radius
 from UI.Components.EzComponent import EzComponent
 
 
-def loader(file_path):
+def loader(file_path: str):
     # Load EzFractalButton data from json file
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -135,7 +135,7 @@ class EzFractalButton(EzComponent):
         EZ.draw_image(c_imaginary_text, self.x + 140, self.y + 20 + texts_height_spacing, canvas=surface)
         EZ.draw_image(max_iter_text, self.x + 140, self.y + 20 + texts_height_spacing * 2, canvas=surface)
 
-    def check_hover(self, x, y, scroll_view_x, scroll_view_y, scroll_offset, display_height, scroll_view_height):
+    def check_hover(self, x: int, y: int, scroll_view_x, scroll_view_y, scroll_offset, display_height, scroll_view_height):
         # check x position
         if self.x + scroll_view_x <= x <= self.x + self.width + scroll_view_x:
             # get the position of the scroll bar in the scroll view

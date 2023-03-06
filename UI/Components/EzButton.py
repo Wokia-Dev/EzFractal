@@ -1,10 +1,12 @@
+import pygame
+
 import Core.EZ as EZ
 import json
 
 from UI.Components.EzComponent import EzComponent
 
 
-def loader(file_path):
+def loader(file_path: str):
     # Load EzButton data from json file
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -34,7 +36,7 @@ def loader(file_path):
         print(f"Error loading EzButton data from {file_path}: {e}")
 
 
-def check_ez_button_event(button_list, mouse_x, mouse_y):
+def check_ez_button_event(button_list: list, mouse_x: int, mouse_y: int):
     # Check if mouse is hovering over any button
     for button in button_list:
         if button.check_hover(mouse_x, mouse_y):
@@ -43,7 +45,8 @@ def check_ez_button_event(button_list, mouse_x, mouse_y):
 
 
 def draw_border_radius(
-    x, y, width, height, border_radius, background_color, background_opacity, canvas=None
+        x: int, y: int, width: int, height: int, border_radius: int, background_color: str, background_opacity: int,
+        canvas: pygame.Surface = None
 ):
     # draw rounded rectangle
     # draw top left corner
@@ -110,21 +113,21 @@ class EzButton(EzComponent):
     """EzButton class for creating buttons"""
 
     def __init__(
-        self,
-        name: str,
-        x: int,
-        y: int,
-        width: int,
-        height: int,
-        text: str,
-        background_color: str,
-        background_opacity: int,
-        font_size: int,
-        font_color: str,
-        font_family: str,
-        border_radius: int,
-        text_margin: list[int],
-        click_timer: int,
+            self,
+            name: str,
+            x: int,
+            y: int,
+            width: int,
+            height: int,
+            text: str,
+            background_color: str,
+            background_opacity: int,
+            font_size: int,
+            font_color: str,
+            font_family: str,
+            border_radius: int,
+            text_margin: list[int],
+            click_timer: int,
     ):
         super().__init__(name, x, y, width, height)
         self.text = text
@@ -176,11 +179,11 @@ class EzButton(EzComponent):
                 self.y + (self.height - text_content.get_height()) // 2,
             )
 
-    def check_hover(self, mouse_x, mouse_y) -> bool:
+    def check_hover(self, mouse_x: int, mouse_y: int) -> bool:
         # Check if mouse is hovering over button
         return (
-            self.x <= mouse_x <= self.x + self.width
-            and self.y <= mouse_y <= self.y + self.height
+                self.x <= mouse_x <= self.x + self.width
+                and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_click(self):

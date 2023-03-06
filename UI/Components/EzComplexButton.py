@@ -5,7 +5,7 @@ from UI.Components.EzButton import draw_border_radius
 from UI.Components.EzComponent import EzComponent
 
 
-def loader(file_path, content: callable):
+def loader(file_path: str, content: callable):
     # Load EzComplexButton data from json file
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -30,7 +30,7 @@ def loader(file_path, content: callable):
         print(f"Error loading EzComplexButton data from {file_path}: {e}")
 
 
-def check_ez_complex_button_event(button_list, mouse_x, mouse_y):
+def check_ez_complex_button_event(button_list: list, mouse_x: int, mouse_y: int):
     # Check if mouse is hovering over any button
     for button in button_list:
         if button.check_hover(mouse_x, mouse_y):
@@ -85,7 +85,7 @@ class EzComplexButton(EzComponent):
 
         self.content(self.name, self.x, self.y, self.width, self.height)
 
-    def check_hover(self, mouse_x, mouse_y) -> bool:
+    def check_hover(self, mouse_x: int, mouse_y: int) -> bool:
         # Check if mouse is hovering over button
         return (
             self.x <= mouse_x <= self.x + self.width

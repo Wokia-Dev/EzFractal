@@ -39,7 +39,7 @@ class LauncherUI:
 
     def complex_button_content(
             self, name: str, x: int, y: int, width: int, height: int
-    ):
+    ) -> None:
         # Draw the content of the complex button
         if name == "btnSettings":
             settings_icon = EZ.load_image("Resources\\Images\\settings_icon.png")

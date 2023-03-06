@@ -10,7 +10,7 @@ import json
 from UI.Components.EzComponent import EzComponent
 
 
-def loader(file_path):
+def loader(file_path: str):
     # Load EzScrollView data from json file
     try:
         with open(file_path, "r", encoding="utf-8") as f:
