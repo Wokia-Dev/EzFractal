@@ -90,7 +90,7 @@ def destroy_window():
 
 def __choose(canvas):
     """Internal function"""
-    if canvas is None:
+    if canvas is None or canvas == "default":
         surface = window
     else:
         surface = canvas
