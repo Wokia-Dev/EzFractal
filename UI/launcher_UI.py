@@ -105,7 +105,14 @@ class LauncherUI:
                     self.app.popular_app.run()
                 elif checked_complex_button.name == "btnSaved":
                     self.app.saved_app.run()
-
+                elif checked_complex_button.name == "btnDocs":
+                    try:
+                        webbrowser.open("Resources\\Help\\help.html")
+                    except FileNotFoundError:
+                        print("Help file not found.")
+                        print(
+                            "Please make sure you have a help.html file in the help directory."
+                        )
         if any(
                 complex_button.check_hover(mouse_x, mouse_y)
                 for complex_button in self.ez_complex_buttons

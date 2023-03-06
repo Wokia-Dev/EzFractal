@@ -61,11 +61,6 @@ class ExportUI:
             EZ.destroy_window()
             sys.exit()
 
-        if event == "KEY_DOWN":
-            key = EZ.key()
-            if key == "s":
-                self.app.application.fractal.save_image()
-
         # check if the user clicks the mouse
         if event == "MOUSE_LEFT_BUTTON_DOWN":
             # check if the user clicked a button or toggle
