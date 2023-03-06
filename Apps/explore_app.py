@@ -31,8 +31,14 @@ class EzFractal:
 
     @staticmethod
     @numba.njit(fastmath=True, parallel=True)
-    def render_mandelbrot(screen_array: np.array, max_iter: int, zoom: float, offset: np.array, saturation: float = 0.8,
-                          lightness: float = 0.5):
+    def render_mandelbrot(
+        screen_array: np.array,
+        max_iter: int,
+        zoom: float,
+        offset: np.array,
+        saturation: float = 0.8,
+        lightness: float = 0.5,
+    ):
         # foreach pixel in the screen array using numba parallel
         for x in numba.prange(width - menu_width):
             for y in numba.prange(height):
@@ -44,14 +50,16 @@ class EzFractal:
                 # iterate the function until the number is diverging or the max iterations is reached
                 for i in range(max_iter):
                     # julia set formula
-                    z = z ** 2 + c
-                    if z.real ** 2 + z.imag ** 2 > 4:
+                    z = z**2 + c
+                    if z.real**2 + z.imag**2 > 4:
                         # if the number is diverging break the loop
                         break
                     num_iter += 1
 
                 # define the color based on the number of iterations and set the pixel color in the screen array
-                screen_array[x, y] = iter_gradient_generator(num_iter, max_iter, saturation, lightness)
+                screen_array[x, y] = iter_gradient_generator(
+                    num_iter, max_iter, saturation, lightness
+                )
                 # return the screen array
         return screen_array
 
@@ -114,30 +122,54 @@ class EzFractal:
             if self.app.home_screen.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                        self.mouse_pos[1] - self.offset[1]
+                    self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.home_screen.update_text_fields(0, c.real)
                 self.app.home_screen.update_text_fields(1, c.imag)
 
                 # render the fractal and update the screen array
                 self.app.screen_array = render_julia(
-                    self.app.screen_array, c, self.max_iter, self.zoom, self.offset,
-                    width, height, menu_width
+                    self.app.screen_array,
+                    c,
+                    self.max_iter,
+                    self.zoom,
+                    self.offset,
+                    width,
+                    height,
+                    menu_width,
                 )
             else:
                 self.app.screen_array = render_julia(
-                    self.app.screen_array, self.c, self.max_iter, self.zoom, self.offset,
-                    width, height, menu_width
+                    self.app.screen_array,
+                    self.c,
+                    self.max_iter,
+                    self.zoom,
+                    self.offset,
+                    width,
+                    height,
+                    menu_width,
                 )
 
     def save_image(self, file_path: str, zoom_factor: int = 15):
         EZ.change_cursor(pygame.SYSTEM_CURSOR_WAIT)
         # save the screen array as a large image
-        image_array = np.full(((width - menu_width) * zoom_factor, height * zoom_factor, 3), [0, 0, 255],
-                              dtype=np.uint8)
-        custom_offset = np.array([self.offset[0] * zoom_factor, self.offset[1] * zoom_factor])
-        image_array = EzUtils.render_julia(image_array, self.c, self.max_iter, self.zoom * (1 / zoom_factor),
-                                           custom_offset, (width - menu_width) * zoom_factor, height * zoom_factor)
+        image_array = np.full(
+            ((width - menu_width) * zoom_factor, height * zoom_factor, 3),
+            [0, 0, 255],
+            dtype=np.uint8,
+        )
+        custom_offset = np.array(
+            [self.offset[0] * zoom_factor, self.offset[1] * zoom_factor]
+        )
+        image_array = EzUtils.render_julia(
+            image_array,
+            self.c,
+            self.max_iter,
+            self.zoom * (1 / zoom_factor),
+            custom_offset,
+            (width - menu_width) * zoom_factor,
+            height * zoom_factor,
+        )
         image_surface = pygame.surfarray.make_surface(image_array)
         pygame.image.save(image_surface, file_path)
 
