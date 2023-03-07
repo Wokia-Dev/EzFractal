@@ -86,6 +86,43 @@ def render_julia(
     return screen_array
 
 
+@numba.njit(fastmath=True, parallel=True)
+def render_mandelbrot(
+        screen_array: np.array,
+        max_iter: int,
+        zoom: float,
+        offset: np.array,
+        width: int,
+        height: int,
+        menu_width: int = 0,
+        saturation: float = 0.8,
+        lightness: float = 0.5,
+):
+    # foreach pixel in the screen array using numba parallel
+    for x in numba.prange(width - menu_width):
+        for y in numba.prange(height):
+            # define the complex number based on the pixel coordinates, zoom and offset
+            c = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
+            # define the initial value of z and the number of iterations
+            z = 0
+            num_iter = 0
+            # iterate the function until the number is diverging or the max iterations is reached
+            for i in range(max_iter):
+                # julia set formula
+                z = z ** 2 + c
+                if z.real ** 2 + z.imag ** 2 > 4:
+                    # if the number is diverging break the loop
+                    break
+                num_iter += 1
+
+            # define the color based on the number of iterations and set the pixel color in the screen array
+            screen_array[x, y] = iter_gradient_generator(
+                num_iter, max_iter, saturation, lightness
+            )
+            # return the screen array
+    return screen_array
+
+
 def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name: str):
     path = "Resources\\Images\\Popular_fractals\\"
     surface = pygame.Surface((500, 400))

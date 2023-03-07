@@ -1,4 +1,4 @@
-import numba
+import numpy as np
 import numpy as np
 import pygame
 
@@ -6,7 +6,7 @@ import Core.EZ as EZ
 import UI.explore_UI
 import main
 from Core import EzUtils
-from Core.EzUtils import iter_gradient_generator, render_julia
+from Core.EzUtils import render_julia
 
 # parameters
 # secondary parameters
@@ -28,40 +28,6 @@ class EzFractal:
         self.offset_gap = 20
         self.saturation = 0.8
         self.lightness = 0.5
-
-    @staticmethod
-    @numba.njit(fastmath=True, parallel=True)
-    def render_mandelbrot(
-        screen_array: np.array,
-        max_iter: int,
-        zoom: float,
-        offset: np.array,
-        saturation: float = 0.8,
-        lightness: float = 0.5,
-    ):
-        # foreach pixel in the screen array using numba parallel
-        for x in numba.prange(width - menu_width):
-            for y in numba.prange(height):
-                # define the complex number based on the pixel coordinates, zoom and offset
-                c = (x - offset[0]) * zoom + 1j * (y - offset[1]) * zoom
-                # define the initial value of z and the number of iterations
-                z = 0
-                num_iter = 0
-                # iterate the function until the number is diverging or the max iterations is reached
-                for i in range(max_iter):
-                    # julia set formula
-                    z = z**2 + c
-                    if z.real**2 + z.imag**2 > 4:
-                        # if the number is diverging break the loop
-                        break
-                    num_iter += 1
-
-                # define the color based on the number of iterations and set the pixel color in the screen array
-                screen_array[x, y] = iter_gradient_generator(
-                    num_iter, max_iter, saturation, lightness
-                )
-                # return the screen array
-        return screen_array
 
     def scroll_up(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
@@ -117,14 +83,15 @@ class EzFractal:
         self.calculate()
         # render the fractal and update the screen array
         if self.app.explore_app_ui.toggleMandelbrot:
-            self.app.screen_array = self.render_mandelbrot(
-                self.app.screen_array, self.max_iter, self.zoom, self.offset
+            self.app.screen_array = EzUtils.render_mandelbrot(
+                self.app.screen_array, self.max_iter, self.zoom, self.offset, width, height, menu_width,
+                self.saturation, self.lightness
             )
         else:
             if self.app.explore_app_ui.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                    self.mouse_pos[1] - self.offset[1]
+                        self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.explore_app_ui.update_text_fields(0, c.real)
                 self.app.explore_app_ui.update_text_fields(1, c.imag)
@@ -139,6 +106,8 @@ class EzFractal:
                     width,
                     height,
                     menu_width,
+                    self.saturation,
+                    self.lightness
                 )
             else:
                 self.app.screen_array = render_julia(
@@ -150,6 +119,8 @@ class EzFractal:
                     width,
                     height,
                     menu_width,
+                    self.saturation,
+                    self.lightness
                 )
 
     def save_image(self, file_path: str, zoom_factor: int = 15):
@@ -171,6 +142,8 @@ class EzFractal:
             custom_offset,
             int((width - menu_width) * zoom_factor),
             int(height * zoom_factor),
+            saturation=self.saturation,
+            lightness=self.lightness,
         )
         image_surface = pygame.surfarray.make_surface(image_array)
         pygame.image.save(image_surface, file_path)
