@@ -153,11 +153,23 @@ class EzFractal:
     def save_image(self, file_path: str, zoom_factor: int = 15):
         EZ.change_cursor(pygame.SYSTEM_CURSOR_WAIT)
         # save the screen array as a large image
-        image_array = np.full((int((width - menu_width) * zoom_factor), int(height * zoom_factor), 3), [0, 0, 255],
-                              dtype=np.uint8)
-        custom_offset = np.array([self.offset[0] * zoom_factor, self.offset[1] * zoom_factor])
-        image_array = EzUtils.render_julia(image_array, self.c, self.max_iter, self.zoom * (1 / zoom_factor),
-                                           custom_offset, int((width - menu_width) * zoom_factor), int(height * zoom_factor))
+        image_array = np.full(
+            (int((width - menu_width) * zoom_factor), int(height * zoom_factor), 3),
+            [0, 0, 255],
+            dtype=np.uint8,
+        )
+        custom_offset = np.array(
+            [self.offset[0] * zoom_factor, self.offset[1] * zoom_factor]
+        )
+        image_array = EzUtils.render_julia(
+            image_array,
+            self.c,
+            self.max_iter,
+            self.zoom * (1 / zoom_factor),
+            custom_offset,
+            int((width - menu_width) * zoom_factor),
+            int(height * zoom_factor),
+        )
         image_surface = pygame.surfarray.make_surface(image_array)
         pygame.image.save(image_surface, file_path)
 
