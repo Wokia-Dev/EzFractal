@@ -84,14 +84,21 @@ class EzFractal:
         # render the fractal and update the screen array
         if self.app.explore_app_ui.toggleMandelbrot:
             self.app.screen_array = EzUtils.render_mandelbrot(
-                self.app.screen_array, self.max_iter, self.zoom, self.offset, width, height, menu_width,
-                self.saturation, self.lightness
+                self.app.screen_array,
+                self.max_iter,
+                self.zoom,
+                self.offset,
+                width,
+                height,
+                menu_width,
+                self.saturation,
+                self.lightness,
             )
         else:
             if self.app.explore_app_ui.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                        self.mouse_pos[1] - self.offset[1]
+                    self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.explore_app_ui.update_text_fields(0, c.real)
                 self.app.explore_app_ui.update_text_fields(1, c.imag)
@@ -107,7 +114,7 @@ class EzFractal:
                     height,
                     menu_width,
                     self.saturation,
-                    self.lightness
+                    self.lightness,
                 )
             else:
                 self.app.screen_array = render_julia(
@@ -120,7 +127,7 @@ class EzFractal:
                     height,
                     menu_width,
                     self.saturation,
-                    self.lightness
+                    self.lightness,
                 )
 
     def save_image(self, file_path: str, zoom_factor: int = 15):
