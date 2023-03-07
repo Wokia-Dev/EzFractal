@@ -104,6 +104,7 @@ class LauncherUI:
                     self.app.popular_app.popular_app_ui.update_fractal_buttons()
                     self.app.popular_app.run()
                 elif checked_complex_button.name == "btnSaved":
+                    self.app.saved_app.saved_app_ui.update_images(self.app.saved_app.saved_app_ui.get_images_count())
                     self.app.saved_app.run()
                 elif checked_complex_button.name == "btnDocs":
                     try:
