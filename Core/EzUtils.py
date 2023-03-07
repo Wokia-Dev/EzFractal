@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 import numba
 import numpy as np
@@ -16,7 +16,7 @@ def is_float(element: any) -> bool:
         return False
 
 
-def clamp(value: float, min_value: float, max_value: float) -> float:
+def clamp(value: Union[float, int], min_value: Union[float, int], max_value: Union[float, int]) -> Union[float, int]:
     return max(min(value, max_value), min_value)
 
 

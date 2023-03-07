@@ -5,7 +5,7 @@ import pygame
 
 import UI.Components.EzButton
 import main as launcher
-from Core import EZ
+from Core import EZ, EzUtils
 from UI.Components.EzButton import check_ez_button_event
 
 json_file = "Resources\\Components\\saved_app_components.json"
@@ -26,13 +26,13 @@ class SavedUI:
 
     @staticmethod
     def get_images_count():
-        return len(
+        return EzUtils.clamp(len(
             [
                 file
                 for file in os.listdir(gallery_path)
                 if file.endswith(".png") and any(char.isdigit() for char in file)
             ]
-        )
+        ), 0, 12)
 
     # update the images list
     def update_images(self, count: int):
