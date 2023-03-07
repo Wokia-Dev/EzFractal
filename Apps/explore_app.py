@@ -103,7 +103,9 @@ class EzFractal:
 
     def calculate(self):
         # update c value and max iterations
-        self.c = self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
+        self.c = (
+            self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
+        )
         self.max_iter = self.app.explore_app_ui.params[2]
 
         # update zoom and offset
