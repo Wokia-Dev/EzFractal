@@ -19,7 +19,7 @@ import pygame
 json_file = "Resources\\Components\\components.json"
 
 
-class HomeScreen:
+class ExploreUI:
     """HomeScreen class displays the home screen of the program"""
 
     def __init__(self, app):

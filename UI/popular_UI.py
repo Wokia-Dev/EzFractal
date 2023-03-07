@@ -84,8 +84,8 @@ class PopularUI:
                         # open explore app with the clicked fractal
                         if scrollView.check_custom_hover(mouse_x, mouse_y, button.x, button.y, button.width,
                                                          button.height):
-                            self.app.application.home_screen.params[0] = button.c_real
-                            self.app.application.home_screen.params[1] = button.c_imaginary
+                            self.app.application.explore_app_ui.params[0] = button.c_real
+                            self.app.application.explore_app_ui.params[1] = button.c_imaginary
                             self.app.application.fractal.c = np.complex(button.c_real, button.c_imaginary)
                             self.app.application.fractal.reset()
                             self.app.application.run()

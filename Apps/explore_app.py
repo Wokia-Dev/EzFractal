@@ -3,7 +3,7 @@ import numpy as np
 import pygame
 
 import Core.EZ as EZ
-import UI.home_UI
+import UI.explore_UI
 import main
 from Core import EzUtils
 from Core.EzUtils import iter_gradient_generator, render_julia
@@ -103,29 +103,29 @@ class EzFractal:
 
     def calculate(self):
         # update c value and max iterations
-        self.c = self.app.home_screen.params[0] + self.app.home_screen.params[1] * 1j
-        self.max_iter = self.app.home_screen.params[2]
+        self.c = self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
+        self.max_iter = self.app.explore_app_ui.params[2]
 
         # update zoom and offset
-        self.zoom_gap = self.app.home_screen.params[3]
-        self.offset_gap = self.app.home_screen.params[4]
+        self.zoom_gap = self.app.explore_app_ui.params[3]
+        self.offset_gap = self.app.explore_app_ui.params[4]
 
     def update(self):
         # update the screen array with the new parameters
         self.calculate()
         # render the fractal and update the screen array
-        if self.app.home_screen.toggleMandelbrot:
+        if self.app.explore_app_ui.toggleMandelbrot:
             self.app.screen_array = self.render_mandelbrot(
                 self.app.screen_array, self.max_iter, self.zoom, self.offset
             )
         else:
-            if self.app.home_screen.toggleMouse:
+            if self.app.explore_app_ui.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
                     self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
-                self.app.home_screen.update_text_fields(0, c.real)
-                self.app.home_screen.update_text_fields(1, c.imag)
+                self.app.explore_app_ui.update_text_fields(0, c.real)
+                self.app.explore_app_ui.update_text_fields(1, c.imag)
 
                 # render the fractal and update the screen array
                 self.app.screen_array = render_julia(
@@ -185,7 +185,7 @@ class Application:
     def __init__(self, launcher: main.Launcher):
         self.launcher = launcher
         self.fractal = EzFractal(self)
-        self.home_screen = UI.home_UI.HomeScreen(self)
+        self.explore_app_ui = UI.explore_UI.ExploreUI(self)
         self.resolution = width, height, menu_width
         self.screen_array = np.full((width, height, 3), [0, 0, 255], dtype=np.uint8)
 
@@ -201,12 +201,12 @@ class Application:
 
     def run(self):
         EZ.create_window(self.resolution[0], self.resolution[1], caption)
-        self.home_screen.run()
+        self.explore_app_ui.run()
         while True:
-            self.home_screen.draw_return_button()
+            self.explore_app_ui.draw_return_button()
             EZ.update()
             self.check_events()
-            self.home_screen.check_events()
-            self.toggle_fps(self.home_screen.toggleFPS)
+            self.explore_app_ui.check_events()
+            self.toggle_fps(self.explore_app_ui.toggleFPS)
             EZ.tick(60)
             self.fractal.run()
