@@ -13,13 +13,5 @@ python main.py
 [EZ](https://github.com/Wokia-Dev/EZ)
 
 ## Demo
+https://user-images.githubusercontent.com/85500189/223299008-b944ae4b-0137-46fa-a1ea-cda749b4de61.mp4
 
-<iframe
-    width="640"
-    height="480"
-    src="https://youtu.be/6U4YCcRunKg"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
