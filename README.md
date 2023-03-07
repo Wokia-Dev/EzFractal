@@ -13,4 +13,13 @@ python main.py
 [EZ](https://github.com/Wokia-Dev/EZ)
 
 ## Demo
-[![texte alternatif de l'image](http://img.youtube.com/vi/g7DpYWR8vqA/0.jpg)](https://youtu.be/6U4YCcRunKg "Demo 1")
+
+<iframe
+    width="640"
+    height="480"
+    src="https://youtu.be/6U4YCcRunKg"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
