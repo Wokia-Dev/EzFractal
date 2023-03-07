@@ -18,16 +18,21 @@ class SavedUI:
         self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
             json_file
         )
-        self.ez_scrollViews: list[UI.Components.EzScrollView] = UI.Components.EzScrollView.loader(
-            json_file
-        )
+        self.ez_scrollViews: list[
+            UI.Components.EzScrollView
+        ] = UI.Components.EzScrollView.loader(json_file)
         self.images = []
         self.update_images(self.get_images_count())
 
     @staticmethod
     def get_images_count():
-        return len([file for file in os.listdir(gallery_path) if
-                    file.endswith(".png") and any(char.isdigit() for char in file)])
+        return len(
+            [
+                file
+                for file in os.listdir(gallery_path)
+                if file.endswith(".png") and any(char.isdigit() for char in file)
+            ]
+        )
 
     # update the images list
     def update_images(self, count: int):
@@ -110,8 +115,9 @@ class SavedUI:
                     scrollView.scroll_down(self.app.resolution[1])
 
         # check hover and change cursor
-        if any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
-               ) or any(
+        if any(
+            button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
+        ) or any(
             scrollView.check_scroll_hover(mouse_x, mouse_y)
             for scrollView in self.ez_scrollViews
         ):

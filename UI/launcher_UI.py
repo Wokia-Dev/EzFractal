@@ -38,7 +38,7 @@ class LauncherUI:
             text.create_text()
 
     def complex_button_content(
-            self, name: str, x: int, y: int, width: int, height: int
+        self, name: str, x: int, y: int, width: int, height: int
     ) -> None:
         # Draw the content of the complex button
         if name == "btnSettings":
@@ -104,7 +104,9 @@ class LauncherUI:
                     self.app.popular_app.popular_app_ui.update_fractal_buttons()
                     self.app.popular_app.run()
                 elif checked_complex_button.name == "btnSaved":
-                    self.app.saved_app.saved_app_ui.update_images(self.app.saved_app.saved_app_ui.get_images_count())
+                    self.app.saved_app.saved_app_ui.update_images(
+                        self.app.saved_app.saved_app_ui.get_images_count()
+                    )
                     self.app.saved_app.run()
                 elif checked_complex_button.name == "btnDocs":
                     try:
@@ -115,8 +117,8 @@ class LauncherUI:
                             "Please make sure you have a help.html file in the help directory."
                         )
         if any(
-                complex_button.check_hover(mouse_x, mouse_y)
-                for complex_button in self.ez_complex_buttons
+            complex_button.check_hover(mouse_x, mouse_y)
+            for complex_button in self.ez_complex_buttons
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
@@ -128,8 +130,10 @@ class LauncherUI:
             data = json.load(file)
 
         nb_buttons = len(data["EzFractalButtons"])
-        worker_args = [(i, button["c_real"], button["c_imag"], button["max_iterations"]) for i, button in
-                       enumerate(data["EzFractalButtons"])]
+        worker_args = [
+            (i, button["c_real"], button["c_imag"], button["max_iterations"])
+            for i, button in enumerate(data["EzFractalButtons"])
+        ]
         with Pool() as p:
             results = p.map(generate_image_worker, worker_args)
 
