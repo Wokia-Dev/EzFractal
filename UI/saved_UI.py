@@ -26,13 +26,17 @@ class SavedUI:
 
     @staticmethod
     def get_images_count():
-        return EzUtils.clamp(len(
-            [
-                file
-                for file in os.listdir(gallery_path)
-                if file.endswith(".png") and any(char.isdigit() for char in file)
-            ]
-        ), 0, 12)
+        return EzUtils.clamp(
+            len(
+                [
+                    file
+                    for file in os.listdir(gallery_path)
+                    if file.endswith(".png") and any(char.isdigit() for char in file)
+                ]
+            ),
+            0,
+            12,
+        )
 
     # update the images list
     def update_images(self, count: int):
