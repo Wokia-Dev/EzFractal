@@ -4,13 +4,12 @@ import sys
 
 import pygame
 
-from Core import EZ
 import UI.Components.EzButton
 import UI.Components.EzText
-import UI.Components.EzToggle
 import UI.Components.EzTextField
+import UI.Components.EzToggle
+from Core import EZ
 from UI.Components.EzButton import check_ez_button_event
-import main as launcher
 
 # parameters
 json_file = "/Resources/Components/export_app_components.json"
@@ -69,7 +68,16 @@ class ExportUI:
             if checked_ez_button is not None:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnOpenFolder":
-                    os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                    try:
+                        os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                    except Exception as e:
+                        print("Error:", e)
+                        try:
+                            subprocess.Popen(
+                                ["xdg-open", os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/")])
+                        except Exception as e:
+                            print("Error:", e)
+
                 if checked_ez_button.name == "btnExport":
                     with open(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/count.txt"), "r") as f:
                         index = int(f.read())

@@ -129,7 +129,14 @@ class LauncherUI:
                             "Please make sure you have a help.html file in the help directory."
                         )
                 elif checked_complex_button.name == "btnSettings":
-                    os.startfile("CONFIG.ini")
+                    try:
+                        os.startfile("CONFIG.ini")
+                    except Exception as e:
+                        print("Error: ", e)
+                        try:
+                            os.system("xdg-open " + "CONFIG.ini")
+                        except Exception as e:
+                            print("Error: ", e)
         if any(
                 complex_button.check_hover(mouse_x, mouse_y)
                 for complex_button in self.ez_complex_buttons

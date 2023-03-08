@@ -99,7 +99,14 @@ class SavedUI:
                     launcher.Launcher.run(self.saved_app.launcher, from_return=True)
 
                 elif checked_ez_button.name == "btnOpenFolder":
-                    os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                    try:
+                        os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                    except Exception as e:
+                        print("Error: ", e)
+                        try:
+                            os.system("xdg-open " + os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                        except Exception as e:
+                            print("Error: ", e)
                 checked_ez_button.create_button()
 
             # scroll view check
