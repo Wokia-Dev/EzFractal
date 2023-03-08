@@ -124,7 +124,7 @@ def render_mandelbrot(
 
 
 def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name: str):
-    path = "Resources\\Images\\Popular_fractals\\"
+    path = "Resources/Images/Popular_fractals/"
     surface = pygame.Surface((500, 400))
     screen_array = np.zeros((500, 400, 3), dtype=np.uint8)
     c = c_real + c_imaginary * 1j

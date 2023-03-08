@@ -143,3 +143,4 @@ class LauncherUI:
 
         with open(app_json_file, "w") as file:
             json.dump(data, file, separators=(",", ":"))
+
