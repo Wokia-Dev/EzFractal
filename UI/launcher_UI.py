@@ -25,8 +25,9 @@ class LauncherUI:
         self.explore_app = explore_app
         self.ez_complex_buttons: list[
             UI.Components.EzComplexButton.EzComplexButton
-        ] = UI.Components.EzComplexButton.loader(self.explore_app.working_directory + json_file,
-                                                 self.complex_button_content)
+        ] = UI.Components.EzComplexButton.loader(
+            self.explore_app.working_directory + json_file, self.complex_button_content
+        )
         self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
             self.explore_app.working_directory + json_file
         )
@@ -39,7 +40,7 @@ class LauncherUI:
             text.create_text()
 
     def complex_button_content(
-            self, name: str, x: int, y: int, width: int, height: int
+        self, name: str, x: int, y: int, width: int, height: int
     ) -> None:
         # Draw the content of the complex button
         if name == "btnSettings":
@@ -118,8 +119,8 @@ class LauncherUI:
                             "Please make sure you have a help.html file in the help directory."
                         )
         if any(
-                complex_button.check_hover(mouse_x, mouse_y)
-                for complex_button in self.ez_complex_buttons
+            complex_button.check_hover(mouse_x, mouse_y)
+            for complex_button in self.ez_complex_buttons
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:

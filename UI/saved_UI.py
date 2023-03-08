@@ -42,7 +42,9 @@ class SavedUI:
     def update_images(self, count: int):
         self.images = []
         for index_img in range(count):
-            image = EZ.load_image(f"{self.app.working_directory + gallery_path}\\image{index_img}.png")
+            image = EZ.load_image(
+                f"{self.app.working_directory + gallery_path}\\image{index_img}.png"
+            )
             image = pygame.transform.scale(image, (175, 140))
             self.images.append(image)
 
