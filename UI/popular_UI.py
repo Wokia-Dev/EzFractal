@@ -10,7 +10,7 @@ import UI.Components.EzFractalButton
 import main as launcher
 from UI.Components.EzButton import check_ez_button_event
 
-json_file = "\\Resources\\Components\\popular_app_components.json"
+json_file = "/Resources/Components/popular_app_components.json"
 
 
 class PopularUI:

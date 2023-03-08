@@ -13,7 +13,7 @@ from UI.Components.EzButton import check_ez_button_event
 import main as launcher
 
 # parameters
-json_file = "\\Resources\\Components\\export_app_components.json"
+json_file = "/Resources/Components/export_app_components.json"
 
 
 class ExportUI:
@@ -69,16 +69,16 @@ class ExportUI:
             if checked_ez_button is not None:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnOpenFolder":
-                    os.startfile(os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\"))
+                    os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
                 if checked_ez_button.name == "btnExport":
-                    with open(os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\count.txt"), "r") as f:
+                    with open(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/count.txt"), "r") as f:
                         index = int(f.read())
                         f.close()
-                    with open(os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\count.txt"), "w") as f:
+                    with open(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/count.txt"), "w") as f:
                         f.write(str(index + 1))
                         f.close()
                     self.app.fractal.save_image(
-                        (os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\" + f"image{index}.png")),
+                        (os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/" + f"image{index}.png")),
                         self.params[0])
                 if checked_ez_button.name == "btnReturn":
                     self.app.run()

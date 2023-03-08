@@ -8,8 +8,8 @@ import main as launcher
 from Core import EZ, EzUtils
 from UI.Components.EzButton import check_ez_button_event
 
-json_file = "\\Resources\\Components\\saved_app_components.json"
-gallery_path = "\\Resources\\Images\\Saved_fractals"
+json_file = "/Resources/Components/saved_app_components.json"
+gallery_path = "/Resources/Images/Saved_fractals"
 
 
 class SavedUI:
@@ -42,7 +42,7 @@ class SavedUI:
     def update_images(self, count: int):
         self.images = []
         for index_img in range(count):
-            image = EZ.load_image(f"{self.app.working_directory + gallery_path}\\image{index_img}.png")
+            image = EZ.load_image(f"{self.app.working_directory + gallery_path}/image{index_img}.png")
             image = pygame.transform.scale(image, (175, 140))
             self.images.append(image)
 

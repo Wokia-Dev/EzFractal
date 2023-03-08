@@ -10,13 +10,13 @@ from Core import EZ
 from Core.EzUtils import generate_image
 from UI.Components.EzComplexButton import check_ez_complex_button_event
 
-json_file = "\\Resources\\Components\\launcher_components.json"
+json_file = "/Resources/Components/launcher_components.json"
 
 
 def generate_image_worker(args):
     i, c_real, c_imag, max_iterations = args
     generate_image(c_real, c_imag, max_iterations, "popular_fractal_" + str(i) + ".png")
-    return i, "Resources\\Images\\Popular_fractals\\popular_fractal_" + str(i) + ".png"
+    return i, "Resources/Images/Popular_fractals/popular_fractal_" + str(i) + ".png"
 
 
 class LauncherUI:
@@ -43,30 +43,30 @@ class LauncherUI:
     ) -> None:
         # Draw the content of the complex button
         if name == "btnSettings":
-            settings_icon = EZ.load_image("Resources\\Images\\settings_icon.png")
+            settings_icon = EZ.load_image("Resources/Images/settings_icon.png")
             EZ.draw_image(settings_icon, x, y)
         elif name == "btnGithub":
-            github_icon = EZ.load_image("Resources\\Images\\github_icon.png")
+            github_icon = EZ.load_image("Resources/Images/github_icon.png")
             EZ.draw_image(github_icon, x, y)
 
         # main buttons
         elif name == "btnExplore":
-            explore_icon = EZ.load_image("Resources\\Images\\explore_icon.png")
+            explore_icon = EZ.load_image("Resources/Images/explore_icon.png")
             EZ.draw_image(
                 explore_icon, x + 20, y + (height - explore_icon.get_height()) / 2
             )
         elif name == "btnSaved":
-            saved_icon = EZ.load_image("Resources\\Images\\saved_icon.png")
+            saved_icon = EZ.load_image("Resources/Images/saved_icon.png")
             EZ.draw_image(
                 saved_icon, x + 20, y + (height - saved_icon.get_height()) / 2
             )
         elif name == "btnPopular":
-            popular_icon = EZ.load_image("Resources\\Images\\popular_icon.png")
+            popular_icon = EZ.load_image("Resources/Images/popular_icon.png")
             EZ.draw_image(
                 popular_icon, x + 20, y + (height - popular_icon.get_height()) / 2
             )
         elif name == "btnDocs":
-            docs_icon = EZ.load_image("Resources\\Images\\docs_icon.png")
+            docs_icon = EZ.load_image("Resources/Images/docs_icon.png")
             EZ.draw_image(docs_icon, x + 20, y + (height - docs_icon.get_height()) / 2)
 
     def update(self):
@@ -111,7 +111,7 @@ class LauncherUI:
                     self.app.saved_app.run()
                 elif checked_complex_button.name == "btnDocs":
                     try:
-                        webbrowser.open("Resources\\Help\\help.html")
+                        webbrowser.open("Resources/Help/help.html")
                     except FileNotFoundError:
                         print("Help file not found.")
                         print(
@@ -126,7 +126,7 @@ class LauncherUI:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
     def load_popular_app(self):
-        app_json_file = "Resources\\Components\\popular_app_components.json"
+        app_json_file = "Resources/Components/popular_app_components.json"
         with open(app_json_file, "r", encoding="utf-8") as file:
             data = json.load(file)
 

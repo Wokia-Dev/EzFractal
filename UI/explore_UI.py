@@ -16,7 +16,7 @@ from UI.Components import *
 import pygame
 
 # parameters
-json_file = "\\Resources\\Components\\components.json"
+json_file = "/Resources/Components/components.json"
 
 
 class ExploreUI:
@@ -128,7 +128,7 @@ class ExploreUI:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnHelp":
                     try:
-                        webbrowser.open("Resources\\Help\\help.html")
+                        webbrowser.open("Resources/Help/help.html")
                     except FileNotFoundError:
                         print("Help file not found.")
                         print(
