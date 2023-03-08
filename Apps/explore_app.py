@@ -1,4 +1,5 @@
 import configparser
+import json
 import os
 
 import numpy as np
@@ -26,12 +27,15 @@ class EzFractal:
         self.mouse_pos = np.array([0, 0])
         self.zoom = 2.8 / height
         self.offset = np.array([0.7 * width, height]) // 2
-        self.max_iter = 200
+        self.max_iter = config.getint('PARAMETERS', 'max_iteration')
         self.c = -1.0 + 0.0j
-        self.zoom_gap = 1.2
-        self.offset_gap = 20
+        self.zoom_gap = config.getfloat('PARAMETERS', 'zoom_factor')
+        self.offset_gap = config.getint('PARAMETERS', 'move_gap')
         self.saturation = config.getfloat('STYLE', 'saturation')
         self.lightness = config.getfloat('STYLE', 'lightness')
+
+        # load parameters from config file
+        load()
 
     def scroll_up(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
@@ -58,18 +62,14 @@ class EzFractal:
         self.offset[1] = mouse_y - (center_y / self.zoom)
 
     def move(self, direction: str):
-        if direction == "up":
+        if direction == config.get('CONTROLS', 'move_up'):
             self.offset[1] += self.offset_gap
-        elif direction == "down":
+        elif direction == config.get('CONTROLS', 'move_down'):
             self.offset[1] -= self.offset_gap
-        elif direction == "left":
+        elif direction == config.get('CONTROLS', 'move_left'):
             self.offset[0] += self.offset_gap
-        elif direction == "right":
+        elif direction == config.get('CONTROLS', 'move_right'):
             self.offset[0] -= self.offset_gap
-        elif direction == "a":
-            print("a")
-        elif direction == "z":
-            print("z")
 
     def reset(self):
         self.zoom = 2.8 / height
@@ -78,7 +78,7 @@ class EzFractal:
     def calculate(self):
         # update c value and max iterations
         self.c = (
-            self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
+                self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
         )
         self.max_iter = self.app.explore_app_ui.params[2]
 
@@ -194,3 +194,26 @@ class Application:
             self.toggle_fps(self.explore_app_ui.toggleFPS)
             EZ.tick(60)
             self.fractal.run()
+
+
+def load():
+    with open(os.getcwd() + "/Resources/Components/components.json", "r+", encoding="utf-8") as f:
+        data = json.load(f)
+        f.seek(0)
+        f.truncate()
+
+        # update move gap
+        data["EzTextFields"][4]["text"], data["EzTextFields"][4]["value"] = config.get('PARAMETERS', 'move_gap')
+        data["EzTextFields"][4]["input_value"] = config.getint('PARAMETERS', 'move_gap')
+
+        # update zoom factor
+        data["EzTextFields"][3]["text"] = config.get('PARAMETERS', 'zoom_factor')
+        data["EzTextFields"][3]["value"] = config.get('PARAMETERS', 'zoom_factor')
+        data["EzTextFields"][3]["input_value"] = config.getfloat('PARAMETERS', 'zoom_factor')
+
+        # update max iterations
+        data["EzTextFields"][2]["text"] = config.get('PARAMETERS', 'max_iteration')
+        data["EzTextFields"][2]["value"] = config.get('PARAMETERS', 'max_iteration')
+        data["EzTextFields"][2]["input_value"] = config.getint('PARAMETERS', 'max_iteration')
+
+        json.dump(data, f)

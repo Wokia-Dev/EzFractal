@@ -37,6 +37,10 @@ class ExploreUI:
             "right": False,
             "left shift": False,
             "left ctrl": False,
+            "z": False,
+            "s": False,
+            "q": False,
+            "d": False,
         }
 
         self.toggleMandelbrot: bool = False
@@ -140,7 +144,6 @@ class ExploreUI:
         # check if the user presses a key
         if event == "KEY_DOWN":
             key = EZ.key()
-            print(key)
             # text field check
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):

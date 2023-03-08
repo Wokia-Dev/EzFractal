@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 import webbrowser
 from multiprocessing import Pool
@@ -127,6 +128,8 @@ class LauncherUI:
                         print(
                             "Please make sure you have a help.html file in the help directory."
                         )
+                elif checked_complex_button.name == "btnSettings":
+                    os.startfile("CONFIG.ini")
         if any(
                 complex_button.check_hover(mouse_x, mouse_y)
                 for complex_button in self.ez_complex_buttons
