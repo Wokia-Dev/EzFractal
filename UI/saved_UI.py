@@ -97,6 +97,9 @@ class SavedUI:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnReturn":
                     launcher.Launcher.run(self.saved_app.launcher, from_return=True)
+
+                elif checked_ez_button.name == "btnOpenFolder":
+                    os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
                 checked_ez_button.create_button()
 
             # scroll view check
