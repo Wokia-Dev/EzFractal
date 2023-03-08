@@ -1,3 +1,4 @@
+import os
 from typing import List, Union
 
 import numba
@@ -123,8 +124,8 @@ def render_mandelbrot(
     return screen_array
 
 
-def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name: str):
-    path = "Resources/Images/Popular_fractals/"
+def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name: str) -> None:
+    path = "/Resources/Images/Popular_fractals/"
     surface = pygame.Surface((500, 400))
     screen_array = np.zeros((500, 400, 3), dtype=np.uint8)
     c = c_real + c_imaginary * 1j
@@ -132,5 +133,5 @@ def generate_image(c_real: float, c_imaginary: float, max_iter: int, image_name:
         screen_array, c, max_iter, 0.007, np.array([250, 200]), 500, 400
     )
     pygame.surfarray.blit_array(surface, screen_array)
-    pygame.image.save(surface, path + image_name)
+    pygame.image.save(surface, os.getcwd() + path + image_name)
     pygame.quit()
