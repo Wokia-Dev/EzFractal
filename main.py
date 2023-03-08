@@ -19,8 +19,8 @@ width, height = 700, 400
 class Launcher:
     def __init__(self):
         self.resolution = width, height
-        self.launcher_ui = LauncherUI(self)
         self.application = explore_app.Application(self)
+        self.launcher_ui = LauncherUI(self, self.application)
         self.popular_app = Popular_App(self, self.application)
         self.saved_app = Saved_App(self, self.application)
         self.export_app = export_app.Export_App(self, self.application)

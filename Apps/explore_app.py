@@ -1,4 +1,5 @@
-import numpy as np
+import os
+
 import numpy as np
 import pygame
 
@@ -160,9 +161,10 @@ class Application:
     def __init__(self, launcher: main.Launcher):
         self.launcher = launcher
         self.fractal = EzFractal(self)
-        self.explore_app_ui = UI.explore_UI.ExploreUI(self)
         self.resolution = width, height, menu_width
         self.screen_array = np.full((width, height, 3), [0, 0, 255], dtype=np.uint8)
+        self.working_directory = os.getcwd()
+        self.explore_app_ui = UI.explore_UI.ExploreUI(self)
 
     def check_events(self):
         pass

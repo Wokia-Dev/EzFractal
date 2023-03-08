@@ -8,29 +8,29 @@ import main as launcher
 from Core import EZ, EzUtils
 from UI.Components.EzButton import check_ez_button_event
 
-json_file = "Resources\\Components\\saved_app_components.json"
-gallery_path = "Resources\\Images\\Saved_fractals"
+json_file = "\\Resources\\Components\\saved_app_components.json"
+gallery_path = "\\Resources\\Images\\Saved_fractals"
 
 
 class SavedUI:
-    def __init__(self, app):
+    def __init__(self, saved_app, app):
+        self.saved_app = saved_app
         self.app = app
         self.ez_buttons: list[UI.Components.EzButton] = UI.Components.EzButton.loader(
-            json_file
+            self.app.working_directory + json_file
         )
         self.ez_scrollViews: list[
             UI.Components.EzScrollView
-        ] = UI.Components.EzScrollView.loader(json_file)
+        ] = UI.Components.EzScrollView.loader(self.app.working_directory + json_file)
         self.images = []
         self.update_images(self.get_images_count())
 
-    @staticmethod
-    def get_images_count():
+    def get_images_count(self):
         return EzUtils.clamp(
             len(
                 [
                     file
-                    for file in os.listdir(gallery_path)
+                    for file in os.listdir(self.app.working_directory + gallery_path)
                     if file.endswith(".png") and any(char.isdigit() for char in file)
                 ]
             ),
@@ -42,7 +42,7 @@ class SavedUI:
     def update_images(self, count: int):
         self.images = []
         for index_img in range(count):
-            image = EZ.load_image(f"{gallery_path}\\image{index_img}.png")
+            image = EZ.load_image(f"{self.app.working_directory + gallery_path}\\image{index_img}.png")
             image = pygame.transform.scale(image, (175, 140))
             self.images.append(image)
 
@@ -70,7 +70,7 @@ class SavedUI:
     def update(self):
         # update the scroll view
         for scrollView in self.ez_scrollViews:
-            scrollView.draw_on_screen(self.app.screen_array, self.app)
+            scrollView.draw_on_screen(self.saved_app.screen_array, self.saved_app)
 
     def run(self):
         self.draw()
@@ -96,7 +96,7 @@ class SavedUI:
             if checked_ez_button is not None:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnReturn":
-                    launcher.Launcher.run(self.app.launcher, from_return=True)
+                    launcher.Launcher.run(self.saved_app.launcher, from_return=True)
                 checked_ez_button.create_button()
 
             # scroll view check
@@ -116,7 +116,7 @@ class SavedUI:
         if event == "MOUSE_SCROLL_DOWN":
             for scrollView in self.ez_scrollViews:
                 if scrollView.check_hover(mouse_x, mouse_y):
-                    scrollView.scroll_down(self.app.resolution[1])
+                    scrollView.scroll_down(self.saved_app.resolution[1])
 
         # check hover and change cursor
         if any(

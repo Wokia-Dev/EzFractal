@@ -13,21 +13,21 @@ from UI.Components.EzButton import check_ez_button_event
 import main as launcher
 
 # parameters
-json_file = "Resources\\Components\\export_app_components.json"
+json_file = "\\Resources\\Components\\export_app_components.json"
 
 
 class ExportUI:
     def __init__(self, app):
         self.app = app
         self.ez_texts: list[UI.Components.EzText.EzText] = UI.Components.EzText.loader(
-            json_file
+            self.app.working_directory + json_file
         )
         self.ez_buttons: list[UI.Components.EzButton.EzButton] = UI.Components.EzButton.loader(
-            json_file
+            self.app.working_directory + json_file
         )
         self.ez_textFields: list[
             UI.Components.EzTextField.EzTextField
-        ] = UI.Components.EzTextField.loader(json_file)
+        ] = UI.Components.EzTextField.loader(self.app.working_directory + json_file)
         self.params: list[float] = [
             self.ez_textFields[0].input_value
         ]
@@ -77,11 +77,11 @@ class ExportUI:
                     with open(os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\count.txt"), "w") as f:
                         f.write(str(index + 1))
                         f.close()
-                    self.app.application.fractal.save_image(
+                    self.app.fractal.save_image(
                         (os.path.join(os.getcwd(), "Resources\\Images\\Saved_fractals\\" + f"image{index}.png")),
                         self.params[0])
                 if checked_ez_button.name == "btnReturn":
-                    self.app.application.run()
+                    self.app.run()
                 checked_ez_button.create_button()
 
         if event == "KEY_DOWN":

@@ -1,17 +1,16 @@
 import json
 import sys
 import webbrowser
+from multiprocessing import Pool
 
 import pygame
 
-from multiprocessing import Pool
-
+import UI.Components.EzComplexButton
 from Core import EZ
 from Core.EzUtils import generate_image
-import UI.Components.EzComplexButton
 from UI.Components.EzComplexButton import check_ez_complex_button_event
 
-json_file = "Resources\\Components\\launcher_components.json"
+json_file = "\\Resources\\Components\\launcher_components.json"
 
 
 def generate_image_worker(args):
@@ -21,13 +20,15 @@ def generate_image_worker(args):
 
 
 class LauncherUI:
-    def __init__(self, app):
+    def __init__(self, app, explore_app):
         self.app = app
+        self.explore_app = explore_app
         self.ez_complex_buttons: list[
             UI.Components.EzComplexButton.EzComplexButton
-        ] = UI.Components.EzComplexButton.loader(json_file, self.complex_button_content)
+        ] = UI.Components.EzComplexButton.loader(self.explore_app.working_directory + json_file,
+                                                 self.complex_button_content)
         self.ez_texts: list[UI.Components.EzText] = UI.Components.EzText.loader(
-            json_file
+            self.explore_app.working_directory + json_file
         )
 
     def draw(self):
@@ -38,7 +39,7 @@ class LauncherUI:
             text.create_text()
 
     def complex_button_content(
-        self, name: str, x: int, y: int, width: int, height: int
+            self, name: str, x: int, y: int, width: int, height: int
     ) -> None:
         # Draw the content of the complex button
         if name == "btnSettings":
@@ -117,8 +118,8 @@ class LauncherUI:
                             "Please make sure you have a help.html file in the help directory."
                         )
         if any(
-            complex_button.check_hover(mouse_x, mouse_y)
-            for complex_button in self.ez_complex_buttons
+                complex_button.check_hover(mouse_x, mouse_y)
+                for complex_button in self.ez_complex_buttons
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:

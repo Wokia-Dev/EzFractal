@@ -10,25 +10,26 @@ import UI.Components.EzFractalButton
 import main as launcher
 from UI.Components.EzButton import check_ez_button_event
 
-json_file = "Resources\\Components\\popular_app_components.json"
+json_file = "\\Resources\\Components\\popular_app_components.json"
 
 
 class PopularUI:
-    def __init__(self, app):
+    def __init__(self, popular_app, app):
+        self.popular_app = popular_app
         self.app = app
         self.ez_buttons: list[
             UI.Components.EzButton.EzButton
-        ] = UI.Components.EzButton.loader(json_file)
+        ] = UI.Components.EzButton.loader(self.app.working_directory + json_file)
         self.ez_scrollViews: list[
             UI.Components.EzScrollView.EzScrollView
-        ] = UI.Components.EzScrollView.loader(json_file)
+        ] = UI.Components.EzScrollView.loader(self.app.working_directory + json_file)
         self.ez_fractal_buttons = None
 
     def update_fractal_buttons(self):
         # update the fractal buttons
         self.ez_fractal_buttons: list[
             UI.Components.EzFractalButton.EzFractalButton
-        ] = UI.Components.EzFractalButton.loader(json_file)
+        ] = UI.Components.EzFractalButton.loader(self.app.working_directory + json_file)
 
     def scroll_view_content(self, surface: pygame.Surface):
         for button in self.ez_fractal_buttons:
@@ -50,7 +51,7 @@ class PopularUI:
     def update(self):
         # update the scroll view
         for scrollView in self.ez_scrollViews:
-            scrollView.draw_on_screen(self.app.screen_array, self.app)
+            scrollView.draw_on_screen(self.popular_app.screen_array, self.popular_app)
 
     def check_events(self):
         # get the event from EZ
@@ -72,7 +73,7 @@ class PopularUI:
             if checked_ez_button is not None:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnReturn":
-                    launcher.Launcher.run(self.app.launcher, from_return=True)
+                    launcher.Launcher.run(self.popular_app.launcher, from_return=True)
                 checked_ez_button.create_button()
 
             # scroll view check
@@ -90,17 +91,17 @@ class PopularUI:
                             button.width,
                             button.height,
                         ):
-                            self.app.application.explore_app_ui.params[
+                            self.popular_app.application.explore_app_ui.params[
                                 0
                             ] = button.c_real
-                            self.app.application.explore_app_ui.params[
+                            self.popular_app.application.explore_app_ui.params[
                                 1
                             ] = button.c_imaginary
-                            self.app.application.fractal.c = np.complex(
+                            self.popular_app.application.fractal.c = np.complex(
                                 button.c_real, button.c_imaginary
                             )
-                            self.app.application.fractal.reset()
-                            self.app.application.run()
+                            self.popular_app.application.fractal.reset()
+                            self.popular_app.application.run()
 
         if event == "MOUSE_LEFT_BUTTON_UP":
             for scrollView in self.ez_scrollViews:
@@ -114,7 +115,7 @@ class PopularUI:
         if event == "MOUSE_SCROLL_DOWN":
             for scrollView in self.ez_scrollViews:
                 if scrollView.check_hover(mouse_x, mouse_y):
-                    scrollView.scroll_down(self.app.resolution[1])
+                    scrollView.scroll_down(self.popular_app.resolution[1])
 
         # check hover and change cursor
         if (

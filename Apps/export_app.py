@@ -17,8 +17,8 @@ class Export_App:
         self.resolution = width, height
         self.launcher = launcher
         self.application = app
-        self.export_app_ui = ExportUI(self)
         self.screen_array = np.full((width, height, 3), [255, 255, 255], dtype=np.uint8)
+        self.export_app_ui = ExportUI(self.application)
 
     def run(self, from_return: bool = False):
         EZ.create_window(self.resolution[0], self.resolution[1], caption)

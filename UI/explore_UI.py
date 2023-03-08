@@ -16,7 +16,7 @@ from UI.Components import *
 import pygame
 
 # parameters
-json_file = "Resources\\Components\\components.json"
+json_file = "\\Resources\\Components\\components.json"
 
 
 class ExploreUI:
@@ -45,16 +45,16 @@ class ExploreUI:
         self.toggleFPS: bool = True
         self.ez_buttons: list[
             UI.Components.EzButton.EzButton
-        ] = UI.Components.EzButton.loader(json_file)
+        ] = UI.Components.EzButton.loader(self.app.working_directory + json_file)
         self.ez_texts: list[UI.Components.EzText.EzText] = UI.Components.EzText.loader(
-            json_file
+            self.app.working_directory + json_file
         )
         self.ez_toggles: list[
             UI.Components.EzToggle.EzToggle
-        ] = UI.Components.EzToggle.loader(json_file)
+        ] = UI.Components.EzToggle.loader(self.app.working_directory + json_file)
         self.ez_textFields: list[
             UI.Components.EzTextField.EzTextField
-        ] = UI.Components.EzTextField.loader(json_file)
+        ] = UI.Components.EzTextField.loader(self.app.working_directory + json_file)
         self.params: list[float] = [
             self.ez_textFields[0].input_value,
             self.ez_textFields[1].input_value,
