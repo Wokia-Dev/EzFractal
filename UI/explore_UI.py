@@ -17,6 +17,12 @@ import pygame
 
 # parameters
 json_file = "/Resources/Components/components.json"
+keyboard_remap = {
+    'q': 'a', 'w': 'z', 'z': 'w', 'a': 'q', 'n': 'm', ';': ',', ',': ';', 'l': ':', ':': 'l', '$': 'ù', 'ù': '$',
+    '£': '*', '*': '£', '<': '>', '>': '<', '@': '²', '²': '@', '¨': '^', '^': '¨', '\'': 'é', 'é': '\'', '`': 'è',
+    'è': '`', '-': '_', '_': '-', '{': '[', '[': '{', '}': ']', ']': '}', '\\': '|', '|': '\\', '#': 'à', 'à': '#',
+    '=': '+', '+': '='
+}
 
 
 class ExploreUI:
@@ -24,22 +30,15 @@ class ExploreUI:
 
     def __init__(self, app):
         self.app = app
-        self.keyPressed: list[bool] = [
-            False,
-            False,
-            False,
-            False,
-            False,
-            False,
-        ]  # up, down, left, right and shift
-        self.keyList: list[str] = [
-            "up",
-            "down",
-            "left",
-            "right",
-            "left shift",
-            "left ctrl",
-        ]
+        self.keyList = {
+            "up": False,
+            "down": False,
+            "left": False,
+            "right": False,
+            "left shift": False,
+            "left ctrl": False,
+        }
+
         self.toggleMandelbrot: bool = False
         self.toggleMouse: bool = False
         self.toggleFPS: bool = True
@@ -141,12 +140,13 @@ class ExploreUI:
         # check if the user presses a key
         if event == "KEY_DOWN":
             key = EZ.key()
+            print(key)
             # text field check
             for textField in self.ez_textFields:
                 if textField.check_hover(mouse_x, mouse_y):
                     if key == "m":
                         textField.on_hover(".", self)
-                    if key == "6" and self.keyPressed[4]:
+                    if key == "6" and self.keyList["left shift"]:
                         textField.on_hover("-", self)
                     else:
                         textField.on_hover(key, self)
@@ -161,20 +161,24 @@ class ExploreUI:
                     self.app.fractal.offset[0] += 75
 
             # check arrow keys
-            for i in range(len(self.keyList)):
-                if key == self.keyList[i]:
-                    self.keyPressed[i] = True
+            for k, value in self.keyList.items():
+                if k in keyboard_remap and key == keyboard_remap[k]:
+                    self.keyList[k] = True
+                elif key == k:
+                    self.keyList[k] = True
 
             # check crtl + s
-            if key == "s" and self.keyPressed[5]:
+            if key == "s" and self.keyList["left ctrl"]:
                 self.app.launcher.export_app.run()
 
         if event == "KEY_UP":
             key = EZ.key()
             # check arrow keys
-            for i in range(len(self.keyList)):
-                if key == self.keyList[i]:
-                    self.keyPressed[i] = False
+            for k, value in self.keyList.items():
+                if k in keyboard_remap and key == keyboard_remap[k]:
+                    self.keyList[k] = False
+                elif key == k:
+                    self.keyList[k] = False
 
         if event == "MOUSE_MOVEMENT":
             self.app.fractal.mouse_pos = np.array([mouse_x, mouse_y])
@@ -199,9 +203,9 @@ class ExploreUI:
             EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
         # move the fractal with the arrow keys
-        for i in range(len(self.keyList)):
-            if self.keyPressed[i]:
-                self.app.fractal.move(self.keyList[i])
+        for k, value in self.keyList.items():
+            if value:
+                self.app.fractal.move(k)
 
         self.update()
 

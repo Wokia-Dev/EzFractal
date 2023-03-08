@@ -1,3 +1,4 @@
+import configparser
 import os
 
 import numpy as np
@@ -15,6 +16,8 @@ caption = "EZ Fractal-Explore"
 
 # main parameters
 width, height, menu_width = 700, 400, 200
+config = configparser.ConfigParser(inline_comment_prefixes=('#', ';'))
+config.read("CONFIG.ini")
 
 
 class EzFractal:
@@ -27,8 +30,8 @@ class EzFractal:
         self.c = -1.0 + 0.0j
         self.zoom_gap = 1.2
         self.offset_gap = 20
-        self.saturation = 0.8
-        self.lightness = 0.5
+        self.saturation = config.getfloat('STYLE', 'saturation')
+        self.lightness = config.getfloat('STYLE', 'lightness')
 
     def scroll_up(self, mouse_x: int, mouse_y: int):
         # The point at the center of the zoom is the current mouse position
@@ -63,6 +66,10 @@ class EzFractal:
             self.offset[0] += self.offset_gap
         elif direction == "right":
             self.offset[0] -= self.offset_gap
+        elif direction == "a":
+            print("a")
+        elif direction == "z":
+            print("z")
 
     def reset(self):
         self.zoom = 2.8 / height
