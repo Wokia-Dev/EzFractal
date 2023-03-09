@@ -17,7 +17,7 @@ caption = "EZ Fractal-Explore"
 
 # main parameters
 width, height, menu_width = 700, 400, 200
-config = configparser.ConfigParser(inline_comment_prefixes=('#', ';'))
+config = configparser.ConfigParser(inline_comment_prefixes=("#", ";"))
 config.read("CONFIG.ini")
 
 
@@ -27,12 +27,12 @@ class EzFractal:
         self.mouse_pos = np.array([0, 0])
         self.zoom = 2.8 / height
         self.offset = np.array([0.7 * width, height]) // 2
-        self.max_iter = config.getint('PARAMETERS', 'max_iteration')
+        self.max_iter = config.getint("PARAMETERS", "max_iteration")
         self.c = -1.0 + 0.0j
-        self.zoom_gap = config.getfloat('PARAMETERS', 'zoom_factor')
-        self.offset_gap = config.getint('PARAMETERS', 'move_gap')
-        self.saturation = config.getfloat('STYLE', 'saturation')
-        self.lightness = config.getfloat('STYLE', 'lightness')
+        self.zoom_gap = config.getfloat("PARAMETERS", "zoom_factor")
+        self.offset_gap = config.getint("PARAMETERS", "move_gap")
+        self.saturation = config.getfloat("STYLE", "saturation")
+        self.lightness = config.getfloat("STYLE", "lightness")
 
         # load parameters from config file
         load()
@@ -62,13 +62,13 @@ class EzFractal:
         self.offset[1] = mouse_y - (center_y / self.zoom)
 
     def move(self, direction: str):
-        if direction == config.get('CONTROLS', 'move_up'):
+        if direction == config.get("CONTROLS", "move_up"):
             self.offset[1] += self.offset_gap
-        elif direction == config.get('CONTROLS', 'move_down'):
+        elif direction == config.get("CONTROLS", "move_down"):
             self.offset[1] -= self.offset_gap
-        elif direction == config.get('CONTROLS', 'move_left'):
+        elif direction == config.get("CONTROLS", "move_left"):
             self.offset[0] += self.offset_gap
-        elif direction == config.get('CONTROLS', 'move_right'):
+        elif direction == config.get("CONTROLS", "move_right"):
             self.offset[0] -= self.offset_gap
 
     def reset(self):
@@ -78,7 +78,7 @@ class EzFractal:
     def calculate(self):
         # update c value and max iterations
         self.c = (
-                self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
+            self.app.explore_app_ui.params[0] + self.app.explore_app_ui.params[1] * 1j
         )
         self.max_iter = self.app.explore_app_ui.params[2]
 
@@ -92,14 +92,21 @@ class EzFractal:
         # render the fractal and update the screen array
         if self.app.explore_app_ui.toggleMandelbrot:
             self.app.screen_array = EzUtils.render_mandelbrot(
-                self.app.screen_array, self.max_iter, self.zoom, self.offset, width, height, menu_width,
-                self.saturation, self.lightness
+                self.app.screen_array,
+                self.max_iter,
+                self.zoom,
+                self.offset,
+                width,
+                height,
+                menu_width,
+                self.saturation,
+                self.lightness,
             )
         else:
             if self.app.explore_app_ui.toggleMouse:
                 # define the complex number based on the mouse position, zoom and offset
                 self.c = (self.mouse_pos[0] - self.offset[0]) * self.zoom + (
-                        self.mouse_pos[1] - self.offset[1]
+                    self.mouse_pos[1] - self.offset[1]
                 ) * self.zoom * 1j
                 self.app.explore_app_ui.update_text_fields(0, self.c.real)
                 self.app.explore_app_ui.update_text_fields(1, self.c.imag)
@@ -115,7 +122,7 @@ class EzFractal:
                     height,
                     menu_width,
                     self.saturation,
-                    self.lightness
+                    self.lightness,
                 )
             else:
                 self.app.screen_array = render_julia(
@@ -128,7 +135,7 @@ class EzFractal:
                     height,
                     menu_width,
                     self.saturation,
-                    self.lightness
+                    self.lightness,
                 )
 
     def save_image(self, file_path: str, zoom_factor: int = 15):
@@ -153,7 +160,7 @@ class EzFractal:
                 int((width - menu_width) * zoom_factor),
                 int(height * zoom_factor),
                 saturation=self.saturation,
-                lightness=self.lightness
+                lightness=self.lightness,
             )
         else:
             image_array = EzUtils.render_julia(
@@ -165,7 +172,7 @@ class EzFractal:
                 int((width - menu_width) * zoom_factor),
                 int(height * zoom_factor),
                 saturation=self.saturation,
-                lightness=self.lightness
+                lightness=self.lightness,
             )
 
         image_surface = pygame.surfarray.make_surface(image_array)
@@ -212,23 +219,31 @@ class Application:
 
 
 def load():
-    with open(os.getcwd() + "/Resources/Components/components.json", "r+", encoding="utf-8") as f:
+    with open(
+        os.getcwd() + "/Resources/Components/components.json", "r+", encoding="utf-8"
+    ) as f:
         data = json.load(f)
         f.seek(0)
         f.truncate()
 
         # update move gap
-        data["EzTextFields"][4]["text"], data["EzTextFields"][4]["value"] = config.get('PARAMETERS', 'move_gap')
-        data["EzTextFields"][4]["input_value"] = config.getint('PARAMETERS', 'move_gap')
+        data["EzTextFields"][4]["text"], data["EzTextFields"][4]["value"] = config.get(
+            "PARAMETERS", "move_gap"
+        )
+        data["EzTextFields"][4]["input_value"] = config.getint("PARAMETERS", "move_gap")
 
         # update zoom factor
-        data["EzTextFields"][3]["text"] = config.get('PARAMETERS', 'zoom_factor')
-        data["EzTextFields"][3]["value"] = config.get('PARAMETERS', 'zoom_factor')
-        data["EzTextFields"][3]["input_value"] = config.getfloat('PARAMETERS', 'zoom_factor')
+        data["EzTextFields"][3]["text"] = config.get("PARAMETERS", "zoom_factor")
+        data["EzTextFields"][3]["value"] = config.get("PARAMETERS", "zoom_factor")
+        data["EzTextFields"][3]["input_value"] = config.getfloat(
+            "PARAMETERS", "zoom_factor"
+        )
 
         # update max iterations
-        data["EzTextFields"][2]["text"] = config.get('PARAMETERS', 'max_iteration')
-        data["EzTextFields"][2]["value"] = config.get('PARAMETERS', 'max_iteration')
-        data["EzTextFields"][2]["input_value"] = config.getint('PARAMETERS', 'max_iteration')
+        data["EzTextFields"][2]["text"] = config.get("PARAMETERS", "max_iteration")
+        data["EzTextFields"][2]["value"] = config.get("PARAMETERS", "max_iteration")
+        data["EzTextFields"][2]["input_value"] = config.getint(
+            "PARAMETERS", "max_iteration"
+        )
 
         json.dump(data, f)
