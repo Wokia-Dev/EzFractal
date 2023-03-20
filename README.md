@@ -74,3 +74,10 @@ https://user-images.githubusercontent.com/85500189/223299008-b944ae4b-0137-46fa-
 
 - Afin d'optimiser les performances, les fonctions qui génèrent les fractals sont compilées à l'aide de la bibliothèque [numba](https://numba.pydata.org/).
 
+
+## Références
+
+- [EZ](https://github.com/Wokia-Dev/EZ)
+- [numpy](https://github.com/numpy/numpy)
+- [numba](https://github.com/numba/numba)
+- [pygame](https://github.com/pygame/pygame)
