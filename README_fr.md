@@ -9,6 +9,8 @@
 
 <p align="center"><strong>Ez Fractal</strong> est un petit logiciel qui permet d'explorer l'ensemble de Julia et l'ensemble de Mandelbrot. Ez Fractal est développé en Python avec la bibliothèque <a href="https://github.com/Wokia-Dev/EZ">EZ</a>.</p>
 
+> ###### _Chose language: [[ en ]](https://github.com/Wokia-Dev/EzFractal/) [[ fr ]](README_fr.md)_
+
 ## Installation
 
 Cloner le projet
