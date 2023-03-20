@@ -21,8 +21,12 @@ class Saved_App:
         self.saved_app_ui = SavedUI(self, self.application)
 
     def run(self, from_return: bool = False):
-        EZ.create_window(self.resolution[0], self.resolution[1], caption,
-                         self.application.working_directory + "/Resources/Images/icon.png")
+        EZ.create_window(
+            self.resolution[0],
+            self.resolution[1],
+            caption,
+            self.application.working_directory + "/Resources/Images/icon.png",
+        )
         EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
         self.saved_app_ui.run()
         while True:

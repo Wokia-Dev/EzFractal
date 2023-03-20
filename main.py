@@ -24,8 +24,12 @@ class Launcher:
         self.export_app = export_app.Export_App(self, self.application)
 
     def run(self, from_return: bool = False):
-        EZ.create_window(self.resolution[0], self.resolution[1], caption,
-                         self.application.working_directory + "/Resources/Images/icon.png")
+        EZ.create_window(
+            self.resolution[0],
+            self.resolution[1],
+            caption,
+            self.application.working_directory + "/Resources/Images/icon.png",
+        )
         EZ.change_cursor(pygame.SYSTEM_CURSOR_ARROW)
         self.launcher_ui.run()
         # application.run()
