@@ -7,31 +7,33 @@
 <img src="https://raw.githubusercontent.com/Wokia-Dev/EzFractal/master/Resources/Images/icon.png" width="200" height="200" />
 </p>
 
-<p align="center"><strong>Ez Fractal</strong> est un petit logiciel qui permet d'explorer l'ensemble de Julia et l'ensemble de Mandelbrot. Ez Fractal est développé en Python avec la bibliothèque <a href="https://github.com/Wokia-Dev/EZ">EZ</a>.</p>
+<p align="center"><strong>Ez Fractal</strong> is a small software that allows exploring the Julia and Mandelbrot set. Ez Fractal is developed in Python with the <a href="https://github.com/Wokia-Dev/EZ">EZ</a> library.</p>
 
 > ###### _Chose language: [[ en ]](https://github.com/Wokia-Dev/EzFractal/) [[ fr ]](README_fr.md)_
 
 ## Installation
 
-Cloner le projet
+Clone the project
+
 
 ```bash
   git clone https://github.com/Wokia-Dev/EzFractal.git
 ```
 
-Aller dans le dossier du projet
+Go to the project folder
 
 ```bash
   cd EzFractal
 ```
 
-Installer les dépendances
+Install dependencies
+
 
 ```bash
   pip install -r requirements.txt
 ```
 
-Lancer l'application
+Run the application
 
 ```bash
   python main.py
@@ -39,27 +41,27 @@ Lancer l'application
 
 
 
-## Paramètre
+## Settings
 
-**Contrôle par défaut :**
+**Default Controls :**
 
-<kbd>↑</kbd> , <kbd>↓</kbd> , <kbd>→</kbd> , <kbd>←</kbd> : se déplacer dans la fractal
+<kbd>↑</kbd> , <kbd>↓</kbd> , <kbd>→</kbd> , <kbd>←</kbd> : Move around in the fractal
 
-```scroll up/down``` : zoomer dézoomer
+```scroll up/down``` : Zoom in/out
 
-<kbd>r</kbd> : réinitialiser la fractal
+<kbd>r</kbd> : Reset the fractal
 
-<kbd>Crtl</kbd> + <kbd>s</kbd> : exporter la fractal
+<kbd>Crtl</kbd> + <kbd>s</kbd> : Export the fractal
 
-<kbd>Echap</kbd> : quitter l'application
+<kbd>Echap</kbd> : Quit the application
 
 <br>
 
-**Changer les paramètres :**
+**Change Settings :**
 
-Vous pouvez changer les paramètres en modifiant le fichier ```CONFIG.ini``` depuis l'explorateur ou en cliquant sur le buton paramètre de l'application.
+You can change settings by modifying the ```CONFIG.ini``` file from the file explorer or by clicking on the settings button in the application.
 
-## Capture d'écran
+## Screenshots
 
 ![App Screenshot](https://user-images.githubusercontent.com/85500189/226345033-d998732a-c7f4-46a2-8146-f8ed29a126b8.png)
 
@@ -70,14 +72,14 @@ Vous pouvez changer les paramètres en modifiant le fichier ```CONFIG.ini``` dep
 https://user-images.githubusercontent.com/85500189/223299008-b944ae4b-0137-46fa-a1ea-cda749b4de61.mp4
 
 
-## Optimisation
+## Optimization
 
-- Pour afficher la fractal un tableau [numpy](https://numpy.org/) 3 dimension est utiliser qui représente chaque pixel de la fenêtre avec les valeurs RGB. Les fonctions qui génèrent les fractals opèrent directement sur ce tableau. On met à jour la fenêtre seulement quand la fractal a fini d'être généré pour cela un utilise la fonction pygame ```pygame.surfarray.blit_array``` pour changer tous les pixels en une seule fois.
+- To display the fractal, a 3-dimensional [numpy](https://numpy.org/) array is used to represent each pixel of the window with RGB values. The functions that generate the fractals operate directly on this array. The window is updated only when the fractal has finished being generated, and for this, the pygame function ```pygame.surfarray.blit_array``` is used to change all pixels at once.
 
-- Afin d'optimiser les performances, les fonctions qui génèrent les fractals sont compilées à l'aide de la bibliothèque [numba](https://numba.pydata.org/).
+- To optimize performance, the functions that generate the fractals are compiled using the [numba](https://numba.pydata.org/) library.
 
 
-## Références
+## References
 
 - [EZ](https://github.com/Wokia-Dev/EZ)
 - [numpy](https://github.com/numpy/numpy)
