@@ -206,7 +206,8 @@ class Application:
             EZ.update_caption(caption)
 
     def run(self):
-        EZ.create_window(self.resolution[0], self.resolution[1], caption, self.working_directory + "/Resources/Images"                                                                                       "/icon.png")
+        EZ.create_window(self.resolution[0], self.resolution[1], caption, self.working_directory + "/Resources/Images"
+                                                                                                   "/icon.png")
         self.explore_app_ui.run()
         while True:
             self.explore_app_ui.draw_return_button()
