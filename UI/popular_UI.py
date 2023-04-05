@@ -1,13 +1,13 @@
 import sys
-import numpy as np
 
+import numpy as np
 import pygame
 
-from Core import EZ
 import UI.Components.EzButton
-import UI.Components.EzScrollView
 import UI.Components.EzFractalButton
+import UI.Components.EzScrollView
 import main as launcher
+from Core import EZ
 from UI.Components.EzButton import check_ez_button_event
 
 json_file = "/Resources/Components/popular_app_components.json"
@@ -84,12 +84,12 @@ class PopularUI:
                     for button in self.ez_fractal_buttons:
                         # open explore app with the clicked fractal
                         if scrollView.check_custom_hover(
-                            mouse_x,
-                            mouse_y,
-                            button.x,
-                            button.y,
-                            button.width,
-                            button.height,
+                                mouse_x,
+                                mouse_y,
+                                button.x,
+                                button.y,
+                                button.width,
+                                button.height,
                         ):
                             self.popular_app.application.explore_app_ui.params[
                                 0
@@ -118,19 +118,18 @@ class PopularUI:
                     scrollView.scroll_down(self.popular_app.resolution[1])
 
         # check hover and change cursor
-        if (
-            any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons)
-            or any(
-                scrollView.check_scroll_hover(mouse_x, mouse_y)
-                for scrollView in self.ez_scrollViews
+        if (any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons)
+                or any(
+            scrollView.check_scroll_hover(mouse_x, mouse_y)
+            for scrollView in self.ez_scrollViews
+        )
+                or any(
+            scrollView.check_custom_hover(
+                mouse_x, mouse_y, button.x, button.y, button.width, button.height
             )
-            or any(
-                scrollView.check_custom_hover(
-                    mouse_x, mouse_y, button.x, button.y, button.width, button.height
-                )
-                for scrollView in self.ez_scrollViews
-                for button in self.ez_fractal_buttons
-            )
+            for scrollView in self.ez_scrollViews
+            for button in self.ez_fractal_buttons
+        )
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
