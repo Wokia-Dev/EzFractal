@@ -131,7 +131,7 @@ class ExploreUI:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnHelp":
                     try:
-                        webbrowser.open("Resources/Help/help.html")
+                        webbrowser.open("https://github.com/Wokia-Dev/EzFractal")
                     except FileNotFoundError:
                         print("Help file not found.")
                         print(
