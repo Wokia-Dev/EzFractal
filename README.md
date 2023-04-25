@@ -39,7 +39,9 @@ Run the application
   python main.py
 ```
 
+<br>
 
+There is also an executable version in the "Executable" folder.
 
 ## Settings
 
