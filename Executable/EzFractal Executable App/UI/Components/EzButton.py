@@ -45,8 +45,14 @@ def check_ez_button_event(button_list: list, mouse_x: int, mouse_y: int):
 
 
 def draw_border_radius(
-        x: int, y: int, width: int, height: int, border_radius: int, background_color: str, background_opacity: int,
-        canvas: pygame.Surface = None
+    x: int,
+    y: int,
+    width: int,
+    height: int,
+    border_radius: int,
+    background_color: str,
+    background_opacity: int,
+    canvas: pygame.Surface = None,
 ):
     # draw rounded rectangle
     # draw top left corner
@@ -113,21 +119,21 @@ class EzButton(EzComponent):
     """EzButton class for creating buttons"""
 
     def __init__(
-            self,
-            name: str,
-            x: int,
-            y: int,
-            width: int,
-            height: int,
-            text: str,
-            background_color: str,
-            background_opacity: int,
-            font_size: int,
-            font_color: str,
-            font_family: str,
-            border_radius: int,
-            text_margin: list[int],
-            click_timer: int,
+        self,
+        name: str,
+        x: int,
+        y: int,
+        width: int,
+        height: int,
+        text: str,
+        background_color: str,
+        background_opacity: int,
+        font_size: int,
+        font_color: str,
+        font_family: str,
+        border_radius: int,
+        text_margin: list[int],
+        click_timer: int,
     ):
         super().__init__(name, x, y, width, height)
         self.text = text
@@ -182,8 +188,8 @@ class EzButton(EzComponent):
     def check_hover(self, mouse_x: int, mouse_y: int) -> bool:
         # Check if mouse is hovering over button
         return (
-                self.x <= mouse_x <= self.x + self.width
-                and self.y <= mouse_y <= self.y + self.height
+            self.x <= mouse_x <= self.x + self.width
+            and self.y <= mouse_y <= self.y + self.height
         )
 
     def on_click(self):
