@@ -42,7 +42,9 @@ class SavedUI:
     def update_images(self, count: int):
         self.images = []
         for index_img in range(count):
-            image = EZ.load_image(f"{self.app.working_directory + gallery_path}/image{index_img}.png")
+            image = EZ.load_image(
+                f"{self.app.working_directory + gallery_path}/image{index_img}.png"
+            )
             image = pygame.transform.scale(image, (175, 140))
             self.images.append(image)
 
@@ -100,11 +102,20 @@ class SavedUI:
 
                 elif checked_ez_button.name == "btnOpenFolder":
                     try:
-                        os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                        os.startfile(
+                            os.path.join(
+                                os.getcwd(), "Resources/Images/Saved_fractals/"
+                            )
+                        )
                     except Exception as e:
                         print("Error: ", e)
                         try:
-                            os.system("xdg-open " + os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                            os.system(
+                                "xdg-open "
+                                + os.path.join(
+                                    os.getcwd(), "Resources/Images/Saved_fractals/"
+                                )
+                            )
                         except Exception as e:
                             print("Error: ", e)
                 checked_ez_button.create_button()

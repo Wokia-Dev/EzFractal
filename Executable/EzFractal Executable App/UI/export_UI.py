@@ -21,15 +21,13 @@ class ExportUI:
         self.ez_texts: list[UI.Components.EzText.EzText] = UI.Components.EzText.loader(
             self.app.working_directory + json_file
         )
-        self.ez_buttons: list[UI.Components.EzButton.EzButton] = UI.Components.EzButton.loader(
-            self.app.working_directory + json_file
-        )
+        self.ez_buttons: list[
+            UI.Components.EzButton.EzButton
+        ] = UI.Components.EzButton.loader(self.app.working_directory + json_file)
         self.ez_textFields: list[
             UI.Components.EzTextField.EzTextField
         ] = UI.Components.EzTextField.loader(self.app.working_directory + json_file)
-        self.params: list[float] = [
-            self.ez_textFields[0].input_value
-        ]
+        self.params: list[float] = [self.ez_textFields[0].input_value]
 
     def draw(self):
         # draw the texts
@@ -69,25 +67,52 @@ class ExportUI:
                 # help button -> open help.html
                 if checked_ez_button.name == "btnOpenFolder":
                     try:
-                        os.startfile(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/"))
+                        os.startfile(
+                            os.path.join(
+                                os.getcwd(), "Resources/Images/Saved_fractals/"
+                            )
+                        )
                     except Exception as e:
                         print("Error:", e)
                         try:
                             subprocess.Popen(
-                                ["xdg-open", os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/")])
+                                [
+                                    "xdg-open",
+                                    os.path.join(
+                                        os.getcwd(), "Resources/Images/Saved_fractals/"
+                                    ),
+                                ]
+                            )
                         except Exception as e:
                             print("Error:", e)
 
                 if checked_ez_button.name == "btnExport":
-                    with open(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/count.txt"), "r") as f:
+                    with open(
+                        os.path.join(
+                            os.getcwd(), "Resources/Images/Saved_fractals/count.txt"
+                        ),
+                        "r",
+                    ) as f:
                         index = int(f.read())
                         f.close()
-                    with open(os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/count.txt"), "w") as f:
+                    with open(
+                        os.path.join(
+                            os.getcwd(), "Resources/Images/Saved_fractals/count.txt"
+                        ),
+                        "w",
+                    ) as f:
                         f.write(str(index + 1))
                         f.close()
                     self.app.fractal.save_image(
-                        (os.path.join(os.getcwd(), "Resources/Images/Saved_fractals/" + f"image{index}.png")),
-                        self.params[0])
+                        (
+                            os.path.join(
+                                os.getcwd(),
+                                "Resources/Images/Saved_fractals/"
+                                + f"image{index}.png",
+                            )
+                        ),
+                        self.params[0],
+                    )
                 if checked_ez_button.name == "btnReturn":
                     self.app.run()
                 checked_ez_button.create_button()
@@ -101,12 +126,10 @@ class ExportUI:
                     textField.create_text_field()
 
         # check hover and change cursor
-        if any(
-                button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons
-        ):
+        if any(button.check_hover(mouse_x, mouse_y) for button in self.ez_buttons):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_HAND)
         elif any(
-                textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
+            textField.check_hover(mouse_x, mouse_y) for textField in self.ez_textFields
         ):
             EZ.change_cursor(pygame.SYSTEM_CURSOR_IBEAM)
         else:
