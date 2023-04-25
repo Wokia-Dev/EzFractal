@@ -37,7 +37,9 @@ Lancer l'application
   python main.py
 ```
 
+<br>
 
+Une version executable est aussi disponible dans le dossier "Executable".
 
 ## Paramètre
 
