@@ -1,0 +1,57 @@
+{
+  "EzButtons": [
+    {
+      "name": "btnReturn",
+      "x": 10,
+      "y": 10,
+      "width": 30,
+      "height": 22,
+      "text": "←",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 20,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        0,
+        0
+      ],
+      "click_timer": 300
+    },
+    {
+      "name": "btnOpenFolder",
+      "x": 250,
+      "y": 365,
+      "width": 200,
+      "height": 25,
+      "text": "Open folder",
+      "background_color": "E3E9EC",
+      "background_opacity": 255,
+      "font_size": 17,
+      "font_color": "000000",
+      "font_family": "SF-Pro-Text-Regular",
+      "border_radius": 7,
+      "text_margin": [
+        0,
+        0
+      ],
+      "click_timer": 300
+    }
+  ],
+  "EzScrollViews": [
+    {
+      "name": "scrollView",
+      "x": 61,
+      "y": 24,
+      "width": 577,
+      "height": 622,
+      "display_height": 326,
+      "background_color": "F3F3F3",
+      "scroll_bar_color": "777777",
+      "scroll_bar_width": 7,
+      "offset": 0,
+      "offset_speed": 10
+    }
+  ]
+}

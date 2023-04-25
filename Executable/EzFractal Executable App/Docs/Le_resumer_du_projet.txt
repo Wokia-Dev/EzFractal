@@ -1,0 +1,3 @@
+EzFractal est un logiciel développé avec le langage Python utilisant la bibliothèque EZ conçu pour l'enseignement NSI, c'est un wrapper de la bibliothèque Pygame.
+Le but de ce logiciel est de pouvoir explorer de nombreuses fractales, et de pouvoir les manipuler, on retrouve l'ensemble de Mandelbrot et de Julia.
+Le logiciel est simple d'utilisation et pratique, il propose de nombreuses fonctionnalités, sauvegarde, exportations, fractales pré-définies, de nombreux paramètres, etc.
